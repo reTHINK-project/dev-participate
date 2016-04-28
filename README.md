@@ -53,7 +53,8 @@ The aim of this document is being a proposal a set of technologies and the way t
 
 *.well-known/runtime*
 
-This folder contains runtime distribution files. They are served along with the application and you need to keep them updated.
+This folder contains runtime distribution files. They are served along with the application and you need to keep them updated. 
+**This path is not definitive. The definitive path has to be agreed but we are using this one definitively.**
 
 *resources/descriptors*
 
