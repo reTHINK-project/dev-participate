@@ -1,13 +1,12 @@
 import React from 'react'
 import ChatListed from './chat-listed'
 import NewChatButton from './new-chat-button'
-import {subscribeNewChat, setActiveChat} from '../../actions'
+import {init, subscribeNewChat, setActiveChat} from '../../actions'
 import { connect } from 'react-redux'
 
 let ChatList = React.createClass({
     componentWillMount(){
-        let dispatch = this.props.dispatch
-        dispatch(subscribeNewChat(this.props.runtime, this.props.domain))
+        init(this.props.runtime, this.props.domain, this.props.dispatch)
     },
 
     render(){

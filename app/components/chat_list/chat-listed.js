@@ -6,7 +6,7 @@ const ChatListed = ({chat, onSelect}) => {
             <div>
                 <div className="row">
                     <div className="col-xs-6">
-                        <p>{new Date(chat.data.startingTime).toLocaleString('en-US')}</p>
+                        <p>{new Date(chat.dataObject.data.startingTime).toLocaleString('en-US')}</p>
                     </div>
                     <div className="col-cs-6">
                         <p>3 participants</p>
@@ -15,7 +15,7 @@ const ChatListed = ({chat, onSelect}) => {
                 <div className="row">
                     <div className="col-xs-12">
                         <h3><Link to='chat' onClick={()=>onSelect(chat)}>Name</Link></h3>
-                        <p> {chat.data.children[0]}...</p>
+                        <p> {chat.messages[0]?chat.messages[0].dataObject:''}...</p>
                     </div>
                 </div>
             </div>

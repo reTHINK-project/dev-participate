@@ -1,32 +1,33 @@
 const groupChatHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/GroupChatHyperty`
 
-function chatCreated(chat){
-    return {
-        type: 'CHAT_CREATED',
-        data: chat
-    }
+export function init(runtime, domain, dispatch){
+    runtime.requireHyperty(groupChatHyperty(domain))
+        .then((hyperty)=>{
+            hyperty.instance.onInvite((chat)=>chatCreated(dispatch, chat))
+        })
 }
 
-function messageSended(child){
+function chatCreated(dispatch, chat){
+    chat.onAddChildren((chat)=>messageReceived(dispatch, chat))
+    dispatch(chatCreatedAction(chat))
+}
+
+function messageReceived(dispatch, child){
+    dispatch(messageReceivedAction(child))
+}
+
+///////
+function messageReceivedAction(child){
     return {
-        type: 'SEND_MESSAGE',
+        type: 'RECEIVE_MESSAGE',
         data: child
     }
 }
 
-export function setActiveChat(chat){
+function chatCreatedAction(chat){
     return {
-        type: 'SET_ACTIVE_CHAT',
+        type: 'CHAT_CREATED',
         data: chat
-    }
-}
-
-export function sendMessage(chat, message){
-    return function(dispatch){
-        chat.addChildren('message', {chatMessage: message})
-            .then((child)=>{
-                dispatch(messageSended(child))
-            })
     }
 }
 
@@ -36,30 +37,34 @@ export function createChat(runtime, domain, name, participants){
             .then((hyperty)=>{
                 hyperty.instance.create(name, participants)
                     .then((chat) => {
-                        chat.onSubscription((event)=>event.accept())
-                        chat.onAddChildren((child)=>{
-                            console.log("message recived")
-                            dispatch(messageSended(child))
-                        })
-
-                        dispatch(chatCreated(chat))
+                        chatCreated(dispatch, chat)
                         dispatch(setActiveChat(chat))
                     })
             })
         }
 }
 
-export function subscribeNewChat(runtime, domain){
+export function setActiveChat(chat){
+    return {
+        type: 'SET_ACTIVE_CHAT',
+        data: chat
+    }
+}
+
+
+
+export function sendMessage(chat, message){
     return function(dispatch){
-        runtime.requireHyperty(`hyperty-catalogue://${domain}/.well-known/hyperty/GroupChatHyperty`)
-            .then((hyperty)=>{
-                hyperty.instance.onInvite((chat)=> {
-                    chat.onAddChildren((child) => {
-                        console.log("message receivef")
-                        dispatch(messageSended(child))
-                    })
-                    dispatch(chatCreated(chat))
-                })
+        chat.addChildren('chatmessages', {chatMessage: message})
+            .then((child)=>{
+                dispatch(messageSended(child))
             })
-        }
+    }
+}
+
+function messageSended(child){
+    return {
+        type: 'SEND_MESSAGE',
+        data: child
+    }
 }
