@@ -26,7 +26,7 @@ let Chat = React.createClass({
                     <div className="input-group">
                         <input id="btn-input" onChange={(event)=>this.setState({message: event.target.value})} type="text" className="form-control input-sm" placeholder="Type your message here..."/>
                         <span className="input-group-btn">
-                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.dispatch(sendMessage(this.props.chat.dataObject, this.state.message))} id="btn-chat">
+                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.dispatch(sendMessage(this.props.chat, this.state.message))} id="btn-chat">
                                 Send
                             </button>
                         </span>
@@ -37,9 +37,7 @@ let Chat = React.createClass({
     },
 
     buildMessage(message){
-        let data = message.dataObject.data || message.dataObject.value
-        
-        return <Message content={data.chatMessage} time={Date.now()} isMe={message.isMe}/> 
+        return <Message content={message.text} time={Date.now()} isMe={message.isMe}/> 
     }
 })
 

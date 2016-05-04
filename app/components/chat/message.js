@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const Message = ({content, time, name, isMe}) => {
+const Message = ({content, time, isMe}) => {
     return(
             <li className={(isMe?"right":"left")+ "clearfix"}><span className={"chat-img pull-"+(isMe?"right":"left")}>
                 <img src={isMe?"http://placehold.it/50/FA6F57/fff&amp;text=ME":"http://placehold.it/50/55C1E7/fff&amp;text=U"} alt="User Avatar" className="img-circle"/>
@@ -21,7 +21,6 @@ const Message = ({content, time, name, isMe}) => {
 Message.propTypes = {
     content: PropTypes.string.isRequired,
     time: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
     isMe: PropTypes.bool.isRequired
 }
 export default Message

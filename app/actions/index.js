@@ -8,7 +8,7 @@ export function init(runtime, domain, dispatch){
 }
 
 function chatCreated(dispatch, chat){
-    chat.onAddChildren((chat)=>messageReceived(dispatch, chat))
+    chat.onMessage((message)=>messageReceived(dispatch, message))
     dispatch(chatCreatedAction(chat))
 }
 
@@ -55,9 +55,9 @@ export function setActiveChat(chat){
 
 export function sendMessage(chat, message){
     return function(dispatch){
-        chat.addChildren('chatmessages', {chatMessage: message})
-            .then((child)=>{
-                dispatch(messageSended(child))
+        chat.sendMessage(message)
+            .then((message)=>{
+                dispatch(messageSended(message))
             })
     }
 }
