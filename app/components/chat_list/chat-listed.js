@@ -14,8 +14,8 @@ const ChatListed = ({chat, onSelect}) => {
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
-                        <h3><Link to='chat' onClick={()=>onSelect(chat)}>Name</Link></h3>
-                        <p> {chat.messages[0]?chat.messages[0].text:''}...</p>
+                        <h3><Link to='chat' onClick={()=>onSelect(chat)}>{chat.name}</Link></h3>
+                        <p> {chat.messages[chat.messages.length-1]?chat.messages[chat.messages.length-1].text:''}...</p>
                     </div>
                 </div>
             </div>

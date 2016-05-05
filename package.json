@@ -2,7 +2,7 @@
   "name": "dev-hyperty",
   "version": "1.0.0",
   "scripts": {
-    "start": "sudo nodemon --ignore js/bundle.js --exec 'npm run bundle && http-server --cors -S -p 443 -C rethink-certificate.cert -K rethink-certificate.key' .",
+    "start": "nodemon --ignore js/bundle.js --exec 'npm run bundle && http-server --cors -S -p 443 -C rethink-certificate.cert -K rethink-certificate.key' .",
     "bundle": "browserify --debug -t [ babelify ] app/main.js -o js/bundle.js"
   },
   "keywords": [
