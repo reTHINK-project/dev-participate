@@ -2,7 +2,8 @@ const chatApp = (state={chats:[], participants:[]}, action) => {
     if(action.type === 'CHAT_CREATED'){
         state = { ...state, chats: state.chats.concat([action.data]) }
     }else if(action.type === 'SET_ACTIVE_CHAT'){
-        let activeChat = state.chats.find((chat)=>chat.name === action.data.name)
+        let activeChat = action.data?state.chats.find((chat)=>chat.name === action.data.name)
+            :action.data
         state = { ...state, activeChat: activeChat }
     }else if(action.type === 'RECEIVE_MESSAGE'){
         state = Object.assign({}, state, 

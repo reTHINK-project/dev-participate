@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 let ChatList = React.createClass({
     componentWillMount(){
         init(this.props.runtime, this.props.domain, this.props.dispatch)
+        this.props.dispatch(setActiveChat())
     },
 
     render(){

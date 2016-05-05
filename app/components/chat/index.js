@@ -43,8 +43,7 @@ let Chat = React.createClass({
 
 Chat = connect((state)=>{
     return {
-        chat: state.activeChat?
-            state.activeChat:undefined
+        chat: state.activeChat
     }
 })(Chat)
 
