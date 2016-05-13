@@ -1,25 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router'
 import Participant from './participant'
+import { connect } from 'react-redux'
+import { tooglePartSelection } from '../../actions'
 
-const Participants = (props) => {
+const Participants = ({ domain, participants, selectedParticipants, toogleParticipantSelection }) => {
+    let participantsCmp = participants.map((p)=><Participant domain={domain} online={p.online} email={p.email} onChange={toogleParticipantSelection} />)
     return(
             <div>
                 <ul className="list-group">
-                    <li className="list-group-item">
-                        <Participant />
-                    </li>
-                    <li className="list-group-item">
-                        <Participant />
-                    </li>
-                    <li className="list-group-item">
-                        <Participant />
-                    </li>
+                    {participantsCmp}
                 </ul>
-                <Link to={{pathname:'chat', state:{name:props.location.state.name, 
-                    participants:[{domain:props.domain, email:'openidtest20@gmail.com'}]}}} className="btn btn-default">Create</Link>
+                <Link to='chat' className="btn btn-default">Create</Link>
             </div>
     )
 }
 
-export default Participants
+export default connect((state)=>{
+    return {
+        participants:state.participants,
+        selectedParticipants: state.selectedParticipants
+    }
+}, (dispatch)=>{
+    return {
+        toogleParticipantSelection: (participant)=>dispatch(tooglePartSelection(participant))
+    }
+})(Participants)

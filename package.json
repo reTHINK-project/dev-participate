@@ -20,6 +20,7 @@
     "urijs": "^1.17.1"
   },
   "devDependencies": {
+    "service-framework": "git+https://github.com/reTHINK-project/dev-service-framework.git#develop",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",

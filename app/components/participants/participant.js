@@ -1,35 +1,31 @@
 import React from 'react'
 
-const Participant = (props) => {
+const Participant = ({domain, email, online, onChange}) => {
     return (
-            <div className="row">
-                <div className="col-xs-2">
-                    <label>
-                        <input type="checkbox"/>
-                    </label>
-                </div>
-                <div className="col-xs-10">
-                    <div className="row">
-                        <div className="col-xs-12">
-                           <h3>Open Id Test 10</h3>
-                        </div>
+            <li className="list-group-item">
+                <div className="row">
+                    <div className="col-xs-2">
+                        <label>
+                            <input type="checkbox" onClick={()=>onChange({email: email, domain: domain})}/>
+                        </label>
                     </div>
-                    <div className="row">
-                        <div className="col-xs-4">
-                           <p>Name</p> 
-                           <p>Surname</p> 
-                           <p>Address</p> 
+                    <div className="col-xs-10">
+                        <div className="row">
+                            <div className="col-xs-12">
+                               <h3>{email}</h3>
+                            </div>
                         </div>
-                        <div className="col-xs-8">
-                            <p>Name</p>
-                            <p>Surname</p>
-                            <address>
-                                Address 1355 Street
-                            </address>
+                        <div className="row">
+                            <div className="col-xs-4">
+                               <p>Status</p> 
+                            </div>
+                            <div className="col-xs-8">
+                                <p>{online?"online":"offline"}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </li>
         )
 }
 

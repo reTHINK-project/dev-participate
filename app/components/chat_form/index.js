@@ -1,26 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { setChatName } from '../../actions'
+import { connect } from 'react-redux'
 
-const ChatForm = React.createClass({
-    getInitialState(){
-        return {chat_name: ""}
-    },
-
-    render(){
+const ChatForm = ({chatName, setName}) => {
         return(
                 <form>
                     <div className="form-group">
                         <label for="chatName">Name</label>
-                        <input type="text" className="form-control" id="chatName" placeholder="Name" onChange={this.handleName}/>
+                        <input type="text" className="form-control" id="chatName" placeholder="Name" onChange={(e)=>setName(e.target.value)}/>
                     </div>
-                    <Link to={{pathname: 'add_participants', state:{name:this.state.chat_name}}} className="btn btn-default">Next</Link>
+                    <Link to='add_participants' className="btn btn-default">Next</Link>
                 </form>
         )
-    },
+}
 
-    handleName(event){
-        this.setState({chat_name: event.target.value})
+export default connect((state)=>{
+    return {
+        chatName: state.chatName
     }
-})
-
-export default ChatForm
+},(dispatch)=>{
+    return {
+        setName: (name)=>dispatch(setChatName(name))
+    }
+})(ChatForm)

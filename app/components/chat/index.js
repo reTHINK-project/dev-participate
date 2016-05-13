@@ -8,7 +8,7 @@ let Chat = React.createClass({
         if(!this.props.chat){
             let dispatch = this.props.dispatch
             dispatch(createChat(this.props.runtime, this.props.domain, 
-                        this.props.location.state.name, this.props.location.state.participants))
+                        this.props.chatName, this.props.selectedParticipants))
         }
     },
 
@@ -43,7 +43,9 @@ let Chat = React.createClass({
 
 Chat = connect((state)=>{
     return {
-        chat: state.activeChat
+        chat: state.activeChat,
+        chatName: state.chatName,
+        selectedParticipants: state.selectedParticipants
     }
 })(Chat)
 
