@@ -58,5 +58,25 @@
     "dataObjects": [],
     "accessControlPolicy": "somePolicy",
     "configuration": {}
+  },
+  "LocationDataSchema": {
+    "sourcePackage": {
+      "sourceCode": "ewogICAgIiRzY2hlbWEiOiAiaHR0cDovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC0wNC9zY2hlbWEjIiwKICAgICJpZCI6ICJMb2NhdGlvbiIsCiAgICAidHlwZSI6ICJvYmplY3QiLAogICAgInByb3BlcnRpZXMiOiB7CiAgICAgICJnZW9wb3NpdGlvbiI6IHsKICAgICAgICAidHlwZSI6ICJvYmplY3QiLAogICAgICAgICJwcm9wZXJ0aWVzIjogewogICAgICAgICAgICAiY29vcmRzIjogewogICAgICAgICAgICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgICAgICAgICAgICJwcm9wZXJ0aWVzIjp7CiAgICAgICAgICAgICAgICAgICAgImxhdGl0dWRlIjp7CiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogIm51bWJlciIKICAgICAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgICAgICJsb25naXR1ZGUiOnsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAibnVtYmVyIgogICAgICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAgICAgImFsdGl0dWRlIjp7CiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogIm51bWJlciIKICAgICAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgICAgICJhY2N1YXJhY3kiOnsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAibnVtYmVyIgogICAgICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAgICAgImFsdGl0dWRlQWNjdXJhY3kiOnsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAibnVtYmVyIgogICAgICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAgICAgImhlYWRpbmciOnsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAibnVtYmVyIgogICAgICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAgICAgInNwZWVkIjp7CiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogIm51bWJlciIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJ0aW1lc3RhbXAiOnsKICAgICAgICAgICAgICAgICJ0eXBlIjogIm51bWJlciIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgfQogICAgfQp9Cg==",
+      "sourceCodeClassname": "LocationDataSchema",
+      "encoding": "base64",
+      "signature": ""
+    },
+    "cguid": 1,
+    "type": "DataSchemas",
+    "version": "0.1",
+    "description": "Description of LocationDataSchema",
+    "objectName": "LocationDataSchema",
+    "configuration": {},
+    "sourcePackageURL": "/sourcePackage",
+    "language": "JSON-Schema",
+    "signature": "",
+    "messageSchemas": "",
+    "dataObjects": [],
+    "accessControlPolicy": "somePolicy"
   }
 }
