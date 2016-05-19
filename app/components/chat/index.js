@@ -26,10 +26,15 @@ let Chat = React.createClass({
                     <div className="input-group">
                         <input id="btn-input" onChange={(event)=>this.setState({message: event.target.value})} type="text" className="form-control input-sm" placeholder="Type your message here..."/>
                         <span className="input-group-btn">
-                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.dispatch(sendMessage(this.props.chat, this.state.message))} id="btn-chat">
+                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.dispatch(sendMessage(this.props.chat, this.state.message, this.state.distance))} id="btn-chat">
                                 Send
                             </button>
                         </span>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" onClick={(e)=>this.setState({distance:e.target.checked?1000:undefined})}/>Nearest
+                        </label>
                     </div>
                 </div>
             </div>

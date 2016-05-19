@@ -10,6 +10,8 @@ const ParticipantsHyperty = {
         ]
 
         return Promise.all(users.map((p)=>{
+            console.log("tachan")
+            console.log(this)
             return ParticipantsHyperty.hypertyDiscovery.discoverHypertyPerUser(p, ParticipantsHyperty.domain)
                 .then((user)=>{ return { email: p, online: true } }) 
                 .catch((error)=>{ return { email: p, online: false } })

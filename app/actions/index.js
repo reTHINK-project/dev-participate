@@ -3,25 +3,24 @@ const locationHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/h
 const participantsFakeHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/ParticipantsHyperty`
 
 export function init(runtime, domain, dispatch){
-    let groupChat = undefined
+    let groupChat, participants, locationHy = undefined
     runtime.requireHyperty(groupChatHyperty(domain))
         .then((hyperty)=>{
             groupChat = hyperty
-        }).then(()=>{
             return runtime.requireHyperty(participantsFakeHyperty(domain))
                 .then((hyperty)=>{
-                    groupChat.instance.onInvite((chat)=>chatCreated(dispatch, chat))
-//                    setInterval(()=>{
-                        hyperty.instance.getParticipants().then((participants)=>dispatch(updateParticipants(participants))) 
- //                   }, 10000)
+                    participants = hyperty
+                    return runtime.requireHyperty(locationHyperty(domain))
+                        .then((hyperty)=>{
+                            locationHy = hyperty
+                            groupChat.instance.onInvite((chat)=>chatCreated(dispatch, chat))
+                            participants.instance.getParticipants().then((participants)=>dispatch(updateParticipants(participants))) 
+                            locationHy.instance.startPositionBroadcast([groupChat.runtimeHypertyURL, participants.runtimeHypertyURL])
+                        })
                 })
-        })
+        }).catch((error)=>console.log('errores' + error))
 
 
-    //runtime.requireHyperty(locationHyperty(domain))
-    //    .then((hyperty)=>{
-
-    //    })
 }
 
 function chatCreated(dispatch, chat){
@@ -75,9 +74,9 @@ export function setActiveChat(chat){
     }
 }
 
-export function sendMessage(chat, message){
+export function sendMessage(chat, message, distance){
     return function(dispatch){
-        chat.sendMessage(message)
+        chat.sendMessage(message, distance)
             .then((message)=>{
                 dispatch(messageSended(message))
             })

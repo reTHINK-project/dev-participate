@@ -98,7 +98,7 @@ var HypertyDiscovery = function () {
 
     /**
     * function to request about users registered in domain registry, and
-    * return the hyperty instance if found.
+    * return the last hyperty instance registered by the user.
     * @param  {email}              email
     * @param  {domain}            domain (Optional)
     * @return {Promise}          Promise
@@ -167,6 +167,52 @@ var HypertyDiscovery = function () {
 
           console.log('===> hypertyDiscovery messageBundle: ', idPackage);
           resolve(idPackage);
+        });
+      });
+    }
+
+    /**
+    * function to request about users registered in domain registry, and
+    * return the all the hyperties registered by the user
+    * @param  {email}              email
+    * @param  {domain}            domain (Optional)
+    * @return {Promise}          Promise
+    */
+
+  }, {
+    key: 'discoverHypertiesPerUser',
+    value: function discoverHypertiesPerUser(email, domain) {
+      var _this = this;
+      var activeDomain = void 0;
+
+      if (!domain) {
+        activeDomain = _this.domain;
+      } else {
+        activeDomain = domain;
+      }
+
+      var identityURL = 'user://' + email.substring(email.indexOf('@') + 1, email.length) + '/' + email.substring(0, email.indexOf('@'));
+
+      // message to query domain registry, asking for a user hyperty.
+      var message = {
+        type: 'read', from: _this.discoveryURL, to: 'domain://registry.' + activeDomain + '/', body: { resource: identityURL }
+      };
+
+      console.log('Message discoverHypertiesPerUser: ', message, activeDomain, identityURL);
+
+      //console.log('message READ', message);
+      return new Promise(function (resolve, reject) {
+
+        _this.messageBus.postMessage(message, function (reply) {
+          console.log('discoverHypertiesPerUser reply', reply);
+
+          var value = reply.body.value;
+
+          if (!value) {
+            return reject('User Hyperty not found');
+          }
+
+          resolve(value);
         });
       });
     }
@@ -3410,9 +3456,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ParticipantsHyperty = {
     getParticipants: function getParticipants() {
+        var _this = this;
+
         var users = ['openidtest10@gmail.com', 'openidtest20@gmail.com', 'openidtest30@gmail.com'];
 
         return Promise.all(users.map(function (p) {
+            console.log("tachan");
+            console.log(_this);
             return ParticipantsHyperty.hypertyDiscovery.discoverHypertyPerUser(p, ParticipantsHyperty.domain).then(function (user) {
                 return { email: p, online: true };
             }).catch(function (error) {
