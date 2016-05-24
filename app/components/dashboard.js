@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from './sidebar'
+import { connect } from 'react-redux'
 
 const Dashboard = React.createClass({
     render(){
@@ -30,6 +31,9 @@ const Dashboard = React.createClass({
                                 <Sidebar />
                             </div>
                         </div>
+                        <div className="col-xs-12 col-sm-8 col-md-9">
+                            GroupChatHyperty: {this.props.groupChat.runtimeHypertyURL}
+                        </div>
                         <article className="col-xs-12 col-sm-8 col-md-9">
                             {this.props.children}
                         </article>
@@ -44,4 +48,8 @@ const Dashboard = React.createClass({
     }
 })
 
-export default Dashboard
+export default connect((state)=>{
+    return {
+        groupChat: state.groupChatHy
+    }
+})(Dashboard)

@@ -1,19 +1,15 @@
 import React from 'react'
 import ChatListed from './chat-listed'
 import NewChatButton from './new-chat-button'
-import {init, subscribeNewChat, setActiveChat,
+import {subscribeNewChat, setActiveChat,
         tooglePartSelection, setChatName} from '../../actions'
 import { connect } from 'react-redux'
 
 let ChatList = React.createClass({
-    componentWillMount(){
-        init(this.props.runtime, this.props.domain, this.props.dispatch)
-    },
-
     render(){
-        let chats = this.props.chats.map(function(chat){
-            return <ChatListed chat={chat} onSelect={this.handleSelect}/>
-        }.bind(this))
+        let chats = this.props.chats.map((chat) => {
+            return <ChatListed key={chat.name} chat={chat} onSelect={this.props.setActChat}/>
+        })
 
         return (
             <ul className="list-group">
@@ -26,13 +22,9 @@ let ChatList = React.createClass({
     },
 
     cleanState(){
-        this.props.dispatch(setActiveChat())
-        this.props.participants.forEach((p)=>this.props.dispatch(tooglePartSelection(p)))
-        this.props.dispatch(setChatName())
-    },
-
-    handleSelect(chat){
-        this.props.dispatch(setActiveChat(chat))
+        this.props.setActChat()
+        this.props.participants.forEach((p)=>props.toogleParticipantSelection(p))
+        this.props.setName()
     }
 })
 
@@ -40,6 +32,12 @@ ChatList = connect((state)=>{
     return {
         chats:state.chats,
         participants: state.selectedParticipants
+    }
+}, (dispatch)=>{
+    return {
+        setActChat: (chat)=>dispatch(setActiveChat(chat)),
+        toogleParticipantSelection: (participant)=>dispatch(tooglePartSelection(participant)),
+        setName: (name)=>dispatch(setChatName(name))
     }
 })(ChatList)
 

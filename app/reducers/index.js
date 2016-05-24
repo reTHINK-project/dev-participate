@@ -1,4 +1,4 @@
-const chatApp = (state={chats:[], participants:[], selectedParticipants:[], chatName: undefined, activeChat:undefined}, action) => {
+const chatApp = (state, action) => {
     if(action.type === 'CHAT_CREATED'){
         return { ...state, chats: state.chats.concat([action.data]) }
     }else if(action.type === 'SET_ACTIVE_CHAT'){
@@ -15,6 +15,8 @@ const chatApp = (state={chats:[], participants:[], selectedParticipants:[], chat
             state.selectedParticipants.filter((e)=>e.email!==action.data.email):state.selectedParticipants.concat([action.data])}
     }else if(action.type === 'SET_CHATNAME'){
         return { ...state, chatName: action.data}
+    }else if(action.type === 'INIT_HYPERTIES'){
+        return Object.assign(state, action.data)
     }
 
     return state

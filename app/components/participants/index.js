@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { tooglePartSelection } from '../../actions'
 
 const Participants = ({ domain, participants, selectedParticipants, toogleParticipantSelection }) => {
-    let participantsCmp = participants.map((p)=><Participant domain={domain} online={p.online} email={p.email} onChange={toogleParticipantSelection} />)
+    let participantsCmp = participants.map((p)=><Participant key={p.email} domain={domain} online={p.online} email={p.email} onChange={toogleParticipantSelection} />)
     return(
             <div>
                 <ul className="list-group">

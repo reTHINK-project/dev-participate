@@ -6,9 +6,8 @@ import Message from './message'
 let Chat = React.createClass({
     componentWillMount(){
         if(!this.props.chat){
-            let dispatch = this.props.dispatch
-            dispatch(createChat(this.props.runtime, this.props.domain, 
-                        this.props.chatName, this.props.selectedParticipants))
+            this.props.create(this.props.groupChat, this.props.domain, 
+                        this.props.chatName, this.props.selectedParticipants)
         }
     },
 
@@ -26,7 +25,7 @@ let Chat = React.createClass({
                     <div className="input-group">
                         <input id="btn-input" onChange={(event)=>this.setState({message: event.target.value})} type="text" className="form-control input-sm" placeholder="Type your message here..."/>
                         <span className="input-group-btn">
-                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.dispatch(sendMessage(this.props.chat, this.state.message, this.state.distance))} id="btn-chat">
+                            <button className="btn btn-warning btn-sm" onClick={()=>this.props.send(this.props.chat, this.state.message, this.state.distance)} id="btn-chat">
                                 Send
                             </button>
                         </span>
@@ -41,8 +40,8 @@ let Chat = React.createClass({
             )
     },
 
-    buildMessage(message){
-        return <Message content={message.text} time={Date.now()} isMe={message.isMe}/> 
+    buildMessage(message, index){
+        return <Message key={index} content={message.text} time={Date.now()} isMe={message.isMe}/> 
     }
 })
 
@@ -50,7 +49,14 @@ Chat = connect((state)=>{
     return {
         chat: state.activeChat,
         chatName: state.chatName,
-        selectedParticipants: state.selectedParticipants
+        selectedParticipants: state.selectedParticipants,
+        groupChat: state.groupChatHy,
+        domain: state.domain
+    }
+},(dispatch) =>{
+    return {
+        create: (groupChat, domain, name, participants) => dispatch(createChat(groupChat, domain, name, participants)),
+        send:(chat, message, distance) => dispatch(sendMessage(chat, message, distance))
     }
 })(Chat)
 

@@ -9,31 +9,33 @@ import chatApp from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-
+import bootstrap from './bootstrap'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { initHyperties } from './actions'
 
-let store = createStore(chatApp, applyMiddleware(thunkMiddleware))
 // install runtime
 let runtime = undefined
 let domain = 'localhost'
+let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[], chatName: undefined, activeChat:undefined, domain:domain }, applyMiddleware(thunkMiddleware))
+
 self.rethink.default.install({domain:domain, development: true})
     .then((r) => {
         runtime = r
-        ReactDOM.render(
-                <Provider store={store}>
-                    <Router history={hashHistory} createElement={createElement}>
-                            <Route path="/" component={Dashboard}>
-                                    <IndexRoute  component={ChatList}/>
-                                    <Route path="new_chat" component={ChatForm}/>
-                                    <Route path="add_participants" component={Participants}/>
-                                    <Route path="chat" component={Chat}/>
-                            </Route>
-                    </Router>
-                </Provider>,
-                document.getElementById('react-anchor')
-        );
+        bootstrap.init(runtime, domain, store.dispatch)
+        .then((hyperties)=>{
+            store.dispatch(initHyperties(hyperties))
+            ReactDOM.render(
+                    <Provider store={store}>
+                        <Router history={hashHistory}>
+                                <Route path="/" component={Dashboard}>
+                                        <IndexRoute  component={ChatList}/>
+                                        <Route path="new_chat" component={ChatForm}/>
+                                        <Route path="add_participants" component={Participants}/>
+                                        <Route path="chat" component={Chat}/>
+                                </Route>
+                        </Router>
+                    </Provider>,
+                    document.getElementById('react-anchor')
+            );
+        })
     })
-
-function createElement(Component, props){
-    return <Component {...props} domain={domain} runtime={runtime}/>
-}
