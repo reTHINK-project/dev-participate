@@ -25,6 +25,14 @@ function messageSended(child){
     }
 }
 
+export function reset(participants){
+    return function(dispatch){
+        dispatch(setActiveChat())
+        dispatch(setChatName())
+        participants.forEach((p)=>dispatch(tooglePartSelection(p)))
+    }
+}
+
 export function initHyperties(hyperties){
     return {
         type: 'INIT_HYPERTIES',

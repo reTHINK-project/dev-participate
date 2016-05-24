@@ -1,8 +1,7 @@
 import React from 'react'
 import ChatListed from './chat-listed'
 import NewChatButton from './new-chat-button'
-import {subscribeNewChat, setActiveChat,
-        tooglePartSelection, setChatName} from '../../actions'
+import {setActiveChat, reset} from '../../actions'
 import { connect } from 'react-redux'
 
 let ChatList = React.createClass({
@@ -15,16 +14,10 @@ let ChatList = React.createClass({
             <ul className="list-group">
                 <li className="list-group-item">
                     {chats}
-                    <NewChatButton onClick={this.cleanState}/>
+                    <NewChatButton onClick={()=>this.props.reset(this.props.participants)}/>
                 </li>                    
             </ul>
         )
-    },
-
-    cleanState(){
-        this.props.setActChat()
-        this.props.participants.forEach((p)=>props.toogleParticipantSelection(p))
-        this.props.setName()
     }
 })
 
@@ -36,8 +29,7 @@ ChatList = connect((state)=>{
 }, (dispatch)=>{
     return {
         setActChat: (chat)=>dispatch(setActiveChat(chat)),
-        toogleParticipantSelection: (participant)=>dispatch(tooglePartSelection(participant)),
-        setName: (name)=>dispatch(setChatName(name))
+        reset: (participants)=>dispatch(reset(participants))
     }
 })(ChatList)
 
