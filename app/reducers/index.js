@@ -17,6 +17,10 @@ const chatApp = (state, action) => {
         return { ...state, chatName: action.data}
     }else if(action.type === 'INIT_HYPERTIES'){
         return Object.assign(state, action.data)
+    }else if(action.type === 'SET_MESSAGE'){
+        return {...state, message: action.data }
+    }else if(action.type === 'SET_DISTANCE'){
+        return {...state, distance: action.data }
     }
 
     return state

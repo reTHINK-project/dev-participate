@@ -4,22 +4,20 @@ import NewChatButton from './new-chat-button'
 import {setActiveChat, reset} from '../../actions'
 import { connect } from 'react-redux'
 
-let ChatList = React.createClass({
-    render(){
-        let chats = this.props.chats.map((chat) => {
-            return <ChatListed key={chat.name} chat={chat} onSelect={this.props.setActChat}/>
-        })
+let ChatList = ({chats, participants, setActChat, reset}) => {
+    let chatsComponents = chats.map((chat) => {
+        return <ChatListed key={chat.name} chat={chat} onSelect={setActChat}/>
+    })
 
-        return (
-            <ul className="list-group">
-                <li className="list-group-item">
-                    {chats}
-                    <NewChatButton onClick={()=>this.props.reset(this.props.participants)}/>
-                </li>                    
-            </ul>
-        )
-    }
-})
+    return (
+        <ul className="list-group">
+            <li className="list-group-item">
+                {chatsComponents}
+                <NewChatButton onClick={()=>reset(participants)}/>
+            </li>                    
+        </ul>
+    )
+}
 
 ChatList = connect((state)=>{
     return {

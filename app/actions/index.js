@@ -14,6 +14,7 @@ export function sendMessage(chat, message, distance){
         chat.sendMessage(message, distance)
             .then((message)=>{
                 dispatch(messageSended(message))
+                dispatch(resetMessage)
             })
     }
 }
@@ -22,6 +23,13 @@ function messageSended(child){
     return {
         type: 'SEND_MESSAGE',
         data: child
+    }
+}
+
+function resetMessage(){
+    return function(dispatch){
+        dispatch(setMessage())
+        dispatch(setDistance(false))
     }
 }
 
@@ -79,5 +87,19 @@ export function chatCreated(chat){
     return {
         type: 'CHAT_CREATED',
         data: chat
+    }
+}
+
+export function setMessage(message){
+    return {
+        type: 'SET_MESSAGE',
+        data: message
+    }
+}
+
+export function setDistance(active){
+    return {
+        type: 'SET_DISTANCE',
+        data: active?1000:undefined
     }
 }

@@ -1,7 +1,7 @@
 import { updateParticipants, messageReceived, chatCreated } from './actions'
 
-const groupChatHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/GroupChatHyperty`
-const locationHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/LocationHyperty`
+const groupChatHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/GroupChat`
+const locationHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/Location`
 const participantsFakeHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/ParticipantsHyperty`
 
 function init(runtime, domain, dispatch){
