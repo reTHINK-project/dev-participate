@@ -19,7 +19,9 @@ function init(runtime, domain, dispatch){
                                 chat.onMessage((message)=>dispatch(messageReceived(message)))
                                 dispatch(chatCreated(chat))
                             })
-                            participants.instance.getParticipants().then((participants)=>dispatch(updateParticipants(participants))) 
+                            setInterval(()=>{
+                                participants.instance.getParticipants().then((participants)=>dispatch(updateParticipants(participants))) 
+                            },5000)
                             locationHy.instance.startPositionBroadcast([groupChat.runtimeHypertyURL, participants.runtimeHypertyURL])
 
                             return {locationHy: locationHy, participantsHy: participants, groupChatHy: groupChat}
