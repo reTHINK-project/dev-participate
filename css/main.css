@@ -17,6 +17,7 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
 
 .avatar{
     width:50px;
+    margin-right:10px;
 }
 /* ==========================================================================
    Chat Box
