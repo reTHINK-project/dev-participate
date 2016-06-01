@@ -9,7 +9,7 @@ const ChatListed = ({chat, onSelect}) => {
                         <p>{new Date(chat.startingTime).toLocaleString('en-US')}</p>
                     </div>
                     <div className="col-cs-6">
-                        <p>3 participants</p>
+                        <p>{chat.participants.length} participants</p>
                     </div>
                 </div>
                 <div className="row">
