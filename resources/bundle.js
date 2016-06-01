@@ -230,7 +230,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.divideURL = divideURL;
+exports.divideEmail = divideEmail;
+exports.emptyObject = emptyObject;
 exports.deepClone = deepClone;
+exports.getUserURLFromEmail = getUserURLFromEmail;
+exports.getUserEmailFromURL = getUserEmailFromURL;
+exports.convertToUserURL = convertToUserURL;
 /**
 * Copyright 2016 PT Inovação e Sistemas SA
 * Copyright 2016 INESC-ID
@@ -253,7 +258,6 @@ exports.deepClone = deepClone;
 * See the License for the specific language governing permissions and
 * limitations under the License.
 **/
-
 /**
  * Support module with some functions will be useful
  * @module utils
@@ -273,6 +277,8 @@ exports.deepClone = deepClone;
  * @return {divideURL} the result of divideURL
  */
 function divideURL(url) {
+
+  if (!url) throw Error('URL is needed to split');
 
   // let re = /([a-zA-Z-]*)?:\/\/(?:\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/gi;
   var re = /([a-zA-Z-]*):\/\/(?:\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256})([-a-zA-Z0-9@:%._\+~#=\/]*)/gi;
@@ -294,6 +300,26 @@ function divideURL(url) {
   return result;
 }
 
+function divideEmail(email) {
+  var indexOfAt = email.indexOf('@');
+
+  var result = {
+    username: email.substring(0, indexOfAt),
+    domain: email.substring(indexOfAt + 1, email.length)
+  };
+
+  return result;
+}
+
+/**
+ * Check if an Object is empty
+ * @param  {Object} object Object to be checked
+ * @return {Boolean}       status of Object, empty or not (true|false);
+ */
+function emptyObject(object) {
+  return Object.keys(object).length > 0 ? false : true;
+}
+
 /**
  * Make a COPY of the original data
  * @param  {Object}  obj - object to be cloned
@@ -302,6 +328,50 @@ function divideURL(url) {
 function deepClone(obj) {
   //TODO: simple but inefficient JSON deep clone...
   if (obj) return JSON.parse(JSON.stringify(obj));
+}
+
+/**
+ * Obtains the user URL that corresponds to a given email
+ * @param  {string} userEmail The user email
+ * @return {URL.URL} userURL The user URL
+ */
+function getUserURLFromEmail(userEmail) {
+  var indexOfAt = userEmail.indexOf('@');
+  return 'user://' + userEmail.substring(indexOfAt + 1, userEmail.length) + '/' + userEmail.substring(0, indexOfAt);
+}
+
+/**
+ * Obtains the user email that corresponds to a given URL
+ * @param  {URL.URL} userURL The user URL
+ * @return {string} userEmail The user email
+ */
+function getUserEmailFromURL(userURL) {
+  var url = divideURL(userURL);
+  return url.identity.replace('/', '') + '@' + url.domain; // identity field has '/exampleID' instead of 'exampleID'
+}
+
+/**
+ * Check if the user identifier is already in the URL format, if not, convert to URL format
+ * @param  {string}   identifier  user identifier
+ * @return {string}   userURL    the user URL
+ */
+function convertToUserURL(identifier) {
+
+  // check if the identifier is already in the url format
+  if (identifier.substring(0, 7) === 'user://') {
+    var dividedURL = divideURL(identifier);
+
+    //check if the url is well formated
+    if (dividedURL.domain && dividedURL.identity) {
+      return identifier;
+    } else {
+      throw 'userURL with wrong format';
+    }
+
+    //if not, convert the user email to URL format
+  } else {
+      return getUserURLFromEmail(identifier);
+    }
 }
 
 },{}],3:[function(require,module,exports){
@@ -313,7 +383,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * URI.js - Mutating URLs
  * IPv6 Support
  *
- * Version: 1.17.1
+ * Version: 1.18.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -403,8 +473,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       while (segments.length < total) {
         segments.splice(pos, 0, '0000');
       }
-
-      length = segments.length;
     }
 
     // strip leading zeros
@@ -507,7 +575,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
  *
- * Version: 1.17.1
+ * Version: 1.18.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -754,7 +822,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /*!
  * URI.js - Mutating URLs
  *
- * Version: 1.17.1
+ * Version: 1.18.1
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -826,7 +894,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return this;
   }
 
-  URI.version = '1.17.1';
+  URI.version = '1.18.1';
 
   var p = URI.prototype;
   var hasOwn = Object.prototype.hasOwnProperty;
@@ -1437,11 +1505,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     if (parts.username) {
       t += URI.encode(parts.username);
+    }
 
-      if (parts.password) {
-        t += ':' + URI.encode(parts.password);
-      }
+    if (parts.password) {
+      t += ':' + URI.encode(parts.password);
+    }
 
+    if (t) {
       t += '@';
     }
 
@@ -1627,6 +1697,39 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       default:
         throw new TypeError('URI.hasQuery() accepts undefined, boolean, string, number, RegExp, Function as the value parameter');
     }
+  };
+
+  URI.joinPaths = function () {
+    var input = [];
+    var segments = [];
+    var nonEmptySegments = 0;
+
+    for (var i = 0; i < arguments.length; i++) {
+      var url = new URI(arguments[i]);
+      input.push(url);
+      var _segments = url.segment();
+      for (var s = 0; s < _segments.length; s++) {
+        if (typeof _segments[s] === 'string') {
+          segments.push(_segments[s]);
+        }
+
+        if (_segments[s]) {
+          nonEmptySegments++;
+        }
+      }
+    }
+
+    if (!segments.length || !nonEmptySegments) {
+      return new URI('');
+    }
+
+    var uri = new URI('').segment(segments);
+
+    if (input[0].path() === '' || input[0].path().slice(0, 1) === '/') {
+      uri.path('/' + uri.path());
+    }
+
+    return uri.normalize();
   };
 
   URI.commonPath = function (one, two) {
@@ -2048,12 +2151,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     if (v === undefined) {
-      if (!this._parts.username) {
-        return '';
-      }
-
       var t = URI.buildUserinfo(this._parts);
-      return t.substring(0, t.length - 1);
+      return t ? t.substring(0, t.length - 1) : t;
     } else {
       if (v[v.length - 1] !== '@') {
         v += '@';

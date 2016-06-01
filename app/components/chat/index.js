@@ -5,7 +5,7 @@ import Message from './message'
 
 let Chat = ({chat, send, distance, message, setDistance, setMessage }) => {
     let messages = !chat?[]:chat.messages
-        .map((message, index)=><Message key={index} content={message.text} time={Date.now()} isMe={message.isMe}/>)
+        .map((message, index)=><Message key={index} content={message.text} time={message.startingTime} isMe={message.isMe} identity={message.identity}/>)
     return(
             <div className="expando">
             <div className="panel-body">
