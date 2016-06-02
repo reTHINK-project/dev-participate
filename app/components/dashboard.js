@@ -45,7 +45,4 @@ const Dashboard = React.createClass({
     }
 })
 
-export default connect((state)=>{
-    return {
-    }
-})(Dashboard)
+export default Dashboard
