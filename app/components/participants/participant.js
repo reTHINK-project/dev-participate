@@ -6,7 +6,7 @@ const Participant = ({domain, email, online, onChange}) => {
                 <div className="row">
                     <div className="col-xs-2">
                         <label>
-                            <input type="checkbox" onClick={()=>onChange({email: email, domain: domain})}/>
+                            <input type="checkbox" disabled={online?false:"disabled"} onClick={()=>onChange({email: email, domain: domain})}/>
                         </label>
                     </div>
                     <div className="col-xs-10">
