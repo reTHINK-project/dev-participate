@@ -15,7 +15,7 @@ const ChatListed = ({chat, onSelect}) => {
                 <div className="row">
                     <div className="col-xs-12">
                         <h3><Link to='chat' onClick={()=>onSelect(chat)}>{chat.name}</Link></h3>
-                        <p> {chat.messages[chat.messages.length-1]?chat.messages[chat.messages.length-1].text:''}...</p>
+                        <p> {chat.getContext()}...</p>
                     </div>
                 </div>
             </div>
