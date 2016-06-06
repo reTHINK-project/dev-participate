@@ -1,6 +1,6 @@
 export function createChat(groupChat, domain, name, participants){
     return function(dispatch){
-        groupChat.instance.create(name, participants)
+        return groupChat.instance.create(name, participants)
             .then((chat) => {
                 chat.onMessage((message)=>dispatch(messageReceived(message)))
                 dispatch(chatCreated(chat))
