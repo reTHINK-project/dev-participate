@@ -17,28 +17,17 @@ The user application supports these features:
 ### User Journey
 
 1. User authentication. If the user is not logged in, authentication is required.
-
 ![User Authentication](Screen-Shot-2016-06-07-15-23-43.png)
-
 2. A chat list and a button to create a new one is provided to the user.
-
 ![Main Screen](Screen-Shot-2016-06-07-15-27-50.png)
-
 3. User clicks on new button and the system asks the chat name.
-
 ![Create a GroupChat](Screen-Shot-2016-06-07-15-28-15.png)
-
 4. A list of participants is showed and the user selects one or more to start a new group chat. Actually this list is hard coded on the application. However participant status is getting making a query to Hyperty Discovery Service.
-
 ![Select Partipants](Screen-Shot-2016-06-07-15-29-58.png)
-
 5. The chat is created.
 ![Chat created](Screen-Shot-2016-06-07-15-30-44.png)
-
 6. Participants can send messages to the group or limit these based on proximity.
-
 ![Send Message](Screen-Shot-2016-06-07-15-31-55.png)
-
 7. Chats shows number of participants, date, chat name and last message sended.
 
 ![Chat Detail](Screen-Shot-2016-06-07-15-32-33.png)
