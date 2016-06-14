@@ -5,6 +5,7 @@ import ChatList from './components/chat_list'
 import ChatForm from './components/chat_form'
 import Participants from './components/participants'
 import Chat from './components/chat'
+import Notifications from './components/notifications'
 import chatApp from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
@@ -16,7 +17,8 @@ import { initHyperties } from './actions'
 // install runtime
 let runtime = undefined
 let domain = 'localhost'
-let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[], chatName: undefined, activeChat:undefined, domain:domain }, applyMiddleware(thunkMiddleware))
+let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
+    chatName: undefined, activeChat:undefined, domain:domain, notifications:[] }, applyMiddleware(thunkMiddleware))
 
 self.rethink.default.install({domain:domain, development: true})
     .then((r) => {
@@ -25,17 +27,18 @@ self.rethink.default.install({domain:domain, development: true})
         .then((hyperties)=>{
             store.dispatch(initHyperties(hyperties))
             ReactDOM.render(
-                    <Provider store={store}>
-                        <Router history={hashHistory}>
-                                <Route path="/" component={Dashboard}>
-                                        <IndexRoute  component={ChatList}/>
-                                        <Route path="new_chat" component={ChatForm}/>
-                                        <Route path="add_participants" component={Participants}/>
-                                        <Route path="chat" component={Chat}/>
-                                </Route>
-                        </Router>
-                    </Provider>,
-                    document.getElementById('react-anchor')
+                <Provider store={store}>
+                    <Router history={hashHistory}>
+                        <Route path="/" component={Dashboard}>
+                            <IndexRoute  component={ChatList}/>
+                            <Route path="new_chat" component={ChatForm}/>
+                            <Route path="add_participants" component={Participants}/>
+                            <Route path="chat" component={Chat}/>
+                            <Route path="notifications" component={Notifications}/>
+                        </Route>
+                    </Router>
+                </Provider>,
+                document.getElementById('react-anchor')
             );
         })
     })

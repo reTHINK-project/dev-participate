@@ -21,6 +21,12 @@ const chatApp = (state, action) => {
         return {...state, message: action.data }
     }else if(action.type === 'SET_DISTANCE'){
         return {...state, distance: action.data }
+    }else if(action.type === 'NOTIFICATION_RECEIVED'){
+        return {...state, notifications: state.notifications.concat([{...action.data, isNew: true, id: state.notifications.length+1}])}
+    }else if(action.type === 'REMOVE_NOTIFICATION'){
+        return {...state, notifications: state.notifications.filter((n)=>n.id!==action.data.id)}
+    }else if(action.type === 'CLEAR_NOTIFICATION'){
+        return {...state, notifications: state.notifications.map((n)=>{ return { ...n, isNew:false }})}
     }
 
     return state

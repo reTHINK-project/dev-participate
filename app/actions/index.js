@@ -103,3 +103,25 @@ export function setDistance(active){
         data: active?1000:undefined
     }
 }
+
+export function notificationReceived(notification){
+    return {
+        type: 'NOTIFICATION_RECEIVED',
+        data: notification
+    }
+}
+
+export function removeNotification(id){
+    return {
+        type: 'REMOVE_NOTIFICATION',
+        data:{
+            id: id
+        }
+    }
+}
+
+export function clearNotifications(){
+    return{
+        type: 'CLEAR_NOTIFICATION'
+    }
+}

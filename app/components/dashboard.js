@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import Sidebar from './sidebar'
 import { connect } from 'react-redux'
 
@@ -13,11 +14,23 @@ const Dashboard = React.createClass({
                                 <nav className="navbar navbar-default navbar-fixed-top">
                                 <div className="container-fluid">
                                     <div className='navbar-header'>
-                                        <button className="btn btn-default navbar-toggle navbar-btn" href="#" onClick={this.activeSideBar}>
-                                            <i className="glyphicon glyphicon-menu-hamburger"></i>
-                                        </button>
+                                        <a type="button" className="btn btn-default navbar-btn navbar-toggle" href="#" onClick={this.activeSideBar}>
+                                            <span className="glyphicon glyphicon-minus"></span>
+                                        </a>
+                                        <Link className="btn btn-default navbar-btn navbar-toggle" to="notifications">
+                                            <span className="glyphicon glyphicon-envelope"></span>  <span className="badge">{this.props.notifications}</span>
+                                        </Link>
                                         <a className="navbar-brand" href="/" alt="Participate">Participate</a>
                                     </div>
+                                    <div className="navbar-collapse hidden-xs">
+                                            <ul className="nav navbar-nav navbar-right">
+                                                <li>
+                                                    <Link className="btn btn-default navbar-btn navbar-toggle" to="notifications">
+                                                        <span className="glyphicon glyphicon-envelope"></span>  <span className="badge">{this.props.notifications}</span>
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                     </div>
                                 </div>
                             </nav>
                         </div>
@@ -45,4 +58,9 @@ const Dashboard = React.createClass({
     }
 })
 
-export default Dashboard
+export default connect((state)=>{
+    return {
+        notifications: state.notifications.length===0?'':
+            state.notifications.length
+    }
+})(Dashboard)
