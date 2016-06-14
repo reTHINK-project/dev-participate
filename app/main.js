@@ -18,7 +18,8 @@ import { initHyperties } from './actions'
 let runtime = undefined
 let domain = 'localhost'
 let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
-    chatName: undefined, activeChat:undefined, domain:domain, notifications:[] }, applyMiddleware(thunkMiddleware))
+    chatName: undefined, activeChat:undefined, domain:domain, notifications:[],
+    new_notifications: 0}, applyMiddleware(thunkMiddleware))
 
 self.rethink.default.install({domain:domain, development: true})
     .then((r) => {

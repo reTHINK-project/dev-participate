@@ -60,7 +60,6 @@ const Dashboard = React.createClass({
 
 export default connect((state)=>{
     return {
-        notifications: state.notifications.length===0?'':
-            state.notifications.length
+        notifications: state.new_notifications===0?'':state.new_notifications
     }
 })(Dashboard)

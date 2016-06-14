@@ -22,7 +22,7 @@ describe('chat reducers', ()=>{
 
 describe('notifications reducers', ()=>{
     it('should add NOTIFICATION_RECEIVED', ()=>{
-        const initialState = {notifications:[]}
+        const initialState = {notifications:[], new_notifications: 0}
         expect(reducer(initialState,
                     {
                         type: 'NOTIFICATION_RECEIVED',
@@ -43,7 +43,8 @@ describe('notifications reducers', ()=>{
                             },
                             isNew: true,
                             id: 1
-                        }]
+                        }],
+                      new_notifications: 1
                   })
     })
 
@@ -70,7 +71,7 @@ describe('notifications reducers', ()=>{
         const initialState = {notifications:[{
             type: 'NEW_CHAT',
             isNew: true
-        }]}
+        }], new_notifications: 1}
 
         expect(reducer(initialState,
                     {
@@ -81,7 +82,7 @@ describe('notifications reducers', ()=>{
                       notifications: [{
                         type: 'NEW_CHAT',
                         isNew: false
-                      }]
+                      }], new_notifications: 0
                   })
     })
 })
