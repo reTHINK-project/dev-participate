@@ -34,7 +34,7 @@ ChatList = connect((state)=>{
     }
 }, (dispatch)=>{
     return {
-        setActChat: (chat)=>dispatch(setActiveChat(chat)),
+        setActChat: (chat)=>dispatch(setActiveChat(chat.id)),
         reset: (participants)=>dispatch(reset(participants))
     }
 })(ChatList)

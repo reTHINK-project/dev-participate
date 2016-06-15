@@ -2,7 +2,7 @@ const chatApp = (state, action) => {
     if(action.type === 'CHAT_CREATED'){
         return { ...state, chats: state.chats.concat([action.data]) }
     }else if(action.type === 'SET_ACTIVE_CHAT'){
-        let activeChat = action.data?state.chats.find((chat)=>chat.name === action.data.name)
+        let activeChat = action.data?state.chats.find((chat)=>chat.id === action.data)
             :action.data
         return { ...state, activeChat: activeChat }
     }else if(action.type === 'SEND_MESSAGE' || action.type === 'RECEIVE_MESSAGE'){

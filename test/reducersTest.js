@@ -18,6 +18,21 @@ describe('chat reducers', ()=>{
                     chats:[{}]
                   })
     })
+
+    it('should SET_ACTIVE_CHAT', ()=>{
+        const chat = {id: 'resource://1111', name: 'test'}
+        const initialState = {chats:[chat], activeChat: undefined}
+        expect(reducer(initialState,
+                    {
+                        type: 'SET_ACTIVE_CHAT',
+                        data: 'resource://1111'
+                    })
+              ).toEqual(
+                  {
+                    chats:[chat],
+                    activeChat: chat
+                  })
+    })
 })
 
 describe('notifications reducers', ()=>{

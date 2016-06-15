@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router'
 
-const Notification = ({ id, data, type, isNew, onRemove }) => {
+const Notification = ({ id, data, type, isNew, onRemove, setActiveChat }) => {
     return (
             <li className={"list-group-item" + (isNew?" list-group-item-success":"")}>
                 <div className="row">
@@ -23,6 +24,9 @@ const Notification = ({ id, data, type, isNew, onRemove }) => {
                         </div>
                     </div>
                     <div className="col-xs-2">
+                       <Link to="chat" className="btn btn-default" aria-label="Join" onClick={()=>setActiveChat(data.id)}>
+                          <span className="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                       </Link> 
                        <button type="button" className="btn btn-default" aria-label="Close" onClick={()=>onRemove(id)}>
                           <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
                        </button> 

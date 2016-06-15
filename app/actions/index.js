@@ -4,7 +4,7 @@ export function createChat(groupChat, domain, name, participants){
             .then((chat) => {
                 chat.onMessage((message)=>dispatch(messageReceived(message)))
                 dispatch(chatCreated(chat))
-                dispatch(setActiveChat(chat))
+                dispatch(setActiveChat(chat.id))
         })
     }
 }
@@ -55,10 +55,10 @@ export function updateParticipants(participants){
     }
 }
 
-export function setActiveChat(chat){
+export function setActiveChat(chat_id){
     return {
         type: 'SET_ACTIVE_CHAT',
-        data: chat
+        data: chat_id
     }
 }
 
