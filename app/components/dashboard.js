@@ -14,7 +14,7 @@ const Dashboard = React.createClass({
                                 <nav className="navbar navbar-default navbar-fixed-top">
                                 <div className="container-fluid">
                                     <div className='navbar-header'>
-                                        <a type="button" className="btn btn-default navbar-btn navbar-toggle" href="#" onClick={this.activeSideBar}>
+                                        <a type="button" className="btn btn-default navbar-btn navbar-toggle" onClick={this.activeSideBar}>
                                             <span className="glyphicon glyphicon-minus"></span>
                                         </a>
                                         <Link className="btn btn-default navbar-btn navbar-toggle" to="notifications">
