@@ -67,7 +67,7 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
   height: 91px;
   background-color: #f5f5f5;
 }
-.panel-body
+.message-panel-body
 {
   overflow-y: scroll;
   margin-bottom:-91px;

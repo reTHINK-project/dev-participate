@@ -8,7 +8,7 @@ let Chat = ({chat, send, distance, message, setDistance, setMessage }) => {
         .map((message, index)=><Message key={index} content={message.text} elapsedMinutes={message.elapsedMinutes()} time={message.startingTime} isMe={message.isMe} identity={message.identity}/>)
     return(
             <div className="expando">
-            <div className="panel-body">
+            <div className="panel-body message-panel-body">
                 <ul className="chat">
                     {messages}
                 </ul>
