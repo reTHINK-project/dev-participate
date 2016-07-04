@@ -6,6 +6,7 @@ import ChatForm from './components/chat_form'
 import Participants from './components/participants'
 import Chat from './components/chat'
 import Notifications from './components/notifications'
+import Hotel from './components/hotelguest'
 import chatApp from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
@@ -16,7 +17,7 @@ import { initHyperties } from './actions'
 
 // install runtime
 let runtime = undefined
-let domain = 'localhost'
+let domain = 'hybroker.rethink.ptinovacao.pt'
 let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
     chatName: undefined, activeChat:undefined, domain:domain, notifications:[],
     new_notifications: 0}, applyMiddleware(thunkMiddleware))
@@ -36,6 +37,7 @@ self.rethink.default.install({domain:domain, development: true})
                             <Route path="add_participants" component={Participants}/>
                             <Route path="chat" component={Chat}/>
                             <Route path="notifications" component={Notifications}/>
+                            <Route path="hotel" component={Hotel}/>
                         </Route>
                     </Router>
                 </Provider>,

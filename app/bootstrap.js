@@ -5,6 +5,9 @@ const locationHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/h
 const participantsFakeHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/ParticipantsHyperty`
 const notificationsObserverHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/NotificationsObserver`
 
+//roomui
+const roomClientHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/RoomClient`
+
 function init(runtime, domain, dispatch){
     let hyperties = {}
     return runtime.requireHyperty(groupChatHyperty(domain))
@@ -22,6 +25,10 @@ function init(runtime, domain, dispatch){
         .then(()=>runtime.requireHyperty(notificationsObserverHyperty(domain)))
         .then((hyperty)=>{
             hyperties.notificationsHy = hyperty
+        })
+        .then(()=>runtime.requireHyperty(roomClientHyperty(domain)))
+        .then((hyperty)=>{
+            hyperties.roomClientHy = hyperty
         })
         .then(()=>{
             hyperties.groupChatHy.instance.onInvite((chat)=>{
