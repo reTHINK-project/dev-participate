@@ -3,7 +3,7 @@ export function createChat(groupChat, domain, name, participants){
         return groupChat.instance.create(name, participants)
             .then((chat) => {
                 chat.onMessage((message)=>dispatch(messageReceived(message)))
-                dispatch(chatCreated(chat))
+                dispatch(chatCreated(chat));
                 dispatch(setActiveChat(chat.id))
         })
     }
@@ -13,13 +13,13 @@ export function sendMessage(chat, message, distance){
     return function(dispatch){
         chat.sendMessage(message, distance)
             .then((message)=>{
-                dispatch(messageSended(message))
+                dispatch(messageSent(message));
                 dispatch(resetMessage)
             })
     }
 }
 
-function messageSended(child){
+function messageSent(child){
     return {
         type: 'SEND_MESSAGE',
         data: child
@@ -28,16 +28,16 @@ function messageSended(child){
 
 function resetMessage(){
     return function(dispatch){
-        dispatch(setMessage())
+        dispatch(setMessage());
         dispatch(setDistance(false))
     }
 }
 
 export function reset(participants){
     return function(dispatch){
-        dispatch(setActiveChat())
-        dispatch(setChatName())
-        participants.forEach((p)=>dispatch(tooglePartSelection(p)))
+        dispatch(setActiveChat());
+        dispatch(setChatName());
+        participants.forEach((p)=>dispatch(togglePartSelection(p)))
     }
 }
 
@@ -62,9 +62,9 @@ export function setActiveChat(chat_id){
     }
 }
 
-export function tooglePartSelection(email){
+export function togglePartSelection(email){
     return {
-        type: 'TOOGLE_SELECTION',
+        type: 'TOGGLE_SELECTION',
         data: email
     }
 }
