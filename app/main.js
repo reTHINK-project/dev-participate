@@ -16,18 +16,18 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import { initHyperties } from './actions'
 
 // install runtime
-let runtime = undefined
-let domain = 'hybroker.rethink.ptinovacao.pt'
+let runtime = undefined;
+let domain = 'hybroker.rethink.ptinovacao.pt';
 let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
     chatName: undefined, activeChat:undefined, domain:domain, notifications:[],
-    new_notifications: 0}, applyMiddleware(thunkMiddleware))
+    new_notifications: 0, rooms:[]}, applyMiddleware(thunkMiddleware));
 
 self.rethink.default.install({domain:domain, development: true})
     .then((r) => {
-        runtime = r
+        runtime = r;
         bootstrap.init(runtime, domain, store.dispatch)
         .then((hyperties)=>{
-            store.dispatch(initHyperties(hyperties))
+            store.dispatch(initHyperties(hyperties));
             ReactDOM.render(
                 <Provider store={store}>
                     <Router history={hashHistory}>
@@ -44,4 +44,4 @@ self.rethink.default.install({domain:domain, development: true})
                 document.getElementById('react-anchor')
             );
         })
-    })
+    });

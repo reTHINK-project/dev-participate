@@ -1,4 +1,13 @@
 const chatApp = (state, action) => {
+    console.warn("STATE CHANGE", state, action);
+    switch(action.type) {
+        case ('RECEIVE_ROOM'):
+            let rooms = state.rooms;
+            rooms.push(action.data);
+            return {...state, room: state.rooms};
+            break;
+    }
+
     if(action.type === 'CHAT_CREATED'){
         return { ...state, chats: state.chats.concat([action.data]) }
     }else if(action.type === 'SET_ACTIVE_CHAT'){
@@ -10,7 +19,7 @@ const chatApp = (state, action) => {
                 {activeChat: Object.assign(Object.create(state.activeChat), { ...state.activeChat })})
     }else if(action.type === "UPDATE_PARTICIPANTS"){
         return { ...state, participants: action.data }
-    }else if(action.type === 'TOOGLE_SELECTION'){
+    }else if(action.type === 'TOGGLE_SELECTION'){
         return { ...state, selectedParticipants: state.selectedParticipants.some((e)=>e.email === action.data.email)?
             state.selectedParticipants.filter((e)=>e.email!==action.data.email):state.selectedParticipants.concat([action.data])}
     }else if(action.type === 'SET_CHATNAME'){
@@ -32,7 +41,9 @@ const chatApp = (state, action) => {
         return {...state, notifications: state.notifications.map((n)=>{ return { ...n, isNew:false }}), new_notifications: 0}
     }
 
+
+
     return state
-}
+};
 
 export default chatApp

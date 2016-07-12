@@ -1,127 +1,134 @@
-export function createChat(groupChat, domain, name, participants){
-    return function(dispatch){
+export function createChat(groupChat, domain, name, participants) {
+    return function (dispatch) {
         return groupChat.instance.create(name, participants)
             .then((chat) => {
                 chat.onMessage((message)=>dispatch(messageReceived(message)))
                 dispatch(chatCreated(chat));
                 dispatch(setActiveChat(chat.id))
-        })
+            })
     }
 }
 
-export function sendMessage(chat, message, distance){
-    return function(dispatch){
+export function sendMessage(chat, message, distance) {
+    return function (dispatch) {
         chat.sendMessage(message, distance)
-            .then((message)=>{
+            .then((message)=> {
                 dispatch(messageSent(message));
                 dispatch(resetMessage)
             })
     }
 }
 
-function messageSent(child){
+function messageSent(child) {
     return {
         type: 'SEND_MESSAGE',
         data: child
     }
 }
 
-function resetMessage(){
-    return function(dispatch){
+function resetMessage() {
+    return function (dispatch) {
         dispatch(setMessage());
         dispatch(setDistance(false))
     }
 }
 
-export function reset(participants){
-    return function(dispatch){
+export function reset(participants) {
+    return function (dispatch) {
         dispatch(setActiveChat());
         dispatch(setChatName());
         participants.forEach((p)=>dispatch(togglePartSelection(p)))
     }
 }
 
-export function initHyperties(hyperties){
+export function initHyperties(hyperties) {
     return {
         type: 'INIT_HYPERTIES',
         data: hyperties
     }
 }
 
-export function updateParticipants(participants){
+export function updateParticipants(participants) {
     return {
         type: 'UPDATE_PARTICIPANTS',
         data: participants
     }
 }
 
-export function setActiveChat(chat_id){
+export function setActiveChat(chat_id) {
     return {
         type: 'SET_ACTIVE_CHAT',
         data: chat_id
     }
 }
 
-export function togglePartSelection(email){
+export function togglePartSelection(email) {
     return {
         type: 'TOGGLE_SELECTION',
         data: email
     }
 }
 
-export function setChatName(name){
+export function setChatName(name) {
     return {
         type: 'SET_CHATNAME',
         data: name
     }
 }
 
-export function messageReceived(child){
+export function messageReceived(child) {
     return {
         type: 'RECEIVE_MESSAGE',
         data: child
     }
 }
 
-export function chatCreated(chat){
+export function chatCreated(chat) {
     return {
         type: 'CHAT_CREATED',
         data: chat
     }
 }
 
-export function setMessage(message){
+export function setMessage(message) {
     return {
         type: 'SET_MESSAGE',
         data: message
     }
 }
 
-export function setDistance(active){
+export function setDistance(active) {
     return {
         type: 'SET_DISTANCE',
-        data: active?1000:undefined
+        data: active ? 1000 : undefined
     }
 }
 
-export function notificationReceived(notification){
+export function notificationReceived(notification) {
     return {
         type: 'NOTIFICATION_RECEIVED',
         data: notification
     }
 }
 
-export function removeNotification(id){
+export function removeNotification(id) {
     return {
         type: 'REMOVE_NOTIFICATION',
-        data:{
+        data: {
             id: id
         }
     }
 }
 
-export function clearNotifications(){
-    return{
+export function clearNotifications() {
+    return {
         type: 'CLEAR_NOTIFICATION'
+    }
+}
+
+export function roomReceived(room) {
+    return {
+        type: 'RECEIVE_ROOM',
+        data: room
     }
 }
