@@ -211,7 +211,7 @@ let LightColor = (data) => (
                 type="color"
                 value={data.value}
                 //Supply with change handler that triggers action 'onChange={handler}'
-                disabled={data.enabled}
+                disabled={!data.enabled}
             />
         </div>
         <div className="flex-item">
