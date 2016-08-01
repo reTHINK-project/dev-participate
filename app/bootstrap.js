@@ -1,9 +1,9 @@
 import { updateParticipants, messageReceived, chatCreated, notificationReceived } from './actions'
 
-const groupChatHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/GroupChat`
-const locationHyperty = (domain) => `hyperty-catalogue://${domain}/.well-known/hyperty/Location`
-const participantsFakeHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/ParticipantsHyperty`
-const notificationsObserverHyperty = (domain)=> `hyperty-catalogue://${domain}/.well-known/hyperty/NotificationsObserver`
+const groupChatHyperty = (domain) => `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/GroupChat`
+const locationHyperty = (domain) => `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/Location`
+const participantsFakeHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/ParticipantsHyperty`
+const notificationsObserverHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/NotificationsObserver`
 
 function init(runtime, domain, dispatch){
     let hyperties = {}

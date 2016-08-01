@@ -16,12 +16,13 @@ import { initHyperties } from './actions'
 
 // install runtime
 let runtime = undefined
-let domain = 'localhost'
+let domain = 'rethink.quobis.com'
+let runtimeURL = 'hyperty-catalogue://catalogue.rethink.quobis.com/.well-known/runtime/Runtime'
 let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
     chatName: undefined, activeChat:undefined, domain:domain, notifications:[],
     new_notifications: 0}, applyMiddleware(thunkMiddleware))
 
-self.rethink.default.install({domain:domain, development: true})
+self.rethink.default.install({ domain: domain, runtimeURL: runtimeURL, development: false})
     .then((r) => {
         runtime = r
         bootstrap.init(runtime, domain, store.dispatch)
