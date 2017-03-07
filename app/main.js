@@ -1,12 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Dashboard from './components/dashboard'
-import ChatList from './components/chat_list'
-import ChatForm from './components/chat_form'
-import Participants from './components/participants'
-import Chat from './components/chat'
-import Notifications from './components/notifications'
-import chatApp from './reducers'
+import Components from './components'
+import participateApp from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
@@ -16,11 +11,9 @@ import { initHyperties } from './actions'
 
 // install runtime
 let runtime = undefined
-let domain = 'rethink.quobis.com'
-let runtimeURL = 'hyperty-catalogue://catalogue.rethink.quobis.com/.well-known/runtime/Runtime'
-let store = createStore(chatApp, {chats:[], participants:[], selectedParticipants:[],
-    chatName: undefined, activeChat:undefined, domain:domain, notifications:[],
-    new_notifications: 0}, applyMiddleware(thunkMiddleware))
+let domain = 'localhost'
+let runtimeURL = 'hyperty-catalogue://catalogue.localhost/.well-known/runtime/Runtime'
+let store = createStore(participateApp, {actions: []}, applyMiddleware(thunkMiddleware))
 
 self.rethink.default.install({ domain: domain, runtimeURL: runtimeURL, development: false})
     .then((r) => {
@@ -31,12 +24,11 @@ self.rethink.default.install({ domain: domain, runtimeURL: runtimeURL, developme
             ReactDOM.render(
                 <Provider store={store}>
                     <Router history={hashHistory}>
-                        <Route path="/" component={Dashboard}>
-                            <IndexRoute  component={ChatList}/>
-                            <Route path="new_chat" component={ChatForm}/>
-                            <Route path="add_participants" component={Participants}/>
-                            <Route path="chat" component={Chat}/>
-                            <Route path="notifications" component={Notifications}/>
+                        <Route path="/" component={Components.Dashboard}>
+                            <IndexRoute  component={Components.List}/>
+                            <Route path="new_group" component={Components.NewGroupForm}/>
+                            <Route path="group" component={Components.GroupForm}/>
+                            <Route path="chat" component={Components.ChatForm}/>
                         </Route>
                     </Router>
                 </Provider>,

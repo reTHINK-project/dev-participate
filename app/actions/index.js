@@ -1,3 +1,13 @@
+export function createNewGroup(title, query) {
+    return {
+        type: 'ACTION_CREATED', 
+        data: {
+            type: 'GROUP',
+            title: title,
+        }
+    }
+}
+
 export function createChat(groupChat, domain, name, participants){
     return function(dispatch){
         return groupChat.instance.create(name, participants)

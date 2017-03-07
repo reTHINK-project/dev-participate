@@ -1,6 +1,15 @@
 import expect from 'expect'
 import reducer from '../app/reducers'
 
+describe('group reducers', () => {
+    it('should add a new action', ()=>{
+        const action = {type: 'ACTION_CREATED', data: { type: 'GROUP', title: 'test'}}
+        const initialState = {actions:[]}
+        expect(reducer(initialState, action))
+            .toEqual({actions: [{type: 'GROUP', title: 'test'}]})
+    })
+})
+
 describe('chat reducers', ()=>{
     it('should return initial state', ()=>{
         expect(reducer(undefined, {})).toEqual()

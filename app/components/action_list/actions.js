@@ -1,29 +1,31 @@
 import React, {PropTypes} from 'react'
 import { Link } from 'react-router'
 
-const ChatListed = ({chat, onSelect}) => {
+const Group = ({title}) => {
         return (
             <div>
                 <div className="row">
                     <div className="col-xs-6">
-                        <p>{new Date(chat.startingTime).toLocaleString('en-US')}</p>
+                        <p>Date?</p>
                     </div>
                     <div className="col-cs-6">
-                        <p>{chat.participants.length} participants</p>
+                        <p>? participants</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
-                        <h3><Link to='chat' onClick={()=>onSelect(chat)}>{chat.name}</Link></h3>
-                        <p> {chat.getContext()}...</p>
+                        <h3><Link to='group'>{title}</Link></h3>
+                        <p> ?...</p>
                     </div>
                 </div>
             </div>
         )
 }
 
-ChatListed.propTypes = {
-    chat: PropTypes.object.isRequired
-}
+const Message = ()=>{}
+const VideoCall = ()=>{}
+const VoiceCall = ()=>{}
+const Chat = ()=>{}
+const Survey = ()=>{}
 
-export default ChatListed
+export default { Group: Group, VideoCall: VideoCall, Message: Message, VoiceCall: VoiceCall, Chat: Chat }

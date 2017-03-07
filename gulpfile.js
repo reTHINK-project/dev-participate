@@ -8,7 +8,7 @@ var buffer = require('vinyl-buffer')
 var rename = require('gulp-rename')
 
 gulp.task('js', function () {
-    return browserify('app/main.js')
+    return browserify('app/main.js', {debug:true})
         .transform(babelify, {})
         .bundle()
         .pipe(source('main.js'))

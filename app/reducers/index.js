@@ -1,4 +1,10 @@
 const chatApp = (state, action) => {
+    if(action.type === 'ACTION_CREATED') {
+        return { ...state, actions: state.actions.concat([action.data])}
+    }
+
+    return state
+
     if(action.type === 'CHAT_CREATED'){
         return { ...state, chats: state.chats.concat([action.data]) }
     }else if(action.type === 'SET_ACTIVE_CHAT'){
@@ -32,7 +38,6 @@ const chatApp = (state, action) => {
         return {...state, notifications: state.notifications.map((n)=>{ return { ...n, isNew:false }}), new_notifications: 0}
     }
 
-    return state
 }
 
 export default chatApp
