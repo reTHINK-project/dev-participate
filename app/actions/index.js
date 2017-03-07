@@ -1,3 +1,13 @@
+export function logUserIn(user, password) {
+    return {
+        type: 'LOGIN', 
+        data: {
+            user: user,
+            password: password,
+        }
+    }
+}
+
 export function createNewGroup(title, query) {
     return {
         type: 'ACTION_CREATED', 

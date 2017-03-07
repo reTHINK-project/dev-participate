@@ -30,6 +30,12 @@ self.rethink.default.install({ domain: domain, runtimeURL: runtimeURL, developme
                             <Route path="group" component={Components.GroupForm}/>
                             <Route path="chat" component={Components.ChatForm}/>
                         </Route>
+                        <Route path="/admin" component={Components.AdminDashboard}>
+                            <IndexRoute  component={Components.AdminGroupList}/>
+                            <Route path="chat" component={Components.ChatForm}/>
+                            <Route path="admin_group" component={Components.AdminGroup}/>
+                            <Route path="admin_newgroup" component={Components.AdminNewGroup}/>
+                        </Route>
                     </Router>
                 </Provider>,
                 document.getElementById('react-anchor')
