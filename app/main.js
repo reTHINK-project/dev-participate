@@ -5,7 +5,6 @@ import participateApp from './reducers'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import rethink from './rethink'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
 let store = createStore(participateApp, {actions: []}, applyMiddleware(thunkMiddleware))
