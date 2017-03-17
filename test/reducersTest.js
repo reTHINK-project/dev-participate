@@ -9,8 +9,18 @@ describe('participate reducers', () => {
 			const definition = {}
 			const participants = []
 			const initialState = {challenges: []}
-			const finalState = {challenges: [{type: 'group', title:title, definition: definition, invitations: []}]}
+			const finalState = {challenges: [{title:title, definition: definition, invitations: []}]}
 			const action = create.newGroupAction(title, definition, participants)
+			expect(reducer(initialState, action)).to.be.eql(finalState)
+		})
+	})
+
+	describe('addNewChallenge', () => {
+		it('should add a new challenge', ()=> {
+			const title = 'test'
+			const initialState = {challenges: []}
+			const finalState = {challenges: [{title:title, type: 'GROUP_INVITATION'}]}
+			const action = create.newChallengeAction({title:title, type:'GROUP_INVITATION'})
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
 	})
