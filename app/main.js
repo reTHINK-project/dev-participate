@@ -10,7 +10,7 @@ import initRethink from './rethink'
 
 initRethink()
 
-let store = createStore(participateApp, {actions: []}, applyMiddleware(thunkMiddleware))
+let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware))
 
 ReactDOM.render(
     <Provider store={store}>

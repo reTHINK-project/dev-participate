@@ -29,8 +29,6 @@ describe('participate actions', ()=> {
 
 	beforeEach(()=>{
 		store = mockStore({
-			groups:[],
-			actions:[]
 		})
 	})
 

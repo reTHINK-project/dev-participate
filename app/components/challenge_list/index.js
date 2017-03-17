@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import ActionList from './action_list'
+import ChallengeList from './challenge_list'
 
 export default connect((state)=>{
     return {
-        actions: state.actions
+        challenges: state.challenges
     }
 }, (dispatch)=>{
     return {
     }
-})(ActionList)
+})(ChallengeList)

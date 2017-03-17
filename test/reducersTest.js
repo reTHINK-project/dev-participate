@@ -8,8 +8,8 @@ describe('participate reducers', () => {
 			const title = 'test'
 			const definition = {}
 			const participants = []
-			const initialState = {actions: []}
-			const finalState = {actions: [{type: 'group', title:title, definition: definition, invitations: []}]}
+			const initialState = {challenges: []}
+			const finalState = {challenges: [{type: 'group', title:title, definition: definition, invitations: []}]}
 			const action = create.newGroupAction(title, definition, participants)
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
