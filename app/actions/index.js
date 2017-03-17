@@ -1,6 +1,12 @@
 import * as create from './creators'
 import getHyperties from '../rethink'
 import { createChallengeFrom } from '../model/challenges'
+import { groupInvitation } from '../model/messages'
+
+export function initSubscriptions(dispatch, hyperties) {
+	hyperties.NotificationsObs.onNotification((msg) => console.error('kl', msg)) // dispatch(showNewChallenge(msg)))
+	hyperties.Discovery.onUserListChanged(() => console.error('onuserlistchanged'))
+}
 
 export function addNewGroup(title, definition) {
 	return function(dispatch){

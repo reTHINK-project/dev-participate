@@ -7,10 +7,10 @@ import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import initRethink from './rethink'
-
-initRethink()
+import { initSubscriptions } from './actions'
 
 let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware))
+initRethink().then(hyperties=>initSubscriptions(store.dispatch, hyperties))
 
 ReactDOM.render(
     <Provider store={store}>
