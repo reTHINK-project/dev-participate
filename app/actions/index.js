@@ -1,5 +1,6 @@
 import * as create from './creators'
 import getHyperties from '../rethink'
+import { createChallengeFrom } from '../model/challenges'
 
 export function addNewGroup(title, definition) {
 	return function(dispatch){
@@ -13,6 +14,12 @@ export function addNewGroup(title, definition) {
 			}).then((action)=>dispatch(action))
 
 	}
+}
+
+export function showNewChallenge(data) {
+	const challenge = createChallengeFrom(data)
+
+	return create.newChallengeAction(challenge)
 }
 
 export function logUserIn(user, password) {

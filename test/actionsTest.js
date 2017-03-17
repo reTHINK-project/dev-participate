@@ -2,6 +2,8 @@ import { expect } from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import sinon from 'sinon'
+import { groupInvitation } from '../app/model/messages'
+import { createChallengeFrom } from '../app/model/challenges'
 import * as actions from '../app/actions'
 import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 
@@ -63,6 +65,17 @@ describe('participate actions', ()=> {
 					expect(notificationsHy.send.calledWith([profile])).to.be.true
 					done()
 				})
+		})
+	})
+
+	describe('showNewChallenge', () => {
+		it('should create a new challenge', ()=> {
+			const data = groupInvitation('test')
+			const expected_challenge = createChallengeFrom(data)
+
+			store.dispatch(actions.showNewChallenge(data))
+
+			expect(store.getActions()[0].data).to.be.eql(expected_challenge)
 		})
 	})
 
