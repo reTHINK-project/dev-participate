@@ -14,7 +14,7 @@ export function addNewGroup(title, definition) {
 		return getHyperties()
 			.then(hyperties => {
 				const users = hyperties.Discovery.queryUsers(definition)
-				hyperties.Notifications.send(users, {})
+				hyperties.Notifications.send(users, groupInvitation(title))
 
 				return create.newGroupAction(title, definition, users)
 			}).then((action)=>dispatch(action))
