@@ -80,5 +80,7 @@ describe('participate actions', ()=> {
 	})
 
 	describe('checkIfAnyNewUserMatchFilters', ()=> {
+		it('should add any user matching the filter to its group')
+		it('should invite to the group any user matching the group filters')
 	})
 })
