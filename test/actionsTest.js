@@ -6,6 +6,7 @@ import { groupInvitation } from '../app/model/messages'
 import { createChallengeFrom } from '../app/model/challenges'
 import * as actions from '../app/actions'
 import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
+import GroupChallenge from './builders/group-challenge'
 
 const notificationsHy = {
 	send: sinon.spy()
@@ -69,13 +70,16 @@ describe('participate actions', ()=> {
 	})
 
 	describe('showNewChallenge', () => {
-		it('should create a new challenge', ()=> {
-			const data = groupInvitation('test')
-			const expected_challenge = createChallengeFrom(data)
+		[{
+			name: 'group',
+			message: groupInvitation('test'),
+			challenge: GroupChallenge('test').create()
+		}].forEach((data) => {
+			it(`should create a new ${data.name} challenge`, ()=> {
+				store.dispatch(actions.showNewChallenge(data.message))
 
-			store.dispatch(actions.showNewChallenge(data))
-
-			expect(store.getActions()[0].data).to.be.eql(expected_challenge)
+				expect(store.getActions()[0].data).to.be.eql(data.challenge)
+			})
 		})
 	})
 
