@@ -35,3 +35,6 @@ jspm_packages
 
 # OSX
 .DS_Store
+
+# bundle
+js/bundle.js
