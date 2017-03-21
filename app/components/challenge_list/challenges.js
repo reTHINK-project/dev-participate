@@ -13,7 +13,7 @@ const Group = ({title, participants, definition}) => {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to='group'>{title}</Link></h3>
+						<h3><Link to={'group/' + title}>{title}</Link></h3>
 						<p>{JSON.stringify(definition)}</p>
 					</div>
 				</div>

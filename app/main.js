@@ -18,7 +18,7 @@ ReactDOM.render(
             <Route path="/" component={Components.Dashboard}>
                 <IndexRoute  component={Components.List}/>
                 <Route path="new_group" component={Components.NewGroupForm}/>
-                <Route path="group" component={Components.GroupForm}/>
+                <Route path="group/:id" component={Components.GroupForm}/>
                 <Route path="chat" component={Components.ChatForm}/>
             </Route>
             <Route path="/admin" component={Components.AdminDashboard}>

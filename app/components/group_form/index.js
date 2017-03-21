@@ -1,14 +1,13 @@
-import { createNewGroup } from '../../actions'
 import ActionForm from './form'
 import { connect } from 'react-redux'
 
 
-export default connect((state)=>{
-    return {
-    }
+export default connect((state, ownProps)=>{
+	return {
+		group: state.challenges.filter(g => g.title === ownProps.routeParams.id).shift()
+	}
 }, (dispatch)=>{
-    return {
-        createNewGroup: ({ title, hobbies, nearby }) => dispatch(createNewGroup(title, {hobbies: hobbies, nearby: nearby}))
-    }
+	return {
+	}
 })(ActionForm)
 
