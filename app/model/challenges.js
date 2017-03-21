@@ -5,7 +5,7 @@ export function createGroupChallenge(title, definition, profiles) {
 		type: 'GROUP',
 		title: title,
 		definition: definition,
-		invitations: participantCollectionFrom(profiles)
+		participants: participantCollectionFrom(profiles)
 	}
 }
 
