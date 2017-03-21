@@ -21,6 +21,8 @@ export default function(){
 		.then((runtime)=>{
 			return runtime.requireHyperty(notificationsReporterHyperty(domain))
 				.then(nh=>hyperties.Notifications = nh.instance)
+				.then(()=>runtime.requireHyperty(notificationsObserverHyperty(domain)))
+				.then(nh=>hyperties.NotificationsObs = nh.instance)
 				.then(()=>runtime.requireHyperty(discoveryHyperty(domain)))
 				.then(dh=>hyperties.Discovery = dh.instance)
 				.then(()=>hyperties)
