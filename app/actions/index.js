@@ -13,7 +13,8 @@ export function addNewGroup(title, definition) {
 
 		return getHyperties()
 			.then(hyperties => {
-				const users = hyperties.Discovery.queryUsers(definition)
+				const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
+				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
 				hyperties.Notifications.send(users, groupInvitation(title))
 
 				return create.newGroupAction(createGroupChallenge(title, definition, users))
