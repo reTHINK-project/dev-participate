@@ -1,11 +1,7 @@
-export function newGroupAction(title, definition, participants) {
+export function newGroupAction(challenge) {
 	return {
 		type: 'ADD_NEW_GROUP',
-		data: {
-			title: title,
-			definition: definition,
-			invitations: participants
-		}
+		data: challenge
 	}
 }
 

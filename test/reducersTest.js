@@ -5,12 +5,15 @@ import reducer from '../app/reducers'
 describe('participate reducers', () => {
 	describe('addNewGroup', () => {
 		it('should add a new group', ()=> {
-			const title = 'test'
-			const definition = {}
-			const participants = []
+			const challenge = {
+				type: 'GROUP',
+				title: 'test',
+				definition: [],
+				invitations: []
+			}
 			const initialState = {challenges: []}
-			const finalState = {challenges: [{title:title, definition: definition, invitations: []}]}
-			const action = create.newGroupAction(title, definition, participants)
+			const finalState = {challenges: [challenge]}
+			const action = create.newGroupAction(challenge)
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
 	})

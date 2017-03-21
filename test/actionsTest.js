@@ -48,6 +48,7 @@ describe('participate actions', ()=> {
 
 		it('should create the group', (done)=>{
 			const expected_group = {
+				type: 'GROUP',
 				title: title,
 				definition: definition,
 				invitations: [{ profile: profile, accepted: false }]
