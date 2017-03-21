@@ -5,7 +5,7 @@ import NewChallengeButton from './new_challenge_button'
 let ChallengeList = ({challenges}) => {
     let challengeComponents = challenges.map((challenge) => {
         //TODO: right component
-        return <Challenges.Group title={challenge.title} />
+        return <Challenges.Group {...challenge} />
     })
 
     return (
