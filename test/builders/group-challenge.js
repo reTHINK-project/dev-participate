@@ -1,5 +1,13 @@
 function create(value) {
 	return {
+		addInvitation: (profile) => {
+			return create(Object.assign(value, {invitations: value.invitations.concat({profile: profile, accepted: false})}))
+		},
+
+		withDefinition: (definition) => {
+			return create(Object.assign(value, {definition: definition}))
+		},
+
 		create: () => {
 			return value
 		}
@@ -7,5 +15,5 @@ function create(value) {
 }
 
 export default function(title){
-	return create({title:title, type: 'GROUP_INVITATION'})
+	return create({title:title, type: 'GROUP', invitations: []})
 }
