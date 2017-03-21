@@ -19,13 +19,14 @@ const ActionForm = React.createClass({
 						<label for="actionTitle">Title</label>
 						<input type="text" className="form-control" id="actionTitle" name="title" placeholder="Name" onChange={this.handleInputChange} />
 					</div>
+                    <h4>Filters</h4>
 					<div className="form-group">
-						<label for="actionQueryHobbies">Hobbies</label>
-						<textarea className="form-control" id="actionQueryHobbies" name="hobbies" placeholder="Hobbies" onChange={this.handleInputChange} />
+						<label for="actionQueryHobbies">User names separated by commas</label>
+						<textarea className="form-control" id="actionQueryUsername" name="usernames" placeholder="User names" onChange={this.handleInputChange} />
 					</div>
 					<div className="form-group">
-						<label for="actionQueryNearby">Nearby</label>
-						<input type="checkbox" className="form-control" id="actionQueryNearby" name="nearby" onChange={this.handleInputChange} />
+						<label for="actionQueryNearby">Locale</label>
+						<input type="text" className="form-control" id="actionQueryLocale" name="locale" onChange={this.handleInputChange} />
 					</div>
 					<Link to='/' className="btn btn-default" onClick={()=>this.props.createNewGroup(this.state)}>Next</Link>
 				</form>

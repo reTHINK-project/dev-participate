@@ -4,7 +4,7 @@ import { createChallengeFrom, createGroupChallenge } from '../model/challenges'
 import { groupInvitation } from '../model/messages'
 
 export function initSubscriptions(dispatch, hyperties) {
-	hyperties.NotificationsObs.onNotification((msg) => console.error('kl', msg)) // dispatch(showNewChallenge(msg)))
+	hyperties.NotificationsObs.onNotification((msg) => console.error('kl', msg)) // dispatch(showNewChallenge(msg))) or processAnswer
 	hyperties.Discovery.onUserListChanged(() => console.error('onuserlistchanged'))
 }
 

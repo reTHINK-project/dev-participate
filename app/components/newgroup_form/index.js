@@ -8,7 +8,7 @@ export default connect((state)=>{
 	}
 }, (dispatch)=>{
 	return {
-		createNewGroup: ({ title, hobbies, nearby }) => dispatch(addNewGroup(title, {hobbies: hobbies, nearby: nearby}))
+		createNewGroup: ({ title, usernames, locale }) => dispatch(addNewGroup(title, {usernames: usernames, locale: locale}))
 	}
 })(ActionForm)
 
