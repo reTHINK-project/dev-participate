@@ -15,11 +15,18 @@ const notificationsHy = {
 const discoveryHy = {
 	queryUsers: sinon.stub()
 }
+const groupChatHy = {
+	create: sinon.stub()
+}
+const notificationObsHy = {
+}
 const hyperties = function() {
 	return new Promise(resolve => {
 		resolve({
 			Notifications: notificationsHy,
-			Discovery: discoveryHy
+			Discovery: discoveryHy,
+			GroupChat: groupChatHy,
+			NotificationsObs: notificationObsHy
 		})
 	})
 }
@@ -101,7 +108,18 @@ describe('participate actions', ()=> {
 					expect(store.getActions()[0].data).to.be.eql(expected_chat)
 				})
 		})
-		it('should notify all participants about the new chat')
+
+		it('should notify all participants about the new chat', () => {
+			const title = 'ChatTest'
+			const participants = [{id:'test'}]
+
+			groupChatHy.create.withArgs(title, participants).resolves({})
+
+			return store.dispatch(actions.openChat(title, participants))
+				.then(()=>{
+					expect(groupChatHy.create.calledWith(title, participants)).to.be.true
+				})
+		})
 	})
 
 	describe('showReceivedMessage', ()=> {

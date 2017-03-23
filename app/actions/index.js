@@ -33,6 +33,8 @@ export function openChat(title, participants) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
+				return hyperties.GroupChat.create(title, participants)
+			}).then(chat => {
 				return newChallengeAction(challenges.createOpenChatChallenge(title))
 			}).then(action=>dispatch(action))
 	}
