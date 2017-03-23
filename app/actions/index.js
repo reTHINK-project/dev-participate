@@ -28,6 +28,14 @@ export function showNewChallenge(data) {
 
 	return newChallengeAction(challenge)
 }
+
+export function openChat(title, participants) {
+	return function(dispatch) {
+		return getHyperties()
+			.then(hyperties => {
+				return newChallengeAction(challenges.createOpenChatChallenge(title))
+			}).then(action=>dispatch(action))
+	}
 }
 
 export function logUserIn(user, password) {

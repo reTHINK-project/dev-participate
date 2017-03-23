@@ -9,6 +9,13 @@ export function createGroupChallenge(title, definition, profiles) {
 	}
 }
 
+export function createOpenChatChallenge(title) {
+	return {
+		type: 'CHAT',
+		title: title
+	}
+}
+
 export function createChallengeFrom(data) {
 	return {
 		type: 'GROUP_INVITATION',
