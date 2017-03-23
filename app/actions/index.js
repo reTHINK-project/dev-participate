@@ -1,6 +1,6 @@
-import * as create from './creators'
+import * as challenges from '../model/challenges'
+import { newChallengeAction } from './creators'
 import getHyperties from '../rethink'
-import { createChallengeFrom, createGroupChallenge } from '../model/challenges'
 import { groupInvitation } from '../model/messages'
 
 export function initSubscriptions(dispatch, hyperties) {
@@ -17,16 +17,17 @@ export function addNewGroup(title, definition) {
 				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
 				hyperties.Notifications.send(users, groupInvitation(title))
 
-				return create.newGroupAction(createGroupChallenge(title, definition, users))
+				return newChallengeAction(challenges.createGroupChallenge(title, definition, users))
 			}).then((action)=>dispatch(action))
 
 	}
 }
 
 export function showNewChallenge(data) {
-	const challenge = createChallengeFrom(data)
+	const challenge = challenges.createChallengeFrom(data)
 
-	return create.newChallengeAction(challenge)
+	return newChallengeAction(challenge)
+}
 }
 
 export function logUserIn(user, password) {
