@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Components from './components'
 import participateApp from './reducers'
+import logger from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
@@ -9,7 +10,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import initRethink from './rethink'
 import { initSubscriptions } from './actions'
 
-let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware))
+let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware, logger))
 initRethink().then(hyperties=>initSubscriptions(store.dispatch, hyperties))
 
 ReactDOM.render(

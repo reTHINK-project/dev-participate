@@ -21,7 +21,7 @@ export const Group = ({title, participants, definition}) => {
 	)
 }
 
-export const GroupInvitation = ({challenge, onReject}) => {
+export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 	return (
 			<div>
 				<div className="row">
@@ -38,7 +38,7 @@ export const GroupInvitation = ({challenge, onReject}) => {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<button>ACCEPT</button>
+						<button onClick={()=>onAccept(challenge)}>ACCEPT</button>
 						<button onClick={()=>onReject(challenge)}>REJECT</button>
 					</div>
 				</div>

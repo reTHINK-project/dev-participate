@@ -11,3 +11,14 @@ export function removeChallengeAction(challenge) {
 		data: challenge
 	}
 }
+
+export function updateParticipantStatusAction(title, username, accepted) {
+	return {
+		type: 'UPDATE_PARTICIPANTS_STATUS',
+		data: {
+			title: title,
+			username: username,
+			accepted: accepted
+		}
+	}
+}

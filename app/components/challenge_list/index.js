@@ -8,6 +8,7 @@ export default connect((state)=>{
 	}
 }, (dispatch)=>{
 	return {
-		rejectChallenge: (challenge) => dispatch(answerChallenge(challenge))
+		acceptChallenge: (challenge) => dispatch(answerChallenge(challenge, true)),
+		rejectChallenge: (challenge) => dispatch(answerChallenge(challenge, false))
 	}
 })(ChallengeList)

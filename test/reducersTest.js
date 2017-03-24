@@ -22,4 +22,26 @@ describe('participate reducers', () => {
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
 	})
+
+	describe('updateParticipantStatusAction', () => {
+		it('should update the participant status', ()=>{
+			const title = 'title'
+			const username = 'test'
+			const challenge = (accepted) => {
+				return {
+					title: title,
+					participants: [{
+						profile: {
+							username: username
+						},
+						accepted: accepted
+					}]
+				}
+			}
+			const initialState = {challenges: [challenge(false)]}
+			const finalState = {challenges: [challenge(true)]}
+			const action = create.updateParticipantStatusAction(title, username, true)
+			expect(reducer(initialState, action)).to.be.eql(finalState)
+		})
+	})
 })

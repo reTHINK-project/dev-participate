@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import sinon from 'sinon'
-import { groupInvitation } from '../app/model/messages'
+import { groupInvitation, challengeResponse } from '../app/model/messages'
 import * as actions from '../app/actions'
 import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 import GroupChallenge from './builders/group-challenge'
@@ -108,7 +108,23 @@ describe('participate actions', ()=> {
 		})
 	})
 
-	describe('processAnswer', () => {
+	describe('processGroupChallengeResponse', () => {
+		it('should update the membership status', () => {
+			const title = 'test'
+			const profile = {username: 'user'}
+			const challenge = GroupInvitationChallenge(title).withFrom(profile).create()
+			const response_msg = challengeResponse(challenge, true)
+			response_msg.from = profile
+
+			const expected_status = {
+				title: title,
+				username: profile.username,
+				accepted: true
+			}
+			store.dispatch(actions.processGroupChallengeResponse(response_msg))
+
+			expect(store.getActions()[0].data).to.be.eql(expected_status)
+		})
 	})
 
 	describe('openChat', () => {

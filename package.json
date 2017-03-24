@@ -20,6 +20,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
     "redux": "^3.5.2",
+    "redux-logger": "3.0.0",
     "redux-thunk": "^2.0.1",
     "rewire": "2.5.2",
     "urijs": "^1.17.1"
@@ -58,7 +59,13 @@
     "watchify": "^3.7.0"
   },
   "babel": {
-    "presets": ["react", "es2015"],
-    "plugins": ["transform-object-rest-spread", "babel-plugin-rewire"]
+    "presets": [
+      "react",
+      "es2015"
+    ],
+    "plugins": [
+      "transform-object-rest-spread",
+      "babel-plugin-rewire"
+    ]
   }
 }
