@@ -1,11 +1,11 @@
 import * as challenges from '../model/challenges'
-import { newChallengeAction } from './creators'
+import { newChallengeAction, removeChallengeAction } from './creators'
 import getHyperties from '../rethink'
-import { groupInvitation } from '../model/messages'
+import { groupInvitation, challlengeResponse } from '../model/messages'
 
 export function initSubscriptions(dispatch, hyperties) {
-	hyperties.NotificationsObs.onNotification((msg) => console.error('kl', msg)) // dispatch(showNewChallenge(msg))) or processAnswer
-	hyperties.Discovery.onUserListChanged(() => console.error('onuserlistchanged'))
+	hyperties.NotificationsObs.onNotification((msg) => dispatch(showNewChallenge(msg))) //or processAnswer
+	hyperties.Discovery.onUserListChanged(() => {})
 }
 
 export function addNewGroup(title, definition) {
@@ -27,6 +27,16 @@ export function showNewChallenge(data) {
 	const challenge = challenges.createChallengeFrom(data)
 
 	return newChallengeAction(challenge)
+}
+
+export function answerChallenge(challenge, accepted) {
+	return function(dispatch) {
+		return getHyperties()
+			.then(hyperties => {
+				hyperties.Notifications.send([challenge.from], challlengeResponse(challenge, accepted))
+				return removeChallengeAction(challenge)
+			}).then((action)=>dispatch(action))
+	}
 }
 
 export function openChat(title, participants) {

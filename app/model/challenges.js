@@ -17,8 +17,12 @@ export function createOpenChatChallenge(title) {
 }
 
 export function createChallengeFrom(data) {
-	return {
-		type: 'GROUP_INVITATION',
-		title: data.data.title
+	switch(data.type) {
+		case 'GROUP_INVITATION':
+			return Object.assign({
+				type: 'GROUP_INVITATION'
+			}, data.data, {from: data.from})
+		default:
+			return data
 	}
 }

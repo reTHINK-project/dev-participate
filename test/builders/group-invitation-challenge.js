@@ -1,5 +1,9 @@
 function create(value) {
 	return {
+		withFrom: (from) => {
+			return create(Object.assign(value, {from: from}))
+		},
+
 		create: () => {
 			return value
 		}

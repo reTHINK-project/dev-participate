@@ -6,3 +6,12 @@ export function groupInvitation(title) {
 		}
 	}
 }
+
+export function challlengeResponse(challenge, accepted) {
+	return {
+		type: 'CHALLENGE_RESPONSE',
+		data: {
+			accepted: accepted
+		}
+	}
+}

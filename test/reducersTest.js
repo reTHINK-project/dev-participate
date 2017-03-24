@@ -12,4 +12,14 @@ describe('participate reducers', () => {
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
 	})
+
+	describe('removeChallengeAction', () => {
+		it('should remove a challenge', ()=> {
+			const title = 'test'
+			const initialState = {challenges: [{title: title}]}
+			const finalState = {challenges: []}
+			const action = create.removeChallengeAction({title: title})
+			expect(reducer(initialState, action)).to.be.eql(finalState)
+		})
+	})
 })

@@ -4,3 +4,10 @@ export function newChallengeAction(challenge) {
 		data: challenge
 	}
 }
+
+export function removeChallengeAction(challenge) {
+	return {
+		type: 'REMOVE_CHALLENGE',
+		data: challenge
+	}
+}

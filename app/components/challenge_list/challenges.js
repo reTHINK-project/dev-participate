@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import { Link } from 'react-router'
 
-const Group = ({title, participants, definition}) => {
+export const Group = ({title, participants, definition}) => {
 	return (
 			<div>
 				<div className="row">
@@ -21,10 +21,32 @@ const Group = ({title, participants, definition}) => {
 	)
 }
 
+export const GroupInvitation = ({challenge, onReject}) => {
+	return (
+			<div>
+				<div className="row">
+					<div className="col-xs-6">
+						<p>Group invitation</p>
+					</div>
+					<div className="col-xs-6">
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<h3>{challenge.title}</h3>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<button>ACCEPT</button>
+						<button onClick={()=>onReject(challenge)}>REJECT</button>
+					</div>
+				</div>
+			</div>
+	)
+}
 const Message = ()=>{}
 const VideoCall = ()=>{}
 const VoiceCall = ()=>{}
 const Chat = ()=>{}
 const Survey = ()=>{}
-
-export default { Survey: Survey, Group: Group, VideoCall: VideoCall, Message: Message, VoiceCall: VoiceCall, Chat: Chat }

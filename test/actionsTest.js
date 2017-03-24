@@ -79,7 +79,7 @@ describe('participate actions', ()=> {
 		[{
 			name: 'group',
 			message: groupInvitation('test'),
-			challenge: GroupInvitationChallenge('test').create()
+			challenge: GroupInvitationChallenge('test').withFrom().create()
 		}].forEach((data) => {
 			it(`should create a new ${data.name} challenge`, ()=> {
 				store.dispatch(actions.showNewChallenge(data.message))
@@ -90,8 +90,22 @@ describe('participate actions', ()=> {
 	})
 
 	describe('answerChallenge', () => {
-		it('should change the challenge state')
-		it('should send a response')
+		const challenge = {title: 'test', from: {username: 'test'}}
+
+		it('should remove the challenge', ()=>{
+			return store.dispatch(actions.answerChallenge(challenge))
+				.then(()=>{
+					expect(store.getActions()[0].data).to.be.eql(challenge)
+				})
+		})
+
+		it('should send a response', () =>{
+			const accepted = true
+			return store.dispatch(actions.answerChallenge(challenge, accepted))
+				.then(() => {
+					expect(notificationsHy.send.calledWith([challenge.from])).to.be.true
+				})
+		})
 	})
 
 	describe('processAnswer', () => {

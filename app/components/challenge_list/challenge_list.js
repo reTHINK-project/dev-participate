@@ -1,14 +1,20 @@
 import React from 'react'
-import Challenges from './challenges'
+import * as Challenges from './challenges'
 import NewChallengeButton from './new_challenge_button'
 
-let ChallengeList = ({challenges}) => {
-    let challengeComponents = challenges.map((challenge) => {
-        //TODO: right component
-        return <Challenges.Group {...challenge} />
-    })
+let ChallengeList = ({challenges, rejectChallenge}) => {
+	let challengeComponents = challenges.map((challenge) => {
+		switch (challenge.type){
+		case 'GROUP':
+			return <Challenges.Group {...challenge} />
+		case 'GROUP_INVITATION':
+			return <Challenges.GroupInvitation onReject={rejectChallenge} challenge={challenge}/>
+		default:
+			return <p>Undefined challenge received</p>
+		}
+	})
 
-    return (
+	return (
         <div>
             <ul className="list-group">
                 <li className="list-group-item">
@@ -17,7 +23,7 @@ let ChallengeList = ({challenges}) => {
                 </li>
             </ul>
         </div>
-    )
+	)
 }
 
 export default ChallengeList
