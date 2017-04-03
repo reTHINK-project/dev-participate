@@ -54,23 +54,21 @@ describe('participate actions', ()=> {
 			discoveryHy.queryUsers.withArgs(definition).returns([profile])
 		})
 
-		it('should create the group', (done)=>{
+		it('should create the group', ()=>{
 			const expected_group = GroupChallenge(title)
 				.withDefinition(definition)
 				.addInvitation(profile)
 				.create()
 			return store.dispatch(actions.addNewGroup(title, definition))
 				.then(()=>{
-					expect(store.getActions()[0].data).to.be.eql(expected_group)
-					done()
+					expect(store.getActions()[0].data.isEqual(expected_group)).to.be.true
 				})
 		})
 
-		it('should notify connected user that match the filters', (done) => {
+		it('should notify connected user that match the filters', () => {
 			return store.dispatch(actions.addNewGroup(title, definition))
 				.then(() => {
 					expect(notificationsHy.send.calledWith([profile])).to.be.true
-					done()
 				})
 		})
 	})
@@ -128,8 +126,13 @@ describe('participate actions', ()=> {
 	})
 
 	describe('openChat', () => {
+		const title = 'ChatTest'
+
+		beforeEach(()=>{
+			groupChatHy.create.resolves({name: title})
+		})
+
 		it('should show a new chat challenge', () => {
-			const title = 'ChatTest'
 			const participants = []
 			const expected_chat = ChatChallenge(title)
 				.create()
@@ -140,14 +143,11 @@ describe('participate actions', ()=> {
 		})
 
 		it('should notify all participants about the new chat', () => {
-			const title = 'ChatTest'
-			const participants = [{id:'test'}]
-
-			groupChatHy.create.withArgs(title, participants).resolves({})
+			const participants = [{accepted:true, profile:{username:'test'}}]
 
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{
-					expect(groupChatHy.create.calledWith(title, participants)).to.be.true
+					expect(groupChatHy.create.calledWith(title)).to.be.true
 				})
 		})
 	})

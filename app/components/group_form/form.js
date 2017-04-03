@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const ActionForm = ({group}) => {
-	const participants = group.participants.map(p=>{
+const ActionForm = ({group, openChat}) => {
+	const participants = group.participantsByStatus().map(p=>{
 		return <li className="list-group-item">
 			<div className="row">
 				<div className="col-xs-3">
@@ -19,7 +19,7 @@ const ActionForm = ({group}) => {
 			<div>
 				<div className="row">
 					<div className="btn-groupi col-xs-12 text-right" role="group">
-						<Link to="chat" className="btn btn-default">Chat</Link>
+						<Link to="/" onClick={()=>openChat(group)} className="btn btn-default">Chat</Link>
 						<button type="button" className="btn btn-default">VideoCall</button>
 						<button type="button" className="btn btn-default">VoiceCall</button>
 					</div>

@@ -2,6 +2,7 @@ import * as challenges from '../model/challenges'
 import { newChallengeAction, removeChallengeAction, updateParticipantStatusAction } from './creators'
 import getHyperties from '../rethink'
 import { groupInvitation, challengeResponse } from '../model/messages'
+import { participantCollectionFrom, transformToHypertyParticipant } from '../model/participant'
 
 export function initSubscriptions(dispatch, hyperties) {
 	hyperties.NotificationsObs.onNotification((msg) => {
@@ -12,6 +13,9 @@ export function initSubscriptions(dispatch, hyperties) {
 		}
 	})
 	hyperties.Discovery.onUserListChanged(() => {})
+	hyperties.GroupChat.onInvite((groupChat)=>{
+		dispatch(newChallengeAction(challenges.createOpenChatChallenge(groupChat)))
+	})
 }
 
 export function addNewGroup(title, definition) {
@@ -23,7 +27,7 @@ export function addNewGroup(title, definition) {
 				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
 				hyperties.Notifications.send(users, groupInvitation(title))
 
-				return newChallengeAction(challenges.createGroupChallenge(title, definition, users))
+				return newChallengeAction(challenges.createGroupChallenge(title, definition, participantCollectionFrom(users)))
 			}).then((action)=>dispatch(action))
 
 	}
@@ -53,9 +57,9 @@ export function openChat(title, participants) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
-				return hyperties.GroupChat.create(title, participants)
+				return hyperties.GroupChat.create(title, transformToHypertyParticipant('localhost', participants))
 			}).then(chat => {
-				return newChallengeAction(challenges.createOpenChatChallenge(title))
+				return newChallengeAction(challenges.createOpenChatChallenge(chat))
 			}).then(action=>dispatch(action))
 	}
 }

@@ -45,8 +45,25 @@ export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 			</div>
 	)
 }
+
+export const Chat = ({title}) => {
+	return (
+			<div>
+				<div className="row">
+					<div className="col-xs-6">
+						Chat
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<h3><Link to={'chat/' + title}>{title}</Link></h3>
+					</div>
+				</div>
+			</div>
+	)
+}
+
 const Message = ()=>{}
 const VideoCall = ()=>{}
 const VoiceCall = ()=>{}
-const Chat = ()=>{}
 const Survey = ()=>{}

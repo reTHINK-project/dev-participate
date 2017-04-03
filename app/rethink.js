@@ -3,7 +3,6 @@ let runtimeURL = 'hyperty-catalogue://catalogue.localhost/.well-known/runtime/Ru
 
 const groupChatHyperty = (domain) => `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/GroupChat`
 const locationHyperty = (domain) => `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/Location`
-//const participantsFakeHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/ParticipantsHyperty`
 const notificationsObserverHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/NotificationsObserver`
 const notificationsReporterHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/NotificationsReporter`
 const discoveryHyperty = (domain)=> `hyperty-catalogue://catalogue.${domain}/.well-known/hyperty/Discovery`
@@ -23,6 +22,8 @@ export default function(){
 				.then(nh=>hyperties.Notifications = nh.instance)
 				.then(()=>runtime.requireHyperty(notificationsObserverHyperty(domain)))
 				.then(nh=>hyperties.NotificationsObs = nh.instance)
+				.then(()=>runtime.requireHyperty(groupChatHyperty(domain)))
+				.then(gh=>hyperties.GroupChat = gh.instance)
 				.then(()=>runtime.requireHyperty(discoveryHyperty(domain)))
 				.then(dh=>hyperties.Discovery = dh.instance)
 				.then(()=>hyperties)

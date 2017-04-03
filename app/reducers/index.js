@@ -1,3 +1,5 @@
+import { createGroupChallenge } from '../model/challenges'
+
 const chatApp = (state, action) => {
 	if(action.type === 'ADD_NEW_CHALLENGE') {
 		return { ...state, challenges: state.challenges.concat([action.data])}
@@ -6,13 +8,13 @@ const chatApp = (state, action) => {
 	}else if (action.type === 'UPDATE_PARTICIPANTS_STATUS') {
 		const challenges = state.challenges.map(c =>{
 			if(c.title === action.data.title) {
-				const participants = c.participants.map(p=>{
+				const participants = c.participantsByStatus().map(p=>{
 					if(p.profile.username === action.data.username){
 						return {...p, accepted: action.data.accepted }
 					}
 					return p
 				})
-				return {...c, participants: participants}
+				return createGroupChallenge(c.title, c.definition, participants)
 			}
 			return c
 		})

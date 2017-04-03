@@ -1,28 +1,28 @@
-import { participantCollectionFrom } from '../model/participant'
+export function createGroupChallenge(title, definition, participants) {
 
-export function createGroupChallenge(title, definition, profiles) {
 	return {
 		type: 'GROUP',
 		title: title,
 		definition: definition,
-		participants: participantCollectionFrom(profiles)
+		participantsByStatus: (status) => !status?participants:participants.filter(p=>p.accepted === status),
+		isEqual: (group) => group.definition === definition && group.title === title
 	}
 }
 
-export function createOpenChatChallenge(title) {
+export function createOpenChatChallenge(chat) {
 	return {
 		type: 'CHAT',
-		title: title
+		title: chat.name
 	}
 }
 
 export function createChallengeFrom(data) {
 	switch(data.type) {
-		case 'GROUP_INVITATION':
-			return Object.assign({
-				type: 'GROUP_INVITATION'
-			}, data.data, {from: data.from})
-		default:
-			return data
+	case 'GROUP_INVITATION':
+		return Object.assign({
+			type: 'GROUP_INVITATION'
+		}, data.data, {from: data.from})
+	default:
+		return data
 	}
 }

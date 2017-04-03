@@ -20,11 +20,11 @@ ReactDOM.render(
                 <IndexRoute  component={Components.List}/>
                 <Route path="new_group" component={Components.NewGroupForm}/>
                 <Route path="group/:id" component={Components.GroupForm}/>
-                <Route path="chat" component={Components.ChatForm}/>
+                <Route path="chat/:id" component={Components.ChatForm}/>
             </Route>
             <Route path="/admin" component={Components.AdminDashboard}>
                 <IndexRoute  component={Components.AdminGroupList}/>
-                <Route path="chat" component={Components.ChatForm}/>
+                <Route path="chat/:id" component={Components.ChatForm}/>
                 <Route path="admin_group" component={Components.AdminGroup}/>
                 <Route path="admin_newgroup" component={Components.AdminNewGroup}/>
             </Route>
