@@ -8,6 +8,7 @@ import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 import GroupChallenge from './builders/group-challenge'
 import GroupInvitationChallenge from './builders/group-invitation-challenge'
 import ChatChallenge from './builders/chat-challenge'
+import ParticipantCollection from './builders/participant'
 
 const notificationsHy = {
 	send: sinon.spy()
@@ -133,7 +134,7 @@ describe('participate actions', ()=> {
 		})
 
 		it('should show a new chat challenge', () => {
-			const participants = []
+			const participants = ParticipantCollection().create()
 			const expected_chat = ChatChallenge(title)
 				.create()
 			return store.dispatch(actions.openChat(title, participants))
@@ -143,7 +144,9 @@ describe('participate actions', ()=> {
 		})
 
 		it('should notify all participants about the new chat', () => {
-			const participants = [{accepted:true, profile:{username:'test'}}]
+			const participants = ParticipantCollection()
+				.withParticipant([{accepted:true, profile:{username:'test'}}])
+				.create()
 
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{
