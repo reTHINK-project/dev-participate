@@ -30,7 +30,7 @@ export function answerChallenge(challenge, accepted) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
-				hyperties.Notifications.send([challenge.from], challengeResponse(challenge, accepted))
+				hyperties.Notifications.send([challenge.from], challengeResponse(challenge.title, accepted))
 				return removeChallengeAction(challenge)
 			}).then((action)=>dispatch(action))
 	}

@@ -111,7 +111,7 @@ describe('participate actions', ()=> {
 			const title = 'test'
 			const profile = {username: 'user'}
 			const challenge = GroupInvitationChallenge(title).withFrom(profile).create()
-			const response_msg = challengeResponse(challenge, true)
+			const response_msg = challengeResponse(title, true)
 			response_msg.from = profile
 
 			const expected_status = {

@@ -7,11 +7,11 @@ export function groupInvitation(title) {
 	}
 }
 
-export function challengeResponse(challenge, accepted) {
+export function challengeResponse(title, accepted) {
 	return {
 		type: 'CHALLENGE_RESPONSE',
 		data: {
-			title: challenge.title,
+			title: title,
 			accepted: accepted
 		}
 	}
