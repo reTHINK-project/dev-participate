@@ -18,20 +18,7 @@ export function initSubscriptions(dispatch, hyperties) {
 	})
 }
 
-export function addNewGroup(title, definition) {
-	return function(dispatch){
-
-		return getHyperties()
-			.then(hyperties => {
-				const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
-				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
-				hyperties.Notifications.send(users, groupInvitation(title))
-
-				return newChallengeAction(challenges.createGroupChallenge(title, definition, participantCollectionFrom(users)))
-			}).then((action)=>dispatch(action))
-
-	}
-}
+//challenges
 
 export function showNewChallenge(data) {
 	const challenge = challenges.createChallengeFrom(data)
@@ -49,9 +36,29 @@ export function answerChallenge(challenge, accepted) {
 	}
 }
 
+// group challenge
+
+export function addNewGroup(title, definition) {
+	return function(dispatch){
+
+		return getHyperties()
+			.then(hyperties => {
+				const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
+				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
+				hyperties.Notifications.send(users, groupInvitation(title))
+
+				return newChallengeAction(challenges.createGroupChallenge(title, definition, participantCollectionFrom(users)))
+			}).then((action)=>dispatch(action))
+
+	}
+}
+
+
 export function processGroupChallengeResponse(msg) {
 	return updateParticipantStatusAction(msg.data.title, msg.from.username, msg.data.accepted)
 }
+
+// chat challenge
 
 export function openChat(title, participants) {
 	return function(dispatch) {
@@ -63,6 +70,8 @@ export function openChat(title, participants) {
 			}).then(action=>dispatch(action))
 	}
 }
+
+// user
 
 export function logUserIn(user, password) {
 	return {
