@@ -7,7 +7,6 @@ import * as actions from '../app/actions'
 import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 import GroupChallenge from './builders/group-challenge'
 import GroupInvitationChallenge from './builders/group-invitation-challenge'
-import ChatChallenge from './builders/chat-challenge'
 import ParticipantCollection from './builders/participant'
 
 const notificationsHy = {
@@ -111,7 +110,6 @@ describe('participate actions', ()=> {
 		it('should update the membership status', () => {
 			const title = 'test'
 			const profile = {username: 'user'}
-			const challenge = GroupInvitationChallenge(title).withFrom(profile).create()
 			const response_msg = challengeResponse(title, true)
 			response_msg.from = profile
 
@@ -135,11 +133,9 @@ describe('participate actions', ()=> {
 
 		it('should show a new chat challenge', () => {
 			const participants = ParticipantCollection().create()
-			const expected_chat = ChatChallenge(title)
-				.create()
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{
-					expect(store.getActions()[0].data).to.be.eql(expected_chat)
+					expect(store.getActions()[0].data.title).to.be.eql(title)
 				})
 		})
 
@@ -159,6 +155,18 @@ describe('participate actions', ()=> {
 	})
 
 	describe('sendMessage', () => {
+		it('should send the message', () => {
+			const chat = {
+				sendMessage: sinon.stub()
+			}
+			const message = {}
+
+			chat.sendMessage.resolves({})
+			return store.dispatch(actions.sendMessage(chat, message))
+				.then(()=>{
+					expect(chat.sendMessage.calledWith(message)).to.be.true
+				})
+		})
 	})
 
 	describe('checkIfAnyNewUserMatchFilters', ()=> {

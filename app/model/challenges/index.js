@@ -1,3 +1,7 @@
+import createChatChallenge from './chatChallenge'
+
+export { createChatChallenge }
+
 export function createGroupChallenge(title, definition, participants) {
 
 	return {
@@ -9,12 +13,7 @@ export function createGroupChallenge(title, definition, participants) {
 	}
 }
 
-export function createOpenChatChallenge(chat) {
-	return {
-		type: 'CHAT',
-		title: chat.name
-	}
-}
+
 
 export function createChallengeFrom(data) {
 	switch(data.type) {

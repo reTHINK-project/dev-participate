@@ -22,3 +22,10 @@ export function updateParticipantStatusAction(title, username, accepted) {
 		}
 	}
 }
+
+export function sendMessageAction(message) {
+	return {
+		type: 'SEND_MESSAGE',
+		data: message
+	}
+}

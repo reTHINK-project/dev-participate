@@ -1,5 +1,5 @@
 import * as challenges from '../model/challenges'
-import { newChallengeAction, removeChallengeAction, updateParticipantStatusAction } from './creators'
+import * as actions from './creators'
 import getHyperties from '../rethink'
 import { groupInvitation, challengeResponse } from '../model/messages'
 import * as ParticipantCollection from '../model/participantCollection'
@@ -15,7 +15,7 @@ export function initSubscriptions(dispatch, hyperties) {
 	})
 	hyperties.Discovery.onUserListChanged(() => {})
 	hyperties.GroupChat.onInvite((groupChat)=>{
-		dispatch(newChallengeAction(challenges.createOpenChatChallenge(groupChat)))
+		dispatch(actions.newChallengeAction(challenges.createChatChallenge(groupChat)))
 	})
 }
 
@@ -24,7 +24,7 @@ export function initSubscriptions(dispatch, hyperties) {
 export function showNewChallenge(data) {
 	const challenge = challenges.createChallengeFrom(data)
 
-	return newChallengeAction(challenge)
+	return actions.newChallengeAction(challenge)
 }
 
 export function answerChallenge(challenge, accepted) {
@@ -32,7 +32,7 @@ export function answerChallenge(challenge, accepted) {
 		return getHyperties()
 			.then(hyperties => {
 				hyperties.Notifications.send([challenge.from], challengeResponse(challenge.title, accepted))
-				return removeChallengeAction(challenge)
+				return actions.removeChallengeAction(challenge)
 			}).then((action)=>dispatch(action))
 	}
 }
@@ -48,7 +48,7 @@ export function addNewGroup(title, definition) {
 				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
 				hyperties.Notifications.send(users, groupInvitation(title))
 
-				return newChallengeAction(challenges.createGroupChallenge(
+				return actions.newChallengeAction(challenges.createGroupChallenge(
 					title, definition, ParticipantCollection.createFrom(users)))
 			}).then((action)=>dispatch(action))
 
@@ -57,7 +57,7 @@ export function addNewGroup(title, definition) {
 
 
 export function processGroupChallengeResponse(msg) {
-	return updateParticipantStatusAction(msg.data.title, msg.from.username, msg.data.accepted)
+	return actions.updateParticipantStatusAction(msg.data.title, msg.from.username, msg.data.accepted)
 }
 
 // chat challenge
@@ -68,8 +68,15 @@ export function openChat(title, participants) {
 			.then(hyperties => {
 				return hyperties.GroupChat.create(title, participants.toHypertyParticipant(config.domain))
 			}).then(chat => {
-				return newChallengeAction(challenges.createOpenChatChallenge(chat))
+				return actions.newChallengeAction(challenges.createChatChallenge(chat))
 			}).then(action=>dispatch(action))
+	}
+}
+
+export function sendMessage(chat, message) {
+	return function(dispatch) {
+		return chat.sendMessage(message)
+			.then(message=>dispatch(actions.sendMessageAction(message)))
 	}
 }
 
