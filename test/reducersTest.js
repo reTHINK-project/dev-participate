@@ -1,6 +1,8 @@
 import { expect } from 'chai'
 import * as create from '../app/actions/creators.js'
 import reducer from '../app/reducers'
+import { createGroupChallenge } from '../app/model/challenges'
+import * as ParticipantCollection from '../app/model/participantCollection'
 
 describe('participate reducers', () => {
 	describe('addNewChallenge', () => {
@@ -27,18 +29,20 @@ describe('participate reducers', () => {
 		it('should update the participant status', ()=>{
 			const title = 'title'
 			const username = 'test'
-			const challenge = {
-				title: title,
-				participantsByStatus: () => [{
-					profile: {
-						username: username
-					},
-					accepted: false
-				}]
-			}
+			const participants = ParticipantCollection.create([{
+				profile: {
+					username: username
+				},
+				accepted: false
+			}])
+			const challenge = createGroupChallenge(title, {}, participants)
 			const initialState = {challenges: [challenge]}
+
 			const action = create.updateParticipantStatusAction(title, username, true)
-			const res = reducer(initialState, action).challenges[0].participantsByStatus()[0]
+
+			const res = reducer(initialState, action)
+				.challenges[0].participantsByStatus().toArray()[0]
+
 			expect(res.accepted).to.be.true
 		})
 	})

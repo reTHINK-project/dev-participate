@@ -2,7 +2,7 @@ import * as challenges from '../model/challenges'
 import { newChallengeAction, removeChallengeAction, updateParticipantStatusAction } from './creators'
 import getHyperties from '../rethink'
 import { groupInvitation, challengeResponse } from '../model/messages'
-import { createParticipantCollFrom } from '../model/participant'
+import * as ParticipantCollection from '../model/participantCollection'
 
 export function initSubscriptions(dispatch, hyperties) {
 	hyperties.NotificationsObs.onNotification((msg) => {
@@ -47,7 +47,8 @@ export function addNewGroup(title, definition) {
 				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
 				hyperties.Notifications.send(users, groupInvitation(title))
 
-				return newChallengeAction(challenges.createGroupChallenge(title, definition, createParticipantCollFrom(users)))
+				return newChallengeAction(challenges.createGroupChallenge(
+					title, definition, ParticipantCollection.createFrom(users)))
 			}).then((action)=>dispatch(action))
 
 	}

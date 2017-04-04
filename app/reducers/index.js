@@ -8,12 +8,7 @@ const chatApp = (state, action) => {
 	}else if (action.type === 'UPDATE_PARTICIPANTS_STATUS') {
 		const challenges = state.challenges.map(c =>{
 			if(c.title === action.data.title) {
-				const participants = c.participantsByStatus().map(p=>{
-					if(p.profile.username === action.data.username){
-						return {...p, accepted: action.data.accepted }
-					}
-					return p
-				})
+				const participants = c.participantsByStatus().updateParticipant(action.data, action.data.accepted)
 				return createGroupChallenge(c.title, c.definition, participants)
 			}
 			return c

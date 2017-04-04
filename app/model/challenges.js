@@ -4,7 +4,8 @@ export function createGroupChallenge(title, definition, participants) {
 		type: 'GROUP',
 		title: title,
 		definition: definition,
-		participantsByStatus: (status) => !status?participants:participants.filter(p=>p.accepted === status),
+		participantsByStatus: (status) => !status?
+			participants:participants.filterByStatus(status),
 		isEqual: (group) => group.definition === definition && group.title === title
 	}
 }
