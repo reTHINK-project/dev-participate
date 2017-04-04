@@ -41,7 +41,7 @@ describe('participate reducers', () => {
 			const action = create.updateParticipantStatusAction(title, username, true)
 
 			const res = reducer(initialState, action)
-				.challenges[0].participantsByStatus().toArray()[0]
+				.challenges[0].participants.toArray()[0]
 
 			expect(res.accepted).to.be.true
 		})

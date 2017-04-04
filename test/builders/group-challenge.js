@@ -18,7 +18,6 @@ export default function(title){
 	return create({
 		type: 'GROUP',
 		title:title,
-		participants: [],
-		participantsByStatus: () =>{}
+		participants: []
 	})
 }

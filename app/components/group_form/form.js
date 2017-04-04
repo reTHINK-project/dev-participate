@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 
 const ActionForm = ({group, openChat}) => {
-	const participants = group.participantsByStatus().toArray().map(p=>{
+	const participants = group.participants.toArray().map(p=>{
 		return <li className="list-group-item">
 			<div className="row">
 				<div className="col-xs-3">

@@ -11,7 +11,7 @@ export default connect((state, ownProps)=>{
 }, (dispatch)=>{
 	return {
 		openChat: (challenge) => dispatch(
-			openChat(challenge.title, challenge.participantsByStatus(participant.status.confirmed))
+			openChat(challenge.title, challenge.participants.filterByStatus(participant.status.confirmed))
 		)
 	}
 })(ActionForm)
