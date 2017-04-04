@@ -3,6 +3,7 @@ import { newChallengeAction, removeChallengeAction, updateParticipantStatusActio
 import getHyperties from '../rethink'
 import { groupInvitation, challengeResponse } from '../model/messages'
 import * as ParticipantCollection from '../model/participantCollection'
+import config from '../config'
 
 export function initSubscriptions(dispatch, hyperties) {
 	hyperties.NotificationsObs.onNotification((msg) => {
@@ -65,7 +66,7 @@ export function openChat(title, participants) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
-				return hyperties.GroupChat.create(title, participants.toHypertyParticipant('localhost'))
+				return hyperties.GroupChat.create(title, participants.toHypertyParticipant(config.domain))
 			}).then(chat => {
 				return newChallengeAction(challenges.createOpenChatChallenge(chat))
 			}).then(action=>dispatch(action))
