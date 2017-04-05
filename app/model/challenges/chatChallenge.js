@@ -3,7 +3,7 @@ import * as ChatMessage from '../chatMessage'
 function sendMessage(adapter, title, messages, message) {
 	return adapter.sendMessage(message)
 		.then(message => {
-			create(adapter,
+			return create(adapter,
 				title,
 				messages.concat(ChatMessage.createFrom(message)))
 		})

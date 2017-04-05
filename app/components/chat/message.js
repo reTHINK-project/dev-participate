@@ -1,19 +1,19 @@
 import React, { PropTypes } from 'react'
 
-const Message = ({content, time, elapsedMinutes, isMe, identity}) => {
+const Message = ({content, time, isMe, from}) => {
     return(
             <li className={(isMe?"right":"left")+ "clearfix"}>
                 <span className={"chat-img pull-"+(isMe?"right":"left")}>
-                    <img src={identity.avatar} alt="User Avatar" className="img-circle avatar"/>
+                    <img src={from.avatar} alt="User Avatar" className="img-circle avatar"/>
                 </span>
                 <div className="chat-body clearfix">
                     <div className={(isMe?"":"pull-right")+" header"}>
                         <strong className="primary-font">
-                            {identity.username + "  "}
-                        </strong> 
+                            {from.username + "  "}
+                        </strong>
                         <small className="text-muted">
-                            <span className="glyphicon glyphicon-time"></span>
-                            {elapsedMinutes} mins ago
+                            <span className="glyphicon glyphicon-time"/>
+                            {time}
                         </small>
                     </div>
                     <p>
@@ -27,8 +27,7 @@ const Message = ({content, time, elapsedMinutes, isMe, identity}) => {
 Message.propTypes = {
     content: PropTypes.string.isRequired,
     time: PropTypes.number.isRequired,
-    elapsedMinutes: PropTypes.number.isRequired,
     isMe: PropTypes.bool.isRequired,
-    identity: PropTypes.object.isRequired
+    from: PropTypes.object.isRequired
 }
 export default Message

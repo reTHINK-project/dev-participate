@@ -76,7 +76,7 @@ export function openChat(title, participants) {
 export function sendMessage(chat, message) {
 	return function(dispatch) {
 		return chat.sendMessage(message)
-			.then(message=>dispatch(actions.sendMessageAction(message)))
+			.then(chat=>dispatch(actions.updateChallenge(chat)))
 	}
 }
 

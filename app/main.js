@@ -24,7 +24,7 @@ ReactDOM.render(
             </Route>
             <Route path="/admin" component={Components.AdminDashboard}>
                 <IndexRoute  component={Components.AdminGroupList}/>
-                <Route path="chat/:id" component={Components.ChatForm}/>
+                <Route path="chat" component={Components.ChatForm}/>
                 <Route path="admin_group" component={Components.AdminGroup}/>
                 <Route path="admin_newgroup" component={Components.AdminNewGroup}/>
             </Route>

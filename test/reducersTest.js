@@ -1,7 +1,8 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 import * as create from '../app/actions/creators.js'
 import reducer from '../app/reducers'
-import { createGroupChallenge } from '../app/model/challenges'
+import { createGroupChallenge, createChatChallenge } from '../app/model/challenges'
 import * as ParticipantCollection from '../app/model/participantCollection'
 
 describe('participate reducers', () => {
@@ -44,6 +45,25 @@ describe('participate reducers', () => {
 				.challenges[0].participants.toArray()[0]
 
 			expect(res.accepted).to.be.true
+		})
+	})
+
+	describe('sendMessage', () => {
+		it('should update the challenge', ()=> {
+			const adapter = {
+				name: 'title',
+				sendMessage: sinon.stub()
+			}
+			adapter.sendMessage.resolves({text: '', startingTime: '', identity: {profile: ''}, isMe: false})
+			const challenge = createChatChallenge(adapter)
+			const initialState = {challenges: [challenge]}
+
+			return challenge.sendMessage({})
+				.then(ch => {
+					const action = create.updateChallenge(ch)
+
+					expect(reducer(initialState, action).challenges[0].messages.length).to.be.eql(1)
+				})
 		})
 	})
 })

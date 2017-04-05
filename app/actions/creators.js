@@ -12,6 +12,13 @@ export function removeChallengeAction(challenge) {
 	}
 }
 
+export function updateChallenge(challenge) {
+	return {
+		type: 'UPDATE_CHALLENGE',
+		data: challenge
+	}
+}
+
 export function updateParticipantStatusAction(title, username, accepted) {
 	return {
 		type: 'UPDATE_PARTICIPANTS_STATUS',
@@ -20,12 +27,5 @@ export function updateParticipantStatusAction(title, username, accepted) {
 			username: username,
 			accepted: accepted
 		}
-	}
-}
-
-export function sendMessageAction(message) {
-	return {
-		type: 'SEND_MESSAGE',
-		data: message
 	}
 }
