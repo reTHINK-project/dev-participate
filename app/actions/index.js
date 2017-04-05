@@ -8,7 +8,7 @@ import config from '../config'
 export function initSubscriptions(dispatch, hyperties) {
 	hyperties.NotificationsObs.onNotification((msg) => {
 		if(msg.type === 'GROUP_INVITATION'){
-			dispatch(showNewChallenge(msg))
+			dispatch(processGroupInvitation(msg))
 		}else if (msg.type === 'CHALLENGE_RESPONSE') {
 			dispatch(processGroupChallengeResponse(msg))
 		}
@@ -21,8 +21,8 @@ export function initSubscriptions(dispatch, hyperties) {
 
 //challenges
 
-export function showNewChallenge(data) {
-	const challenge = challenges.createChallengeFrom(data)
+export function processGroupInvitation(data) {
+	const challenge = challenges.createInvitationChallenge(data)
 
 	return actions.newChallengeAction(challenge)
 }

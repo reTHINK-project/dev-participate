@@ -1,5 +1,9 @@
 import createChatChallenge from './chatChallenge'
 
+function getID() {
+	return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}
+
 export { createChatChallenge }
 
 export function createGroupChallenge(title, definition, participants) {
@@ -13,15 +17,14 @@ export function createGroupChallenge(title, definition, participants) {
 	}
 }
 
+export function createInvitationChallenge(data) {
+	const id = getID()
 
-
-export function createChallengeFrom(data) {
-	switch(data.type) {
-	case 'GROUP_INVITATION':
-		return Object.assign({
-			type: 'GROUP_INVITATION'
-		}, data.data, {from: data.from})
-	default:
-		return data
+	return {
+		_id: id,
+		type: 'GROUP_INVITATION',
+		title: data.data.title,
+		from: data.from,
+		isEqual: (challenge) => challenge._id === id
 	}
 }
