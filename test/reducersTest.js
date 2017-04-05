@@ -27,28 +27,6 @@ describe('participate reducers', () => {
 		})
 	})
 
-	describe('updateParticipantStatusAction', () => {
-		it('should update the participant status', ()=>{
-			const title = 'title'
-			const username = 'test'
-			const participants = ParticipantCollection.create([{
-				profile: {
-					username: username
-				},
-				accepted: false
-			}])
-			const challenge = createGroupChallenge(title, {}, participants)
-			const initialState = {challenges: [challenge]}
-
-			const action = create.updateParticipantStatusAction(title, username, true)
-
-			const res = reducer(initialState, action)
-				.challenges[0].participants.toArray()[0]
-
-			expect(res.accepted).to.be.true
-		})
-	})
-
 	describe('sendMessage', () => {
 		it('should update the challenge', ()=> {
 			const adapter = {

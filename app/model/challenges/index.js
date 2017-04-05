@@ -26,6 +26,7 @@ export function createInvitationChallenge(data) {
 	return {
 		_id: id,
 		type: 'GROUP_INVITATION',
+		challenge_generator: data.data.challenge,
 		title: data.data.title,
 		from: data.from,
 		isEqual: (challenge) => challenge._id === id,

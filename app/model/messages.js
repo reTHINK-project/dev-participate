@@ -1,17 +1,18 @@
-export function groupInvitation(title) {
+export function groupInvitation(challenge) {
 	return {
 		type: 'GROUP_INVITATION',
 		data: {
-			title: title
+			title: challenge.title,
+			challenge: challenge.toString()
 		}
 	}
 }
 
-export function challengeResponse(title, accepted) {
+export function challengeResponse(challenge, accepted) {
 	return {
 		type: 'CHALLENGE_RESPONSE',
 		data: {
-			title: title,
+			challenge: challenge,
 			accepted: accepted
 		}
 	}

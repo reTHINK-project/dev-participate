@@ -6,7 +6,7 @@ function transformToHypertyParticipant(domain, participants) {
 
 function updateParticipant(participants, id, status) {
 	const result = participants.map(p=>{
-		if(p.profile.username === id.username)
+		if(p.profile.username === id)
 			return Object.assign(p, {accepted: status})
 
 		return p

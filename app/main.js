@@ -11,7 +11,7 @@ import initRethink from './rethink'
 import { initSubscriptions } from './actions'
 
 let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware, logger))
-initRethink().then(hyperties=>initSubscriptions(store.dispatch, hyperties))
+initRethink().then(hyperties=>initSubscriptions(store, hyperties))
 
 ReactDOM.render(
     <Provider store={store}>

@@ -4,10 +4,11 @@ import thunk from 'redux-thunk'
 import sinon from 'sinon'
 import { groupInvitation, challengeResponse } from '../app/model/messages'
 import * as actions from '../app/actions'
+import * as Challenges from '../app/model/challenges'
+import * as ParticipantCollection from '../app/model/participantCollection'
 import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 import GroupChallenge from './builders/group-challenge'
 import GroupInvitationChallenge from './builders/group-invitation-challenge'
-import ParticipantCollection from './builders/participant'
 
 const notificationsHy = {
 	send: sinon.spy()
@@ -110,19 +111,15 @@ describe('participate actions', ()=> {
 
 	describe('processGroupChallengeResponse', () => {
 		it('should update the membership status', () => {
-			const title = 'test'
 			const profile = {username: 'user'}
-			const response_msg = challengeResponse(title, true)
+			const challenge = Challenges.createGroupChallenge('test', {}, ParticipantCollection.createFrom([profile]), 'id')
+			const challenges = [ challenge ]
+			const response_msg = challengeResponse(challenges.toString(), true)
 			response_msg.from = profile
 
-			const expected_status = {
-				title: title,
-				username: profile.username,
-				accepted: true
-			}
-			store.dispatch(actions.processGroupChallengeResponse(response_msg))
+			store.dispatch(actions.processGroupChallengeResponse(challenges, response_msg))
 
-			expect(store.getActions()[0].data).to.be.eql(expected_status)
+			expect(store.getActions()[0].data.participants.toArray()[0].accepted).to.be.true
 		})
 	})
 
@@ -134,7 +131,7 @@ describe('participate actions', ()=> {
 		})
 
 		it('should show a new chat challenge', () => {
-			const participants = ParticipantCollection().create()
+			const participants = ParticipantCollection.create([])
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{
 					expect(store.getActions()[0].data.title).to.be.eql(title)
@@ -142,9 +139,7 @@ describe('participate actions', ()=> {
 		})
 
 		it('should notify all participants about the new chat', () => {
-			const participants = ParticipantCollection()
-				.withParticipant([{accepted:true, profile:{username:'test'}}])
-				.create()
+			const participants = ParticipantCollection.create([{accepted:true, profile:{username:'test'}}])
 
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{

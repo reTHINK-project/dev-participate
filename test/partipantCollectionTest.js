@@ -69,10 +69,7 @@ describe('participant collection', () => {
 
 	describe('update participant status', ()=>{
 		it('should update the participant with the new status', ()=>{
-			const result = participants.updateParticipant({
-				username: 'false@test.com',
-				userURL: 'user://test.com/test@test.com'
-            }, Participant.status.confirmed)
+			const result = participants.updateParticipant('false@test.com', Participant.status.confirmed)
 
 			expect(result.filterByStatus(Participant.status.confirmed).toArray().length)
 				.to.be.eql(2)
