@@ -25,7 +25,7 @@ const Chat = React.createClass({
 				</div>
 				<div className="panel-footer">
 					<div className="input-group">
-						<input id="btn-input" onChange={this.handleInputChange} type="text" className="form-control input-sm" placeholder="Type your message here..."/>
+						<input id="btn-input" name="message" onChange={this.handleInputChange} type="text" className="form-control input-sm" placeholder="Type your message here..."/>
 						<span className="input-group-btn">
                             <button className="btn btn-warning btn-sm" onClick={() => this.props.sendMessage(this.props.chat, this.state.message)}
 									id="btn-chat">
@@ -41,7 +41,7 @@ const Chat = React.createClass({
 
 export default connect((state, ownProps)=>{
 	return {
-		chat: state.challenges.filter(g => g.title === ownProps.routeParams.id).shift()
+		chat: state.challenges.filter(g => g.isEqual({ _id: ownProps.routeParams.id })).shift()
 	}
 },(dispatch) =>{
 	return {

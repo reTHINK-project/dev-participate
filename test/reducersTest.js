@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import * as create from '../app/actions/creators.js'
 import reducer from '../app/reducers'
-import { createGroupChallenge, createChatChallenge } from '../app/model/challenges'
+import { createGroupChallenge, createChatChallenge, createInvitationChallenge } from '../app/model/challenges'
 import * as ParticipantCollection from '../app/model/participantCollection'
 
 describe('participate reducers', () => {
@@ -19,9 +19,10 @@ describe('participate reducers', () => {
 	describe('removeChallengeAction', () => {
 		it('should remove a challenge', ()=> {
 			const title = 'test'
-			const initialState = {challenges: [{title: title}]}
+			const challenge = createInvitationChallenge({data: {title: title}})
+			const initialState = {challenges: [challenge]}
 			const finalState = {challenges: []}
-			const action = create.removeChallengeAction({title: title})
+			const action = create.removeChallengeAction(challenge)
 			expect(reducer(initialState, action)).to.be.eql(finalState)
 		})
 	})

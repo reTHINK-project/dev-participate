@@ -6,11 +6,12 @@ let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 	let challengeComponents = challenges.map((challenge) => {
 		switch (challenge.type){
 		case 'GROUP':
-			return <Challenges.Group {...challenge}  participants={challenge.participants.toArray()}/>
+			return <Challenges.Group id={challenge.toString()} title={challenge.title} definition={challenge.definition}
+									 participants={challenge.participants.toArray()}/>
 		case 'GROUP_INVITATION':
 			return <Challenges.GroupInvitation onAccept={acceptChallenge} onReject={rejectChallenge} challenge={challenge}/>
 		case 'CHAT':
-			return <Challenges.Chat title={challenge.title}/>
+			return <Challenges.Chat id={challenge.toString()} title={challenge.title}/>
 		default:
 			return <p>Undefined challenge received</p>
 		}

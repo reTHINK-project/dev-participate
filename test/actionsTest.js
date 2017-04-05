@@ -61,7 +61,9 @@ describe('participate actions', ()=> {
 				.create()
 			return store.dispatch(actions.addNewGroup(title, definition))
 				.then(()=>{
-					expect(store.getActions()[0].data.isEqual(expected_group)).to.be.true
+					expect(store.getActions()[0].data.title).to.be.eql(expected_group.title)
+					expect(store.getActions()[0].data.definition).to.be.eql(expected_group.definition)
+					expect(store.getActions()[0].data.profile).to.be.eql(expected_group.profile)
 				})
 		})
 
@@ -73,16 +75,16 @@ describe('participate actions', ()=> {
 		})
 	})
 
-	describe('showNewChallenge', () => {
+	describe('processGroupInvitation', () => {
 		[{
 			name: 'group',
 			message: groupInvitation('test'),
 			challenge: GroupInvitationChallenge('test').withFrom().create()
 		}].forEach((data) => {
 			it(`should create a new ${data.name} challenge`, ()=> {
-				store.dispatch(actions.showNewChallenge(data.message))
+				store.dispatch(actions.processGroupInvitation(data.message))
 
-				expect(store.getActions()[0].data).to.be.eql(data.challenge)
+				expect(store.getActions()[0].data.title).to.be.eql(data.challenge.title)
 			})
 		})
 	})
@@ -93,7 +95,7 @@ describe('participate actions', ()=> {
 		it('should remove the challenge', ()=>{
 			return store.dispatch(actions.answerChallenge(challenge))
 				.then(()=>{
-					expect(store.getActions()[0].data).to.be.eql(challenge)
+					expect(store.getActions()[0].data.title).to.be.eql(challenge.title)
 				})
 		})
 

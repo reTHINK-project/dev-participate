@@ -6,14 +6,17 @@ function getID() {
 
 export { createChatChallenge }
 
-export function createGroupChallenge(title, definition, participants) {
+export function createGroupChallenge(title, definition, participants, _id) {
+	const id = _id || getID()
 
 	return {
+		_id: id,
 		type: 'GROUP',
 		title: title,
 		definition: definition,
 		participants: participants,
-		isEqual: (group) => group.definition === definition && group.title === title
+		isEqual: (challenge) => challenge._id === id,
+		toString: () => id
 	}
 }
 
@@ -25,6 +28,7 @@ export function createInvitationChallenge(data) {
 		type: 'GROUP_INVITATION',
 		title: data.data.title,
 		from: data.from,
-		isEqual: (challenge) => challenge._id === id
+		isEqual: (challenge) => challenge._id === id,
+		toString: () => id
 	}
 }

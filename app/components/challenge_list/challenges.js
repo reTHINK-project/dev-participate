@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import { Link } from 'react-router'
 
-export const Group = ({title, participants, definition}) => {
+export const Group = ({id, title, participants, definition}) => {
 	return (
 			<div>
 				<div className="row">
@@ -13,7 +13,7 @@ export const Group = ({title, participants, definition}) => {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to={'group/' + title}>{title}</Link></h3>
+						<h3><Link to={'group/' + id}>{title}</Link></h3>
 						<p>{JSON.stringify(definition)}</p>
 					</div>
 				</div>
@@ -46,7 +46,7 @@ export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 	)
 }
 
-export const Chat = ({title}) => {
+export const Chat = ({id, title}) => {
 	return (
 			<div>
 				<div className="row">
@@ -56,7 +56,7 @@ export const Chat = ({title}) => {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to={'chat/' + title}>{title}</Link></h3>
+						<h3><Link to={'chat/' + id}>{title}</Link></h3>
 					</div>
 				</div>
 			</div>

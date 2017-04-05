@@ -4,7 +4,7 @@ import { openChat } from '../../actions'
 import * as participant from '../../model/participant'
 
 export default connect((state, ownProps)=>{
-	const challenge = state.challenges.filter(g => g.title === ownProps.routeParams.id).shift()
+	const challenge = state.challenges.filter(g => g.isEqual({_id: ownProps.routeParams.id})).shift()
 	return {
 		group: challenge
 	}
