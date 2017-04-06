@@ -1,5 +1,3 @@
-import { createGroupChallenge } from '../model/challenges'
-
 const chatApp = (state, action) => {
 	if(action.type === 'ADD_NEW_CHALLENGE') {
 		return { ...state, challenges: state.challenges.concat([action.data])}

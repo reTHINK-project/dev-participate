@@ -6,10 +6,12 @@ function getID() {
 
 function sendMessage(id, adapter, title, messages, message) {
 	return adapter.sendMessage(message)
-		.then(message => {
-			return create(id, adapter, title,
-				messages.concat(ChatMessage.createFrom(message)))
-		})
+		.then(message => addMessage(id, adapter, title, messages, message))
+}
+
+function addMessage(id, adapter, title, messages, message) {
+	return create(id, adapter, title,
+		messages.concat(ChatMessage.createFrom(message)))
 }
 
 function create(id, adapter, title, messages){
@@ -19,6 +21,7 @@ function create(id, adapter, title, messages){
 		title: title,
 		messages: messages,
 		sendMessage: (message) => sendMessage(id, adapter, title, messages, message),
+		newMessageReceived: (message) => addMessage(id, adapter, title, messages, message),
 		isEqual: (challenge) => challenge._id === id,
 		toString: () => id
 	}

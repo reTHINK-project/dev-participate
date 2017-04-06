@@ -77,16 +77,13 @@ describe('participate actions', ()=> {
 	})
 
 	describe('processGroupInvitation', () => {
-		[{
-			name: 'group',
-			message: groupInvitation('test'),
-			challenge: GroupInvitationChallenge('test').withFrom().create()
-		}].forEach((data) => {
-			it(`should create a new ${data.name} challenge`, ()=> {
-				store.dispatch(actions.processGroupInvitation(data.message))
+		it('should create a new group invitation challenge', ()=> {
+			const message = groupInvitation({title:'test', challenge: 1})
+			const challenge = GroupInvitationChallenge('test').withFrom().create()
 
-				expect(store.getActions()[0].data.title).to.be.eql(data.challenge.title)
-			})
+			store.dispatch(actions.processGroupInvitation(message))
+
+			expect(store.getActions()[0].data.title).to.be.eql(challenge.title)
 		})
 	})
 
@@ -127,7 +124,7 @@ describe('participate actions', ()=> {
 		const title = 'ChatTest'
 
 		beforeEach(()=>{
-			groupChatHy.create.resolves({name: title})
+			groupChatHy.create.resolves({name: title, onMessage: ()=>{}})
 		})
 
 		it('should show a new chat challenge', () => {
@@ -148,7 +145,16 @@ describe('participate actions', ()=> {
 		})
 	})
 
-	describe('showReceivedMessage', ()=> {
+	describe('receivedMessage', ()=> {
+		it('should add received messages', ()=>{
+			const chat = Challenges.createChatChallenge({})
+			const state = {challenges: [ chat ]}
+			const message = {}
+			acsRewireAPI.__Rewire__('STORE', {getState:()=>state})
+			store.dispatch(actions.receiveMessage(chat.toString(), message))
+
+			expect(store.getActions()[0].data.messages.length).to.be.eql(1)
+		})
 	})
 
 	describe('sendMessage', () => {
@@ -162,6 +168,19 @@ describe('participate actions', ()=> {
 			return store.dispatch(actions.sendMessage(chat, message))
 				.then(()=>{
 					expect(chat.sendMessage.calledWith(message)).to.be.true
+				})
+		})
+
+		xit('should add the message', () => {
+			const chat = {
+				sendMessage: sinon.stub()
+			}
+			const message = {}
+
+			chat.sendMessage.resolves({})
+			return store.dispatch(actions.sendMessage(chat, message))
+				.then(()=>{
+					expect(store.getActions()[0].data.messages.length).to.be.eql(1)
 				})
 		})
 	})

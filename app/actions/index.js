@@ -5,9 +5,11 @@ import { groupInvitation, challengeResponse } from '../model/messages'
 import * as ParticipantCollection from '../model/participantCollection'
 import config from '../config'
 
+let STORE
+
 export function initSubscriptions(store, hyperties) {
 	const dispatch = store.dispatch
-
+	STORE = store
 	hyperties.NotificationsObs.onNotification((msg) => {
 		if(msg.type === 'GROUP_INVITATION'){
 			dispatch(processGroupInvitation(msg))
@@ -17,7 +19,9 @@ export function initSubscriptions(store, hyperties) {
 	})
 	hyperties.Discovery.onUserListChanged(() => {})
 	hyperties.GroupChat.onInvite((groupChat)=>{
-		dispatch(actions.newChallengeAction(Challenges.createChatChallenge(groupChat)))
+		const chatChallenge = Challenges.createChatChallenge(groupChat)
+		groupChat.onMessage((msg)=>dispatch(receiveMessage(chatChallenge.toString(), msg)))
+		dispatch(actions.newChallengeAction(chatChallenge))
 	})
 }
 
@@ -77,7 +81,9 @@ export function openChat(title, participants) {
 			.then(hyperties => {
 				return hyperties.GroupChat.create(title, participants.toHypertyParticipant(config.domain))
 			}).then(chat => {
-				return actions.newChallengeAction(Challenges.createChatChallenge(chat))
+				const chatChallenge = Challenges.createChatChallenge(chat)
+				chat.onMessage((msg)=>dispatch(receiveMessage(chatChallenge.toString(), msg)))
+				return actions.newChallengeAction(chatChallenge)
 			}).then(action=>dispatch(action))
 	}
 }
@@ -87,6 +93,12 @@ export function sendMessage(chat, message) {
 		return chat.sendMessage(message)
 			.then(chat=>dispatch(actions.updateChallenge(chat)))
 	}
+}
+
+export function receiveMessage(challenge, message) {
+	let chat = STORE.getState().challenges.find(e=>e.isEqual({_id: challenge}))
+	chat = chat.newMessageReceived(message)
+	return actions.updateChallenge(chat)
 }
 
 // user
