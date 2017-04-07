@@ -21,15 +21,15 @@ const ActionForm = React.createClass({
                         <input type="text" className="form-control" id="actionTitle" name="title" placeholder="Name" onChange={this.handleInputChange} />
                     </div>
                     <h4>Filters</h4>
-                    <div className="form-group">
-                        <label for="actionQueryUsers">Users</label>
-                        <textarea className="form-control" id="actionQueryUsers" name="users" placeholder="Users" onChange={this.handleInputChange} />
-                    </div>
-                    <div className="form-group">
-                        <label for="actionQueryHobbies">Hobbies</label>
-                        <textarea className="form-control" id="actionQueryHobbies" name="hobbies" placeholder="Hobbies" onChange={this.handleInputChange} />
-                    </div>
-                    <section style={{height: "250px"}}>
+					<div className="form-group">
+						<label for="actionQueryHobbies">User names separated by commas</label>
+						<textarea className="form-control" id="actionQueryUsername" name="usernames" placeholder="User names" onChange={this.handleInputChange} />
+					</div>
+					<div className="form-group">
+						<label for="actionQueryNearby">Locale</label>
+						<input type="text" className="form-control" id="actionQueryLocale" name="locale" onChange={this.handleInputChange} />
+					</div>
+                    <section disabled style={{height: "250px"}}>
                       <GoogleMapLoader
                         containerElement={
                           <div

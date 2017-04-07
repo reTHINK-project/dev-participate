@@ -1,13 +1,14 @@
-import { createNewGroup } from '../../actions'
+import { addNewGroup } from '../../actions'
 import ActionForm from './form'
 import { connect } from 'react-redux'
 
 
 export default connect((state)=>{
-    return {
-    }
+	return {
+	}
 }, (dispatch)=>{
-    return {
-    }
+	return {
+		createNewGroup: ({ title, usernames, locale }) => dispatch(addNewGroup(title, {usernames: usernames, locale: locale}))
+	}
 })(ActionForm)
 

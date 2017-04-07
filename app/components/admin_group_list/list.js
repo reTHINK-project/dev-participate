@@ -3,33 +3,24 @@ import { Link } from 'react-router'
 import NewActionButton from './new_action_button'
 
 const GroupList = ({groups}) => {
-        return(
-            <div>
-                <div className="row">
-                    <div className="col-md-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><Link to="admin/admin_group">Group 1</Link></div>
-                        </div>
-                    </div>
-                    <div className="col-md-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><Link to="admin/admin_group">Group 2</Link></div>
-                        </div>
-                    </div>
-                    <div className="col-md-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><Link to="admin/admin_group">Group 3</Link></div>
-                        </div>
-                    </div>
-                    <div className="col-md-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><Link to="admin/admin_group">Group 4</Link></div>
-                        </div>
-                    </div>
+	const groupComponents = groups.map(g=>{
+		return (
+			<div className="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <div className="panel panel-default">
+                    <div className="panel-heading"><Link to={'admin/admin_group/' + g.toString()}>{g.title}</Link></div>
                 </div>
-                <NewActionButton/>
-            </div>
-        )
+			</div>
+		)
+	})
+
+	return(
+		<div>
+			<div className="row">
+                {groupComponents}
+			</div>
+			<NewActionButton/>
+		</div>
+	)
 }
 
 export default GroupList
