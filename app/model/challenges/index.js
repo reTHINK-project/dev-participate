@@ -6,7 +6,7 @@ function getID() {
 
 export { createChatChallenge }
 
-export function createGroupChallenge(title, definition, participants, _id) {
+export function createGroupChallenge(title, definition, participants, messages=[], _id) {
 	const id = _id || getID()
 
 	return {
@@ -15,6 +15,7 @@ export function createGroupChallenge(title, definition, participants, _id) {
 		title: title,
 		definition: definition,
 		participants: participants,
+		sendedMessages: messages,
 		isEqual: (challenge) => challenge._id === id,
 		toString: () => id
 	}

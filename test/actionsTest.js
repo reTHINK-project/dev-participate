@@ -185,6 +185,32 @@ describe('participate actions', ()=> {
 		})
 	})
 
+	describe('sendAdminMessage', () => {
+		it('should send a message to the users who matches the group filters', ()  => {
+			const group = Challenges.createGroupChallenge('', {}, [])
+			const message = {}
+
+			return store.dispatch(actions.sendAdminMessage(group, message))
+				.then(() => {
+					expect(notificationsHy.send.calledOnce).to.be.true
+				})
+		})
+
+		it('should add the message to the group', ()  => {
+			const group = Challenges.createGroupChallenge('', {}, [])
+			const message = {}
+
+			return store.dispatch(actions.sendAdminMessage(group, message))
+				.then(()=>{
+					expect(store.getActions()[0].data.sendedMessages.length).to.be.eql(1)
+				})
+		})
+	})
+
+	describe('processAdminMessage', () => {
+		xit('should add the challenge', ()  => {
+		})
+	})
 	describe('checkIfAnyNewUserMatchFilters', ()=> {
 		it('should add any user matching the filter to its group')
 		it('should invite to the group any user matching the group filters')

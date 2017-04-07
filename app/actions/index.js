@@ -1,7 +1,7 @@
 import * as Challenges from '../model/challenges'
 import * as actions from './creators'
 import getHyperties from '../rethink'
-import { groupInvitation, challengeResponse } from '../model/messages'
+import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
 import * as ParticipantCollection from '../model/participantCollection'
 import config from '../config'
 
@@ -15,6 +15,8 @@ export function initSubscriptions(store, hyperties) {
 			dispatch(processGroupInvitation(msg))
 		}else if (msg.type === 'CHALLENGE_RESPONSE') {
 			dispatch(processGroupChallengeResponse(store.getState().challenges, msg))
+		}else if (msg.type === 'ADMIN_MESSAGE') {
+			dispatch(processAdminMessage(msg))
 		}
 	})
 	hyperties.Discovery.onUserListChanged(() => {})
@@ -45,13 +47,19 @@ export function answerChallenge(challenge, accepted) {
 
 // group challenge
 
+function getUsers(hyperties, definition) {
+	const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
+	const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
+
+	return users
+}
+
 export function addNewGroup(title, definition) {
 	return function(dispatch){
 
 		return getHyperties()
 			.then(hyperties => {
-				const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
-				const users = hyperties.Discovery.queryUsers(removeUndefinedValues(definition))
+				const users = getUsers(hyperties, definition)
 				const challenge = Challenges.createGroupChallenge(
 					title, definition, ParticipantCollection.createFrom(users))
 
@@ -67,9 +75,32 @@ export function processGroupChallengeResponse(challenges, msg) {
 	return function(dispatch) {
 		const challenge = challenges.find(e=>e.isEqual({_id: msg.data.challenge}))
 		const participants = challenge.participants.updateParticipant(msg.from.username, msg.data.accepted)
-		const new_challenge = Challenges.createGroupChallenge(challenge.title, challenge.definition, participants, challenge._id)
+		const new_challenge = Challenges.createGroupChallenge(challenge.title, challenge.definition, participants, [], challenge._id)
 
 		dispatch(actions.updateChallenge(new_challenge))
+	}
+}
+
+// admin messages
+
+export function processAdminMessage(data) {
+	//const challenge = Challenges.createAdminMessageChallenge(data)
+
+	//return actions.newChallengeAction(challenge)
+}
+
+export function sendAdminMessage(group, msg) {
+	return function(dispatch) {
+		return getHyperties()
+			.then(hyperties => {
+				const users = getUsers(hyperties, group.definition)
+
+				hyperties.Notifications.send(users, adminMessage(msg))
+
+				return actions.updateChallenge(Challenges.createGroupChallenge(group.title,
+					group.definition, group.participants,
+					group.sendedMessages.concat(msg), group._id))
+			}).then((action)=>dispatch(action))
 	}
 }
 

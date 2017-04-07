@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
+import Messages from './messages'
 
-const ActionForm = ({group, chat, openChat}) => {
+const ActionForm = ({group, chat, openChat, sendMessage}) => {
 	const participants = group.participants.toArray().map(p=>{
 		return (
 			<li className="list-group-item">
@@ -32,7 +33,6 @@ const ActionForm = ({group, chat, openChat}) => {
 					{createChat}
 					<button type="button" className="btn btn-default">VideoCall</button>
 					<button type="button" className="btn btn-default">VoiceCall</button>
-					<button type="button" className="btn btn-default">Messages</button>
 				</div>
 			</div>
 			<div className="row">
@@ -54,14 +54,7 @@ const ActionForm = ({group, chat, openChat}) => {
 			</div>
 			<div className="row">
 				<div className="col-md-12">
-					<div className="panel panel-info">
-						<div className="panel-heading">
-							<h3 className="panel-title">Messages sended to group</h3>
-						</div>
-						<div className="panel-body">
-
-						</div>
-					</div>
+					<Messages group={group} sendMessage={sendMessage} />
 				</div>
 			</div>
 		</div>
