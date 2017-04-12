@@ -1,7 +1,7 @@
 import ActionForm from './form'
 import { connect } from 'react-redux'
 import { openChat, sendAdminMessage } from '../../actions'
-import * as participant from '../../model/participant'
+import { Participant } from '../../model/participants'
 
 
 export default connect((state, ownProps)=>{
@@ -14,7 +14,7 @@ export default connect((state, ownProps)=>{
 }, (dispatch)=>{
 	return {
 		openChat: (challenge) => dispatch(
-			openChat(challenge.title, challenge.participants.filterByStatus(participant.status.confirmed))
+			openChat(challenge.title, challenge.participants.filterByStatus(Participant.status.confirmed))
 		),
 		sendMessage: (group, message) => dispatch(sendAdminMessage(group, message))
 	}

@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import * as ParticipantCollection from '../app/model/participantCollection'
-import * as Participant from '../app/model/participant'
+import { Participant, ParticipantCollection } from '../app/model/participants'
 
 describe('participant collection', () => {
 	const participants = ParticipantCollection.create([{

@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import * as create from '../app/actions/creators.js'
 import reducer from '../app/reducers'
 import { createGroupChallenge, createChatChallenge, createInvitationChallenge } from '../app/model/challenges'
-import * as ParticipantCollection from '../app/model/participantCollection'
+import { ParticipantCollection } from '../app/model/participants'
 
 describe('participate reducers', () => {
 	describe('addNewChallenge', () => {

@@ -2,7 +2,7 @@ import * as Challenges from '../model/challenges'
 import * as actions from './creators'
 import getHyperties from '../rethink'
 import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
-import * as ParticipantCollection from '../model/participantCollection'
+import { ParticipantCollection } from '../model/participants'
 import config from '../config'
 
 let STORE

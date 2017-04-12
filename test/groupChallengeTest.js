@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import { createGroupChallenge } from '../app/model/challenges'
-import { status } from '../app/model/participant'
-import * as ParticipantCollection from '../app/model/participantCollection'
+import { ParticipantCollection } from '../app/model/participants'
 
 describe('group challenge', ()=>{
 	let group
