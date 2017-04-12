@@ -10,25 +10,15 @@ import { __RewireAPI__  as acsRewireAPI } from '../app/actions'
 import GroupChallenge from './builders/group-challenge'
 import GroupInvitationChallenge from './builders/group-invitation-challenge'
 
-const notificationsHy = {
-	send: sinon.spy()
-}
-const discoveryHy = {
-	queryUsers: sinon.stub()
-}
-const groupChatHy = {
-	create: sinon.stub()
-}
-const notificationObsHy = {
+let hypertyObject = {
+	Notifications: { },
+	Discovery: { },
+	GroupChat: { },
+	NotificationsObs: { }
 }
 const hyperties = function() {
 	return new Promise(resolve => {
-		resolve({
-			Notifications: notificationsHy,
-			Discovery: discoveryHy,
-			GroupChat: groupChatHy,
-			NotificationsObs: notificationObsHy
-		})
+		resolve(hypertyObject)
 	})
 }
 const middlewares = [thunk]
@@ -40,6 +30,15 @@ describe('participate actions', ()=> {
 	let store
 
 	beforeEach(()=>{
+		hypertyObject.Notifications = {
+			send: sinon.spy()
+		}
+		hypertyObject.Discovery = {
+			queryUsers: sinon.stub()
+		}
+		hypertyObject.GroupChat = {
+			create: sinon.stub()
+		}
 		store = mockStore({
 		})
 	})
@@ -52,7 +51,7 @@ describe('participate actions', ()=> {
 		const profile = {username: 'test'}
 
 		beforeEach(()=>{
-			discoveryHy.queryUsers.withArgs(definition).returns([profile])
+			hypertyObject.Discovery.queryUsers.withArgs(definition).returns([profile])
 		})
 
 		it('should create the group', ()=>{
@@ -71,7 +70,7 @@ describe('participate actions', ()=> {
 		it('should notify connected user that match the filters', () => {
 			return store.dispatch(actions.addNewGroup(title, definition))
 				.then(() => {
-					expect(notificationsHy.send.calledWith([profile])).to.be.true
+					expect(hypertyObject.Notifications.send.calledWith([profile])).to.be.true
 				})
 		})
 	})
@@ -101,7 +100,7 @@ describe('participate actions', ()=> {
 			const accepted = true
 			return store.dispatch(actions.answerChallenge(challenge, accepted))
 				.then(() => {
-					expect(notificationsHy.send.calledWith([challenge.from])).to.be.true
+					expect(hypertyObject.Notifications.send.calledWith([challenge.from])).to.be.true
 				})
 		})
 	})
@@ -124,7 +123,7 @@ describe('participate actions', ()=> {
 		const title = 'ChatTest'
 
 		beforeEach(()=>{
-			groupChatHy.create.resolves({name: title, onMessage: ()=>{}})
+			hypertyObject.GroupChat.create.resolves({name: title, onMessage: ()=>{}})
 		})
 
 		it('should show a new chat challenge', () => {
@@ -140,7 +139,7 @@ describe('participate actions', ()=> {
 
 			return store.dispatch(actions.openChat(title, participants))
 				.then(()=>{
-					expect(groupChatHy.create.calledWith(title)).to.be.true
+					expect(hypertyObject.GroupChat.create.calledWith(title)).to.be.true
 				})
 		})
 	})
@@ -192,7 +191,7 @@ describe('participate actions', ()=> {
 
 			return store.dispatch(actions.sendAdminMessage(group, message))
 				.then(() => {
-					expect(notificationsHy.send.calledOnce).to.be.true
+					expect(hypertyObject.Notifications.send.calledOnce).to.be.true
 				})
 		})
 
