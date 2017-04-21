@@ -1,18 +1,19 @@
 import React from 'react'
 import * as Challenges from './challenges'
 import NewChallengeButton from './new_challenge_button'
+import { types } from '../../model/challenges'
 
 let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 	let challengeComponents = challenges.map((challenge) => {
 		switch (challenge.type){
-		case 'GROUP':
+		case types.GROUP:
 			return <Challenges.Group id={challenge.toString()} title={challenge.title} definition={challenge.definition}
 									 participants={challenge.participants.toArray()}/>
-		case 'GROUP_INVITATION':
+		case types.GROUP_INVITATION:
 			return <Challenges.GroupInvitation onAccept={acceptChallenge} onReject={rejectChallenge} challenge={challenge}/>
-		case 'CHAT':
+		case types.CHAT:
 			return <Challenges.Chat id={challenge.toString()} title={challenge.title}/>
-        case 'ADMIN_MESSAGE':
+        case types.ADMIN_MESSAGE:
             return <Challenges.Message id={challenge.toString()} message={challenge.message}/>
 		default:
 			return <p>Undefined challenge received</p>

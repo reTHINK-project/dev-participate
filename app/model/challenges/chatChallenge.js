@@ -1,4 +1,5 @@
 import * as ChatMessage from './chatMessage'
+import types from './types'
 
 function getID() {
 	return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -17,7 +18,7 @@ function addMessage(id, adapter, title, messages, message) {
 function create(id, adapter, title, messages){
 	return {
 		_id: id,
-		type: 'CHAT',
+		type: types.CHAT,
 		title: title,
 		messages: messages,
 		sendMessage: (message) => sendMessage(id, adapter, title, messages, message),
