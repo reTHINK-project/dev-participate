@@ -8,7 +8,7 @@ export default connect((state)=>{
 	}
 }, (dispatch)=>{
 	return {
-		createNewGroup: ({ title, usernames, locale }) => dispatch(addNewGroup(title, {usernames: usernames, locale: locale}))
+		createNewGroup: ({ title, usernames, locale }) => dispatch(addNewGroup(title, {username: usernames.split(';'), locale: locale}))
 	}
 })(ActionForm)
 
