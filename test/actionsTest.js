@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import sinon from 'sinon'
-import { groupInvitation, challengeResponse } from '../app/model/messages'
+import { groupInvitation, challengeResponse, adminMessage } from '../app/model/messages'
 import * as actions from '../app/actions'
 import * as Challenges from '../app/model/challenges'
 import { ParticipantCollection } from '../app/model/participants'
@@ -207,7 +207,12 @@ describe('participate actions', ()=> {
 	})
 
 	describe('processAdminMessage', () => {
-		xit('should add the challenge', ()  => {
+		it('should create a new admin message challenge', ()=> {
+			const message = adminMessage('test message')
+
+			store.dispatch(actions.processAdminMessage(message))
+
+			expect(store.getActions()[0].data.message).to.be.eql(message.data.message)
 		})
 	})
 	describe('checkIfAnyNewUserMatchFilters', ()=> {

@@ -1,8 +1,8 @@
-import * as Challenges from '../model/challenges'
 import * as actions from './creators'
 import getHyperties from '../rethink'
 import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
 import { ParticipantCollection } from '../model/participants'
+import * as Challenges from '../model/challenges'
 import config from '../config'
 
 let STORE
@@ -84,9 +84,9 @@ export function processGroupChallengeResponse(challenges, msg) {
 // admin messages
 
 export function processAdminMessage(data) {
-	//const challenge = Challenges.createAdminMessageChallenge(data)
+	const challenge = Challenges.createAdminMessageChallenge(data)
 
-	//return actions.newChallengeAction(challenge)
+	return actions.newChallengeAction(challenge)
 }
 
 export function sendAdminMessage(group, msg) {

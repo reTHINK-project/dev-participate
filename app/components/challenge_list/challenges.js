@@ -63,7 +63,23 @@ export const Chat = ({id, title}) => {
 	)
 }
 
-const Message = ()=>{}
+export const Message = ({id, message}) => {
+	return (
+			<div>
+				<div className="row">
+					<div className="col-xs-6">
+						Message
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<h3>{message}</h3>
+					</div>
+				</div>
+			</div>
+	)
+}
+
 const VideoCall = ()=>{}
 const VoiceCall = ()=>{}
 const Survey = ()=>{}

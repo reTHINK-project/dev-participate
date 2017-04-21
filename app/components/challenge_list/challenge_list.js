@@ -12,6 +12,8 @@ let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 			return <Challenges.GroupInvitation onAccept={acceptChallenge} onReject={rejectChallenge} challenge={challenge}/>
 		case 'CHAT':
 			return <Challenges.Chat id={challenge.toString()} title={challenge.title}/>
+        case 'ADMIN_MESSAGE':
+            return <Challenges.Message id={challenge.toString()} message={challenge.message}/>
 		default:
 			return <p>Undefined challenge received</p>
 		}
