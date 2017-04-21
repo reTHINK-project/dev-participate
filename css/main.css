@@ -22,6 +22,7 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
 
 .mybtn{float:left;padding:15px;display:inline-block;}
 
+.top-buffer { margin-top:20px; }
 /* ==========================================================================
    Chat Box
    ========================================================================== */

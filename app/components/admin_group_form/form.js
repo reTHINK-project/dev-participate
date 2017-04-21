@@ -42,8 +42,7 @@ const ActionForm = React.createClass({
                         <button type="button" className="btn btn-default">VoiceCall</button>
                     </div>
                 </div>
-				<div className="row"></div>
-                <div className="row">
+                <div className="row top-buffer">
                     <div className="col-md-4">
                         <ul className="list-group">
                             {participants}
@@ -60,7 +59,7 @@ const ActionForm = React.createClass({
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row top-buffer">
                     <div className="col-md-12">
                         <Messages group={this.props.group} sendMessage={this.props.sendMessage}/>
                     </div>

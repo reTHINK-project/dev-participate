@@ -30,7 +30,7 @@ const MessagesPanel = React.createClass({
                         </form>
                     </div>
 				</div>
-				<div className="row">
+				<div className="row top-buffer">
 					<div className="col-md-12">
 						<div className="panel panel-info">
 							<div className="panel-heading">
