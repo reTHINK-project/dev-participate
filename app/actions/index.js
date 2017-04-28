@@ -25,6 +25,9 @@ export function initSubscriptions(store, hyperties) {
 		groupChat.onMessage((msg)=>dispatch(receiveMessage(chatChallenge.toString(), msg)))
 		dispatch(actions.newChallengeAction(chatChallenge))
 	})
+	hyperties.LocationObs.watchUsersPosition(positions => {
+		dispatch(actions.receivedUserPositions(positions))
+	})
 }
 
 //Challenges

@@ -18,3 +18,10 @@ export function updateChallenge(challenge) {
 		data: challenge
 	}
 }
+
+export function receivedUserPositions(positions) {
+	return {
+		type: 'UPDATE_USER_POSITIONS',
+		data: positions
+	}
+}
