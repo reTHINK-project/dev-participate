@@ -2,8 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import * as create from '../app/actions/creators.js'
 import reducer from '../app/reducers'
-import { createGroupChallenge, createChatChallenge, createInvitationChallenge } from '../app/model/challenges'
-import { ParticipantCollection } from '../app/model/participants'
+import { createChatChallenge, createInvitationChallenge } from '../app/model/challenges'
 
 describe('participate reducers', () => {
 	describe('addNewChallenge', () => {
@@ -44,5 +43,12 @@ describe('participate reducers', () => {
 					expect(reducer(initialState, action).challenges[0].messages.length).to.be.eql(1)
 				})
 		})
+	})
+
+	describe('update user poistions', ()=>{
+		const action = create.receivedUserPositions([{username: 'us1'} , {username: 'us2'}])
+		const initialState = {userPositions:[]}
+
+		expect(reducer(initialState, action).userPositions.length).to.be.eql(2)
 	})
 })

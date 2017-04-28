@@ -13,6 +13,8 @@ const chatApp = (state, action) => {
 		return {...state, challenges: challenges}
 	}else if (action.type === 'LOGIN') {
 		return { ...state, user: action.data.user }
+	}else if (action.type === 'UPDATE_USER_POSITIONS') {
+		return { ...state, userPositions: action.data }
 	}
 
 	return state
