@@ -14,7 +14,7 @@ const ActionForm = React.createClass({
     },
 
     selectionChanged(selection) {
-		this.setState({selection: selection})
+		this.setState({selection: selection.map(s=>s.key)})
 	},
 
     render () {
@@ -34,7 +34,7 @@ const ActionForm = React.createClass({
 						<input type="text" className="form-control" id="actionQueryLocale" name="locale" onChange={this.handleInputChange} />
 					</div>
                     <section disabled style={{height: "250px"}}>
-						<Map markers={[{latitude: 42.76, longitude: -8.79, key: 'username'}]} onSelectionChanged={this.selectionChanged} />
+						<Map markers={this.props.positions} onSelectionChanged={this.selectionChanged} center={this.props.center} />
                     </section>
                     <Link to='/admin' className="btn btn-default" onClick={()=>this.props.createNewGroup(this.state)}>Next</Link>
                 </div>

@@ -37,17 +37,6 @@ const Map = React.createClass({
 		return {center: { lat:0, lng: 0 }, markers: markers}
 	},
 
-	componentDidMount() {
-		navigator.geolocation.getCurrentPosition((position) => {
-			this.setState({
-				center: {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				}
-			})
-		})
-	},
-
 	onSelection(Bounds) {
 		const markers = this.state.markers.map(marker => {
 			return	newMarker({
@@ -68,7 +57,8 @@ const Map = React.createClass({
 	},
 
 	onMapLoad(map) {
-		map.props.map.enableKeyDragZoom({}, this.onSelection)
+		if(map)
+            map.props.map.enableKeyDragZoom({}, this.onSelection)
 	},
 
 	render() {
@@ -85,7 +75,7 @@ const Map = React.createClass({
 					<GoogleMap
 						ref={this.onMapLoad}
 						defaultZoom={12}
-						center={this.state.center}
+						defaultCenter={this.props.center}
 					>
 						{this.state.markers}
 					</GoogleMap>
