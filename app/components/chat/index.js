@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendMessage, createPoll } from '../../actions'
+import { sendMessage } from '../../actions'
 import Message from './message'
 
 const Chat = React.createClass({
@@ -49,7 +49,6 @@ export default connect((state, ownProps)=>{
 	}
 },(dispatch) =>{
 	return {
-		createPoll: (chat) => dispatch(createPoll(chat)),
 		sendMessage:(chat, message) => dispatch(sendMessage(chat, message))
 	}
 })(Chat)

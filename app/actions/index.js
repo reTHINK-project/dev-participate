@@ -1,6 +1,6 @@
 import * as actions from './creators'
 import getHyperties from '../rethink'
-import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
+import { pollInvitation, adminMessage, groupInvitation, challengeResponse } from '../model/messages'
 import { ParticipantCollection } from '../model/participants'
 import * as Challenges from '../model/challenges'
 import config from '../config'
@@ -144,5 +144,19 @@ export function logUserIn(user, password) {
 			user: user,
 			password: password,
 		}
+	}
+}
+
+// createPoll
+
+export function createPoll(poll, challenge) {
+	return function(dispatch) {
+		return getHyperties()
+			.then(hyperties => {
+				const challenge_poll = Challenges.createPollChallenge(poll, challenge)
+				hyperties.SurveyRep.createFromHyperties(pollInvitation(challenge_poll), challenge_poll.participants)
+
+            	dispatch(actions.newChallengeAction(challenge_poll))
+		})
 	}
 }

@@ -6,6 +6,8 @@ const config = {
 	locationObserverHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/LocationObserver',
 	notificationsObserverHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/NotificationsObserver',
 	notificationsReporterHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/NotificationsReporter',
+	surveyObserverHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/SurveyObserver',
+	surveyReporterHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/SurveyReporter',
 	discoveryHyperty: 'hyperty-catalogue://catalogue.localhost/.well-known/hyperty/Discovery'
 }
 

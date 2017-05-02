@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import sinon from 'sinon'
-import { groupInvitation, challengeResponse, adminMessage } from '../app/model/messages'
+import { pollInvitation, groupInvitation, challengeResponse, adminMessage } from '../app/model/messages'
 import * as actions from '../app/actions'
 import * as Challenges from '../app/model/challenges'
 import { ParticipantCollection } from '../app/model/participants'
@@ -215,6 +215,45 @@ describe('participate actions', ()=> {
 			expect(store.getActions()[0].data.message).to.be.eql(message.data.message)
 		})
 	})
+
+	describe('createPoll', () => {
+		beforeEach(()=>{
+		})
+
+		it('should create the poll', ()=>{
+            const poll = {}
+			const challenge = Challenges.createPollChallenge({},
+				Challenges.createGroupChallenge('', {}, [{}]))
+			const expected_poll = Challenges.createPollChallenge(poll,challenge)
+
+			return store.dispatch(actions.createPoll(poll, challenge))
+				.then(()=>{
+					expect(store.getActions()[0].data.definition).to.be.eql(expected_poll.definition)
+					expect(store.getActions()[0].data.participants).to.be.eql(expected_poll.participants)
+				})
+		})
+
+		it('should notify to challenge\'s users', () => {
+            const poll = {title:'aa'}
+			const challenge = Challenges.createPollChallenge(poll,
+				Challenges.createGroupChallenge('', {}, [{}]))
+			const invite = pollInvitation(challenge)
+
+			return store.dispatch(actions.createPoll(poll, challenge))
+				.then(() => {
+					expect(hypertyObject.Notifications.send.calledWith([{}], invite)).to.be.true
+				})
+		})
+	})
+
+	describe('pollReceived', () => {
+
+	})
+
+	describe('answerPoll', () => {
+
+	})
+
 	describe('checkIfAnyNewUserMatchFilters', ()=> {
 		it('should add any user matching the filter to its group')
 		it('should invite to the group any user matching the group filters')

@@ -2,6 +2,13 @@ import createChatChallenge from './chatChallenge'
 import createGroupChallenge from './groupChallenge'
 import createInvitationChallenge from './invitationChallenge'
 import createAdminMessageChallenge from './adminMessageChallenge'
+import createPollChallenge from './pollChallenge'
 import types from './types'
 
-export { types, createChatChallenge, createGroupChallenge, createInvitationChallenge, createAdminMessageChallenge }
+export { types,
+	createChatChallenge,
+	createGroupChallenge,
+	createInvitationChallenge,
+	createAdminMessageChallenge,
+	createPollChallenge
+}

@@ -27,3 +27,12 @@ export function adminMessage(message) {
 		}
 	}
 }
+
+export function pollInvitation(challenge) {
+	return {
+		type: 'POLL_INVITATION',
+		data: {
+			definition: challenge.definition
+		}
+	}
+}
