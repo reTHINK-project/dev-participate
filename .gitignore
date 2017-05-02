@@ -41,3 +41,6 @@ js/bundle.js
 
 #ides
 .idea
+
+#vscode
+.vscode
