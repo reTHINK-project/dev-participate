@@ -14,7 +14,8 @@ let hypertyObject = {
 	Notifications: { },
 	Discovery: { },
 	GroupChat: { },
-	NotificationsObs: { }
+	NotificationsObs: { },
+	SurveyRep: {}
 }
 const hyperties = function() {
 	return new Promise(resolve => {
@@ -38,6 +39,9 @@ describe('participate actions', ()=> {
 		}
 		hypertyObject.GroupChat = {
 			create: sinon.stub()
+		}
+		hypertyObject.SurveyRep = {
+			createFromHyperties: sinon.stub()
 		}
 		store = mockStore({
 		})
@@ -241,7 +245,7 @@ describe('participate actions', ()=> {
 
 			return store.dispatch(actions.createPoll(poll, challenge))
 				.then(() => {
-					expect(hypertyObject.Notifications.send.calledWith([{}], invite)).to.be.true
+					expect(hypertyObject.SurveyRep.createFromHyperties.calledWith(invite)).to.be.true
 				})
 		})
 	})
