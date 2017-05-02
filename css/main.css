@@ -23,6 +23,21 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
 .mybtn{float:left;padding:15px;display:inline-block;}
 
 .top-buffer { margin-top:20px; }
+
+/* ========================================================================
+	JSON Table
+	======================================================================== */
+.jsonTable {
+  border-spacing: 0;
+}
+
+.jsonTable td, .jsonTable th {
+  padding: 5px;
+}
+
+.jsonOdd {
+  background: #eee;
+}
 /* ==========================================================================
    Chat Box
    ========================================================================== */

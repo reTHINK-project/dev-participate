@@ -80,6 +80,9 @@ export const Message = ({id, message}) => {
 	)
 }
 
+const SurveyResult = ()=>{}
+
+const SurveyRequest = ()=>{}
+
 const VideoCall = ()=>{}
 const VoiceCall = ()=>{}
-const Survey = ()=>{}

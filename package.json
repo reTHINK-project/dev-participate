@@ -17,12 +17,15 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-google-maps": "4.11.0",
+    "react-json-table": "0.1.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
     "redux": "^3.5.2",
     "redux-logger": "3.0.0",
     "redux-thunk": "^2.0.1",
     "rewire": "2.5.2",
+    "survey-react": "0.12.11",
+    "surveyjs-editor": "0.12.11",
     "urijs": "^1.17.1"
   },
   "devDependencies": {

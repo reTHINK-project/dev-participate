@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { sendMessage } from '../../actions'
+import { Link } from 'react-router'
+import { sendMessage, createPoll } from '../../actions'
 import Message from './message'
 
 const Chat = React.createClass({
@@ -31,6 +32,9 @@ const Chat = React.createClass({
 									id="btn-chat">
                                 Send
                             </button>
+                            <Link className="btn btn-warning btn-sm" to={'new_survey/' + this.props.chat.toString()} id="btn-chat">
+                                Create Poll
+                            </Link>
                         </span>
 					</div>
 				</div>
@@ -45,6 +49,7 @@ export default connect((state, ownProps)=>{
 	}
 },(dispatch) =>{
 	return {
+		createPoll: (chat) => dispatch(createPoll(chat)),
 		sendMessage:(chat, message) => dispatch(sendMessage(chat, message))
 	}
 })(Chat)

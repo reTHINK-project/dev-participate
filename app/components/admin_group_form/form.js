@@ -26,7 +26,7 @@ const ActionForm = React.createClass({
         })
 
         const createChat = !this.props.chat ?
-            (<Link to="admin" className="btn btn-default" onClick={() => openChat(this.props.group)}>
+            (<Link to="admin" className="btn btn-default" onClick={() => this.props.openChat(this.props.group)}>
                 Create Chat
             </Link>) :
             (<Link to={'admin/chat/' + this.props.chat.toString()} className="btn btn-default">

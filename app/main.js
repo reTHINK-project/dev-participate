@@ -21,10 +21,16 @@ ReactDOM.render(
                 <Route path="new_group" component={Components.NewGroupForm}/>
                 <Route path="group/:id" component={Components.GroupForm}/>
                 <Route path="chat/:id" component={Components.ChatForm}/>
+				<Route path="new_survey/:challenge_id" component={Components.SurveyForm}/>
+				<Route path="survey/:id" component={Components.SurveyResultBoard}/>
+				<Route path="survey_request/:id" component={Components.SurveyRequestForm}/>
             </Route>
             <Route path="/admin" component={Components.AdminDashboard}>
                 <IndexRoute  component={Components.AdminGroupList}/>
                 <Route path="chat/:id" component={Components.ChatForm}/>
+				<Route path="new_survey/:challenge_id" component={Components.SurveyForm}/>
+				<Route path="survey/:id" component={Components.SurveyResultBoard}/>
+				<Route path="survey_request/:id" component={Components.SurveyRequestForm}/>
                 <Route path="admin_group/:id" component={Components.AdminGroup}/>
                 <Route path="admin_newgroup" component={Components.AdminNewGroup}/>
             </Route>

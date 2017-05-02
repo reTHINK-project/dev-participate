@@ -7,6 +7,9 @@ import AdminDashboard from './admin_dashboard'
 import AdminGroupList from './admin_group_list'
 import AdminGroup from './admin_group_form'
 import AdminNewGroup from './admin_newgroup_form'
+import SurveyForm from './survey'
+import SurveyResultBoard from './survey_result'
+import SurveyRequestForm from './survey_request'
 
 export default {
     Dashboard: Dashboard,
@@ -17,6 +20,9 @@ export default {
     AdminDashboard: AdminDashboard,
     AdminGroupList: AdminGroupList ,
     AdminGroup: AdminGroup,
-    AdminNewGroup: AdminNewGroup
+    AdminNewGroup: AdminNewGroup,
+	SurveyForm: SurveyForm,
+	SurveyResultBoard: SurveyResultBoard,
+	SurveyRequestForm: SurveyRequestForm
 }
 
