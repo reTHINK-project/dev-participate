@@ -23,7 +23,6 @@ function create(id, adapter, title, messages){
 		messages: messages,
 		sendMessage: (message) => sendMessage(id, adapter, title, messages, message),
 		newMessageReceived: (message) => addMessage(id, adapter, title, messages, message),
-		participantsURIs: () => Object.keys(adapter.participants),
 		isEqual: (challenge) => challenge._id === id,
 		toString: () => id
 	}

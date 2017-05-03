@@ -38,6 +38,9 @@ const ActionForm = React.createClass({
                 <div className="row">
                     <div className="btn-groupi col-xs-12 text-right" role="group">
                         {createChat}
+						<Link className="btn btn-warning btn-sm" to={'new_survey/' + this.props.chat.group} id="btn-chat">
+							Create Poll
+						</Link>
                         <button type="button" className="btn btn-default">VideoCall</button>
                         <button type="button" className="btn btn-default">VoiceCall</button>
                     </div>

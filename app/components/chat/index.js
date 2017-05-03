@@ -32,9 +32,6 @@ const Chat = React.createClass({
 									id="btn-chat">
                                 Send
                             </button>
-                            <Link className="btn btn-warning btn-sm" to={'new_survey/' + this.props.chat.toString()} id="btn-chat">
-                                Create Poll
-                            </Link>
                         </span>
 					</div>
 				</div>

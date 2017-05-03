@@ -3,6 +3,7 @@ import createGroupChallenge from './groupChallenge'
 import createInvitationChallenge from './invitationChallenge'
 import createAdminMessageChallenge from './adminMessageChallenge'
 import createPollChallenge from './pollChallenge'
+import createPollRequestChallenge from './pollRequestChallenge'
 import types from './types'
 
 export { types,
@@ -10,5 +11,6 @@ export { types,
 	createGroupChallenge,
 	createInvitationChallenge,
 	createAdminMessageChallenge,
-	createPollChallenge
+	createPollChallenge,
+	createPollRequestChallenge
 }

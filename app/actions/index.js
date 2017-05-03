@@ -1,6 +1,6 @@
 import * as actions from './creators'
 import getHyperties from '../rethink'
-import { pollInvitation, adminMessage, groupInvitation, challengeResponse } from '../model/messages'
+import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
 import { ParticipantCollection } from '../model/participants'
 import * as Challenges from '../model/challenges'
 import config from '../config'
@@ -27,6 +27,10 @@ export function initSubscriptions(store, hyperties) {
 	})
 	hyperties.LocationObs.watchUsersPosition(positions => {
 		dispatch(actions.receivedUserPositions(positions))
+	})
+	hyperties.SurveyObs.onRequest((poll) => {
+		const challenge = Challenges.createPollRequestChallenge(poll)
+		dispatch(actions.newChallengeAction(challenge))
 	})
 }
 
@@ -147,14 +151,14 @@ export function logUserIn(user, password) {
 	}
 }
 
-// createPoll
+// poll
 
-export function createPoll(poll, challenge) {
+export function createPoll(poll, participants) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
-				const challenge_poll = Challenges.createPollChallenge(poll, challenge)
-				hyperties.SurveyRep.createFromHyperties(pollInvitation(challenge_poll), challenge_poll.participants)
+				const challenge_poll = Challenges.createPollChallenge(poll)
+				hyperties.SurveyRep.create(challenge_poll.definition, participants.toHypertyParticipant(config.domain))
 
             	dispatch(actions.newChallengeAction(challenge_poll))
 		})

@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import sinon from 'sinon'
-import { pollInvitation, groupInvitation, challengeResponse, adminMessage } from '../app/model/messages'
+import { groupInvitation, challengeResponse, adminMessage } from '../app/model/messages'
 import * as actions from '../app/actions'
 import * as Challenges from '../app/model/challenges'
 import { ParticipantCollection } from '../app/model/participants'
@@ -41,7 +41,7 @@ describe('participate actions', ()=> {
 			create: sinon.stub()
 		}
 		hypertyObject.SurveyRep = {
-			createFromHyperties: sinon.stub()
+			create: sinon.stub()
 		}
 		store = mockStore({
 		})
@@ -226,11 +226,9 @@ describe('participate actions', ()=> {
 
 		it('should create the poll', ()=>{
             const poll = {}
-			const challenge = Challenges.createPollChallenge({},
-				Challenges.createGroupChallenge('', {}, [{}]))
-			const expected_poll = Challenges.createPollChallenge(poll,challenge)
+			const expected_poll = Challenges.createPollChallenge(poll)
 
-			return store.dispatch(actions.createPoll(poll, challenge))
+			return store.dispatch(actions.createPoll(poll, ParticipantCollection.create([{profile:{username: ''}}])))
 				.then(()=>{
 					expect(store.getActions()[0].data.definition).to.be.eql(expected_poll.definition)
 					expect(store.getActions()[0].data.participants).to.be.eql(expected_poll.participants)
@@ -238,19 +236,23 @@ describe('participate actions', ()=> {
 		})
 
 		it('should notify to challenge\'s users', () => {
-            const poll = {title:'aa'}
-			const challenge = Challenges.createPollChallenge(poll,
-				Challenges.createGroupChallenge('', {}, [{}]))
-			const invite = pollInvitation(challenge)
+            const poll = {}
+			const expected_poll = Challenges.createPollChallenge(poll)
 
-			return store.dispatch(actions.createPoll(poll, challenge))
+			return store.dispatch(actions.createPoll(poll, ParticipantCollection.create([{profile:{username: ''}}])))
 				.then(() => {
-					expect(hypertyObject.SurveyRep.createFromHyperties.calledWith(invite)).to.be.true
+					expect(hypertyObject.SurveyRep.create.calledWith(poll)).to.be.true
 				})
 		})
 	})
 
 	describe('pollReceived', () => {
+		xit('should show a new survey request challenge', () => {
+			const poll = {data: {page1:{}}}
+			return store.dispatch(actions.pollReceived(poll))
+
+			expect(store.getActions()[0].data.data).to.be.eql(poll.data)
+		})
 
 	})
 

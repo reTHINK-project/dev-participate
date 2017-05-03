@@ -20,6 +20,9 @@ const ActionForm = ({group, openChat}) => {
 				<div className="row">
 					<div className="btn-groupi col-xs-12 text-right" role="group">
 						<Link to="/" onClick={()=>openChat(group)} className="btn btn-default">Chat</Link>
+						<Link className="btn btn-warning btn-sm" to={'new_survey/' + group.toString() } id="btn-chat">
+							Create Poll
+						</Link>
 						<button type="button" className="btn btn-default">VideoCall</button>
 						<button type="button" className="btn btn-default">VoiceCall</button>
 					</div>
