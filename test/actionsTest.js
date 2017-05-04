@@ -222,6 +222,7 @@ describe('participate actions', ()=> {
 
 	describe('createPoll', () => {
 		beforeEach(()=>{
+			hypertyObject.SurveyRep.create.resolves({onMessage: ()=>{}})
 		})
 
 		it('should create the poll', ()=>{
@@ -249,7 +250,7 @@ describe('participate actions', ()=> {
 	describe('pollReceived', () => {
 		xit('should show a new survey request challenge', () => {
 			const poll = {data: {page1:{}}}
-			return store.dispatch(actions.pollReceived(poll))
+			store.dispatch(actions.pollReceived(poll))
 
 			expect(store.getActions()[0].data.data).to.be.eql(poll.data)
 		})
@@ -257,7 +258,20 @@ describe('participate actions', ()=> {
 	})
 
 	describe('answerPoll', () => {
+		const challenge = {_id: '67', answer: sinon.spy()}
+		const res = { option1: {} }
 
+		it('should remove the challenge', ()=>{
+			store.dispatch(actions.answerPoll(res, challenge))
+
+			expect(store.getActions()[0].data).to.be.eql(challenge)
+		})
+
+		it('should send a response', () =>{
+			store.dispatch(actions.answerPoll(res, challenge))
+
+			expect(challenge.answer.calledWith(res)).to.be.true
+		})
 	})
 
 	describe('checkIfAnyNewUserMatchFilters', ()=> {

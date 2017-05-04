@@ -4,11 +4,11 @@ import { Survey } from 'survey-react'
 
 const SurveyRequestForm = React.createClass({
 	render () {
-		return(<Survey json={this.props.survey} onComplete={this.answerSurvey}/>)
+		return(<Survey json={JSON.parse(this.props.pollRequest.definition)} onComplete={this.answerSurvey}/>)
 	},
 
 	answerSurvey (survey) {
-		this.props.answerSurvey(survey.data)
+		this.props.answerSurvey(survey.data, this.props.pollRequest)
 		hashHistory.push('/')
 	}
 })

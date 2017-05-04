@@ -80,9 +80,40 @@ export const Message = ({id, message}) => {
 	)
 }
 
-const SurveyResult = ()=>{}
+export const Survey = ({id})=>{
+	return (
 
-const SurveyRequest = ()=>{}
+			<div>
+				<div className="row">
+					<div className="col-xs-6">
+						Survey
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<h3><Link to={"/survey/"+id}>See results</Link></h3>
+					</div>
+				</div>
+			</div>
+	)
+}
+
+export const SurveyRequest = ({id})=>{
+	return (
+			<div>
+				<div className="row">
+					<div className="col-xs-6">
+						New Survey
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
+						<h3><Link to={"/survey_request/"+id}>Participate!</Link></h3>
+					</div>
+				</div>
+			</div>
+	)
+}
 
 const VideoCall = ()=>{}
 const VoiceCall = ()=>{}

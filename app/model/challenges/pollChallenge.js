@@ -9,9 +9,9 @@ export default function createPollChallenge(poll, answers =[], _id) {
 
 	return {
 		_id: id,
-		type: types.POLL,
-		definition: poll,
-		answers: answers,
+		type: types.SURVEY,
+		definition: poll.config,
+		answers: ()=>poll.results,
 		isEqual: (challenge) => challenge._id === id,
 		toString: () => id
 	}

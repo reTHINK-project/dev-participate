@@ -1,23 +1,13 @@
 import SurveyRequestForm from './form'
 import { connect } from 'react-redux'
+import { answerPoll } from '../../actions'
 
 export default connect((state, ownProps)=>{
 	return {
-		survey: { title: "Tell us, what technologies do you use?", pages: [
-  { name:"page1", questions: [
-      { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "frameworkUsing",title: "Do you use any front-end framework like Bootstrap?" },
-      { type: "checkbox", choices: ["Bootstrap","Foundation"], hasOther: true, isRequired: true, name: "framework", title: "What front-end framework do you use?", visibleIf: "{frameworkUsing} = 'Yes'" }
-   ]},
-  { name: "page2", questions: [
-    { type: "radiogroup", choices: ["Yes","No"],isRequired: true, name: "mvvmUsing", title: "Do you use any MVVM framework?" },
-    { type: "checkbox", choices: [ "AngularJS", "KnockoutJS", "React" ], hasOther: true, isRequired: true, name: "mvvm", title: "What MVVM framework do you use?", visibleIf: "{mvvmUsing} = 'Yes'" } ] },
-  { name: "page3",questions: [
-    { type: "comment", name: "about", title: "Please tell us about your main requirements for Survey library" } ] }
- ]
-}
+		pollRequest: state.challenges.find(c=>c.isEqual({_id: ownProps.params.id}))
 	}
 }, (dispatch)=>{
 	return {
-		answerSurvey: (answer) => console.log(answer)
+		answerSurvey: (res, pollRequest) => dispatch(answerPoll(res, pollRequest))
 	}
 })(SurveyRequestForm)

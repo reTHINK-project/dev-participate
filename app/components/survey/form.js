@@ -4,7 +4,7 @@ import * as SurveyJSEditor from 'surveyjs-editor';
 
 const SurveyForm = React.createClass({
 	componentDidMount() {
-		let editorOptions = { showEmbededSurveyTab: true };
+		let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true };
 		this.editor = new SurveyJSEditor.SurveyEditor('surveyEditorContainer', editorOptions);
 		this.editor.saveSurveyFunc = this.saveMySurvey;
 	},

@@ -156,11 +156,18 @@ export function logUserIn(user, password) {
 export function createPoll(poll, participants) {
 	return function(dispatch) {
 		return getHyperties()
-			.then(hyperties => {
-				const challenge_poll = Challenges.createPollChallenge(poll)
-				hyperties.SurveyRep.create(challenge_poll.definition, participants.toHypertyParticipant(config.domain))
+			.then(hyperties =>
+				hyperties.SurveyRep.create(poll, participants.toHypertyParticipant(config.domain)))
+			.then(survey => {
+				const challenge_poll = Challenges.createPollChallenge(survey)
+				return actions.newChallengeAction(challenge_poll)
+			}).then(action=>dispatch(action))
+	}
+}
 
-            	dispatch(actions.newChallengeAction(challenge_poll))
-		})
+export function answerPoll(res, pollRequest) {
+	return function(dispatch) {
+        pollRequest.answer(res)
+		dispatch(actions.removeChallengeAction(pollRequest))
 	}
 }

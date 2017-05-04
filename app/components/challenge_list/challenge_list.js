@@ -15,6 +15,10 @@ let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 			return <Challenges.Chat id={challenge.toString()} title={challenge.title}/>
         case types.ADMIN_MESSAGE:
             return <Challenges.Message id={challenge.toString()} message={challenge.message}/>
+		case types.SURVEY:
+			return <Challenges.Survey id={challenge.toString()} />
+		case types.SURVEY_REQUEST:
+			return <Challenges.SurveyRequest id={challenge.toString()} />
 		default:
 			return <p>Undefined challenge received</p>
 		}

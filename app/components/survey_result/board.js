@@ -1,8 +1,8 @@
 import React from 'react'
 import JsonTable from 'react-json-table'
 
-const SurveyResultBoard = ({ survey }) => {
-	return(<JsonTable rows={survey.results}/>)
+const SurveyResultBoard = ({ results }) => {
+	return(<JsonTable rows={results}/>)
 }
 
 export default SurveyResultBoard

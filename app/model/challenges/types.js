@@ -3,7 +3,7 @@ export default {
 	GROUP: Symbol(),
 	CHAT: Symbol(),
 	ADMIN_MESSAGE: Symbol(),
-	POLL: Symbol(),
-	POLL_REQUEST: Symbol()
+	SURVEY: Symbol(),
+	SURVEY_REQUEST: Symbol()
 }
 

@@ -9,7 +9,7 @@ export default function createPollRequestChallenge(poll, _id) {
 
 	return {
 		_id: id,
-		type: types.POLL_REQUEST,
+		type: types.SURVEY_REQUEST,
 		definition: poll.data,
 		answer: (res) => poll.answer(res),
 		isEqual: (challenge) => challenge._id === id,
