@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import initRethink from './rethink'
-import { initSubscriptions } from './actions'
+import initSubscriptions from './hypertiesListener'
 
 let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware, logger))
 initRethink().then(hyperties=>initSubscriptions(store, hyperties))

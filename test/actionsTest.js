@@ -148,18 +148,6 @@ describe('participate actions', ()=> {
 		})
 	})
 
-	describe('receivedMessage', ()=> {
-		it('should add received messages', ()=>{
-			const chat = Challenges.createChatChallenge({})
-			const state = {challenges: [ chat ]}
-			const message = {}
-			acsRewireAPI.__Rewire__('STORE', {getState:()=>state})
-			store.dispatch(actions.receiveMessage(chat.toString(), message))
-
-			expect(store.getActions()[0].data.messages.length).to.be.eql(1)
-		})
-	})
-
 	describe('sendMessage', () => {
 		it('should send the message', () => {
 			const chat = {
