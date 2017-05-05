@@ -114,7 +114,7 @@ describe('participate actions', ()=> {
 			const profile = {username: 'user'}
 			const challenge = Challenges.createGroupChallenge('test', {}, ParticipantCollection.createFrom([profile]), 'id')
 			const challenges = [ challenge ]
-			const response_msg = challengeResponse(challenges.toString(), true)
+			const response_msg = challengeResponse(challenge.toString(), true)
 			response_msg.from = profile
 
 			store.dispatch(actions.processGroupChallengeResponse(challenges, response_msg))

@@ -3,6 +3,7 @@ import getHyperties from '../rethink'
 import { adminMessage, groupInvitation, challengeResponse } from '../model/messages'
 import { ParticipantCollection } from '../model/participants'
 import * as Challenges from '../model/challenges'
+import Challenge from '../model/challenges/challenge'
 import config from '../config'
 
 let STORE
@@ -80,7 +81,7 @@ export function addNewGroup(title, definition) {
 
 export function processGroupChallengeResponse(challenges, msg) {
 	return function(dispatch) {
-		const challenge = challenges.find(e=>e.isEqual({_id: msg.data.challenge}))
+		const challenge = challenges.find(e=>e.isEqual(Challenge.create(msg.data.challenge)))
 		const participants = challenge.participants.updateParticipant(msg.from.username, msg.data.accepted)
 		const new_challenge = Challenges.createGroupChallenge(challenge.title, challenge.definition, participants, [], challenge._id)
 
@@ -134,7 +135,7 @@ export function sendMessage(chat, message) {
 }
 
 export function receiveMessage(challenge, message) {
-	let chat = STORE.getState().challenges.find(e=>e.isEqual({_id: challenge}))
+	let chat = STORE.getState().challenges.find(e=>e.isEqual(Challenge.create(challenge)))
 	chat = chat.newMessageReceived(message)
 	return actions.updateChallenge(chat)
 }

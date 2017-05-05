@@ -1,18 +1,10 @@
 import types from './types'
-
-function getID() {
-	return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-}
+import Challenge from './challenge'
 
 export default function createPollRequestChallenge(poll, _id) {
-	const id = _id || getID()
-
-	return {
-		_id: id,
+	return Object.assign(Object.create(Challenge.create(_id)),{
 		type: types.SURVEY_REQUEST,
 		definition: poll.data,
 		answer: (res) => poll.answer(res),
-		isEqual: (challenge) => challenge._id === id,
-		toString: () => id
-	}
+	})
 }

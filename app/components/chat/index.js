@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { sendMessage } from '../../actions'
 import Message from './message'
+import Challenge from '../../model/challenges/challenge'
 
 const Chat = React.createClass({
 	handleInputChange (event) {
@@ -42,7 +43,7 @@ const Chat = React.createClass({
 
 export default connect((state, ownProps)=>{
 	return {
-		chat: state.challenges.filter(g => g.isEqual({ _id: ownProps.routeParams.id })).shift()
+		chat: state.challenges.filter(g => g.isEqual(Challenge.create(ownProps.routeParams.id))).shift()
 	}
 },(dispatch) =>{
 	return {

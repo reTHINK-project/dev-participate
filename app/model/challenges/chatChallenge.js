@@ -1,9 +1,6 @@
 import * as ChatMessage from './chatMessage'
 import types from './types'
-
-function getID() {
-	return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-}
+import Challenge from './challenge'
 
 function sendMessage(id, adapter, title, messages, message) {
 	return adapter.sendMessage(message)
@@ -11,22 +8,21 @@ function sendMessage(id, adapter, title, messages, message) {
 }
 
 function addMessage(id, adapter, title, messages, message) {
-	return create(id, adapter, title,
-		messages.concat(ChatMessage.createFrom(message)))
+	return create(adapter, title,
+		messages.concat(ChatMessage.createFrom(message)), id)
 }
 
-function create(id, adapter, title, messages){
-	return {
-		_id: id,
+function create(adapter, title, messages, id){
+    const base = Challenge.create(id)
+	return Object.assign(Object.create(base),{
 		type: types.CHAT,
 		title: title,
 		messages: messages,
-		sendMessage: (message) => sendMessage(id, adapter, title, messages, message),
-		newMessageReceived: (message) => addMessage(id, adapter, title, messages, message),
-		isEqual: (challenge) => challenge._id === id,
-		toString: () => id
-	}
+		sendMessage: (message) => sendMessage(base.toString(), adapter, title, messages, message),
+		newMessageReceived: (message) => addMessage(base.toString(), adapter, title, messages, message),
+	})
 }
+
 export default function createChatChallenge(adapter) {
-	return create(getID(), adapter, adapter.name, [])
+	return create(adapter, adapter.name, [])
 }

@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { openChat, sendAdminMessage } from '../../actions'
 import { Participant } from '../../model/participants'
 import { types } from '../../model/challenges'
+import Challenge from '../../model/challenges/challenge'
 
 
 export default connect((state, ownProps)=>{
-	const group = state.challenges.find(g => g.isEqual({_id: ownProps.routeParams.id})) //TODO: build a chalenge identifier
+	const group = state.challenges.find(g => g.isEqual(Challenge.create(ownProps.routeParams.id))) //TODO: build a chalenge identifier
 	const chat = state.challenges.find(g=>g.title===group.title && g.type === types.CHAT) //TODO: get chat from group
 	return {
 		group: group,
