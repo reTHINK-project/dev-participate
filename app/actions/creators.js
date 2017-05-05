@@ -25,3 +25,13 @@ export function receivedUserPositions(positions) {
 		data: positions
 	}
 }
+
+export function addMessageToChat(chat, msg) {
+	return {
+		type: 'ADD_MESSAGE_TO_CHAT',
+		data: {
+			chat: chat,
+			msg: msg
+		}
+	}
+}

@@ -51,4 +51,12 @@ describe('participate reducers', () => {
 
 		expect(reducer(initialState, action).userPositions.length).to.be.eql(2)
 	})
+
+	describe('add message to chat', () => {
+        const chat = createChatChallenge({})
+		const action = create.addMessageToChat(chat, 'text')
+		const initialState = {challenges: [chat]}
+
+		expect(reducer(initialState, action).challenges[0].messages.length).to.be.eql(1)
+	})
 })

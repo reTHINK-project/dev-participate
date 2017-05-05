@@ -23,7 +23,7 @@ export function initSubscriptions(store, hyperties) {
 	hyperties.Discovery.onUserListChanged(() => {})
 	hyperties.GroupChat.onInvite((groupChat)=>{
 		const chatChallenge = Challenges.createChatChallenge(groupChat)
-		groupChat.onMessage((msg)=>dispatch(receiveMessage(chatChallenge.toString(), msg)))
+		groupChat.onMessage((msg)=>dispatch(actions.addMessageToChat(chatChallenge, msg)))
 		dispatch(actions.newChallengeAction(chatChallenge))
 	})
 	hyperties.LocationObs.watchUsersPosition(positions => {
@@ -121,7 +121,7 @@ export function openChat(title, participants) {
 				return hyperties.GroupChat.create(title, participants.toHypertyParticipant(config.domain))
 			}).then(chat => {
 				const chatChallenge = Challenges.createChatChallenge(chat)
-				chat.onMessage((msg)=>dispatch(receiveMessage(chatChallenge.toString(), msg)))
+				chat.onMessage((msg)=>dispatch(actions.addMessageToChat(chatChallenge, msg)))
 				return actions.newChallengeAction(chatChallenge)
 			}).then(action=>dispatch(action))
 	}
@@ -132,12 +132,6 @@ export function sendMessage(chat, message) {
 		return chat.sendMessage(message)
 			.then(chat=>dispatch(actions.updateChallenge(chat)))
 	}
-}
-
-export function receiveMessage(challenge, message) {
-	let chat = STORE.getState().challenges.find(e=>e.isEqual(Challenge.create(challenge)))
-	chat = chat.newMessageReceived(message)
-	return actions.updateChallenge(chat)
 }
 
 // user
