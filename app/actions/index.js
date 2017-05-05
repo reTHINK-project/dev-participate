@@ -6,7 +6,7 @@ import * as Challenges from '../model/challenges'
 import Challenge from '../model/challenges/challenge'
 import config from '../config'
 
-//Challenges
+// group challenge
 
 export function processGroupInvitation(data) {
 	const challenge = Challenges.createInvitationChallenge(data)
@@ -23,8 +23,6 @@ export function answerChallenge(challenge, accepted) {
 			}).then((action)=>dispatch(action))
 	}
 }
-
-// group challenge
 
 function getUsers(hyperties, definition) {
 	const removeUndefinedValues = (o) => JSON.parse(JSON.stringify(o))
@@ -48,7 +46,6 @@ export function addNewGroup(title, definition) {
 
 	}
 }
-
 
 export function processGroupChallengeResponse(challenges, msg) {
 	return function(dispatch) {
