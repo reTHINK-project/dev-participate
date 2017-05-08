@@ -24,6 +24,21 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
 
 .top-buffer { margin-top:20px; }
 
+.list-group-item {
+	margin-right: 5px;
+	margin-top: 5px;
+	flex-grow: 1;
+}
+
+.equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+a{
+	color: white;
+}
 /* ========================================================================
 	JSON Table
 	======================================================================== */

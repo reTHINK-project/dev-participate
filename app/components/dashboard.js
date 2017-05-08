@@ -19,7 +19,7 @@ const Dashboard = ({children}) => {
                     </div>
                 </div>
             </header>
-            <div className="container-fluid">
+            <div className="container">
                 {children}
             </div>
         </div>

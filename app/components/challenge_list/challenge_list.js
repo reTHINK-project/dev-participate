@@ -24,14 +24,17 @@ let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 		}
 	})
 
+	if(challengeComponents.length === 0){
+		challengeComponents = (
+		<div class="jumbotron">
+			<h1>Currently you have zero challenges!</h1>
+			<p>Go ahead and create the first one!</p>
+		</div>)
+	}
 	return (
-        <div>
-            <ul className="list-group">
-                <li className="list-group-item">
-                    {challengeComponents}
-                    <NewChallengeButton />
-                </li>
-            </ul>
+        <div className="row equal">
+			{challengeComponents}
+			<NewChallengeButton />
         </div>
 	)
 }

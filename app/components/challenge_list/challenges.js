@@ -3,18 +3,18 @@ import { Link } from 'react-router'
 
 export const Group = ({id, title, participants, definition}) => {
 	return (
-			<div>
-				<div className="row">
-					<div className="col-xs-6">
-					</div>
-					<div className="col-cs-6">
-						<p>{participants.length} participants</p>
+            <div className="list-group-item list-group-item-success">
+                <div className="row">
+                    <div className="col-md-12">
+						<h2><Link to={'group/' + id}>{title}</Link></h2>
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-12">
-						<h3><Link to={'group/' + id}>{title}</Link></h3>
-						<p>{JSON.stringify(definition)}</p>
+					<div className="col-sm-8">
+						<p>Filters: {JSON.stringify(definition)} </p>
+					</div>
+					<div className="col-sm-4">
+						<p>{participants.length} participants</p>
 					</div>
 				</div>
 			</div>
@@ -23,23 +23,21 @@ export const Group = ({id, title, participants, definition}) => {
 
 export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 	return (
-			<div>
+            <div className="list-group-item list-group-item-warning">
 				<div className="row">
-					<div className="col-xs-6">
-						<p>Group invitation</p>
-					</div>
-					<div className="col-xs-6">
+					<div className="col-xs-12">
+						<h2>{challenge.title}</h2>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3>{challenge.title}</h3>
+						<p>GROUP INVITATION</p>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<button onClick={()=>onAccept(challenge)}>ACCEPT</button>
-						<button onClick={()=>onReject(challenge)}>REJECT</button>
+						<button className="btn btn-default" onClick={()=>onAccept(challenge)}>ACCEPT</button>&nbsp;
+						<button className="btn btn-default" onClick={()=>onReject(challenge)}>REJECT</button>
 					</div>
 				</div>
 			</div>
@@ -48,15 +46,15 @@ export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 
 export const Chat = ({id, title}) => {
 	return (
-			<div>
-				<div className="row">
-					<div className="col-xs-6">
-						Chat
+            <div className="list-group-item list-group-item-danger">
+                <div className="row">
+                    <div className="col-md-12">
+						<h2><Link to={'chat/' + id}>{title}</Link></h2>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to={'chat/' + id}>{title}</Link></h3>
+						<p>CHAT</p>
 					</div>
 				</div>
 			</div>
@@ -65,15 +63,15 @@ export const Chat = ({id, title}) => {
 
 export const Message = ({id, message}) => {
 	return (
-			<div>
+            <div className="list-group-item list-group-item-info">
 				<div className="row">
-					<div className="col-xs-6">
-						Message
+					<div className="col-xs-12">
+						<h2>Message</h2>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3>{message}</h3>
+						<p>{message}</p>
 					</div>
 				</div>
 			</div>
@@ -82,16 +80,15 @@ export const Message = ({id, message}) => {
 
 export const Survey = ({id})=>{
 	return (
-
-			<div>
+            <div className="list-group-item list-group-item-default">
 				<div className="row">
-					<div className="col-xs-6">
-						Survey
+					<div className="col-xs-12">
+						<h2>Survey</h2>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to={"/survey/"+id}>See results</Link></h3>
+						<p><Link to={"/survey/"+id}>See results</Link></p>
 					</div>
 				</div>
 			</div>
@@ -100,15 +97,15 @@ export const Survey = ({id})=>{
 
 export const SurveyRequest = ({id})=>{
 	return (
-			<div>
+            <div className="list-group-item active">
 				<div className="row">
-					<div className="col-xs-6">
-						New Survey
+					<div className="col-xs-12">
+						<h2>New Survey</h2>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h3><Link to={"/survey_request/"+id}>Participate!</Link></h3>
+						<p><Link to={"/survey_request/"+id}>Participate!</Link></p>
 					</div>
 				</div>
 			</div>
