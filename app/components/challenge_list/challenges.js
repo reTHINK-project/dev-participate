@@ -10,10 +10,12 @@ export const Group = ({id, title, participants, definition}) => {
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-sm-8">
+					<div className="col-sm-12">
 						<p>Filters: {JSON.stringify(definition)} </p>
 					</div>
-					<div className="col-sm-4">
+				</div>
+				<div className="row">
+					<div className="col-sm-12">
 						<p>{participants.length} participants</p>
 					</div>
 				</div>
