@@ -15,7 +15,7 @@ const SurveyForm = React.createClass({
 
 	saveMySurvey () {
 		this.props.createPoll(this.editor.text, this.props.participants)
-		hashHistory.push('/')
+		hashHistory.go(-2)
 	}
 })
 

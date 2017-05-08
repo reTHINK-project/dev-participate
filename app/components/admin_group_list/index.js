@@ -4,7 +4,7 @@ import { types } from '../../model/challenges'
 
 export default connect((state)=>{
 	return {
-		groups: state.challenges.filter(c=>c.type === types.GROUP)
+		groups: state.challenges.filter(c=>c.type === types.GROUP || c.type === types.SURVEY)
 	}
 }, (dispatch)=>{
 	return {
