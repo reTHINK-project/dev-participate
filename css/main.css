@@ -39,6 +39,10 @@ html, body, #react-anchor, #react-anchor>div, article, .expando, .expando>.panel
 a{
 	color: white;
 }
+
+.container{
+	height: 100%;
+}
 /* ========================================================================
 	JSON Table
 	======================================================================== */
