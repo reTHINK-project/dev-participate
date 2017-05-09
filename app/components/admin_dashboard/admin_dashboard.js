@@ -39,7 +39,7 @@ const AdminDashboard = ({user, children, logIn}) => {
         return(
             <div>
                 {header}
-                <div className="container-fluid">
+                <div className="container">
                     {children}
                 </div>
             </div>
