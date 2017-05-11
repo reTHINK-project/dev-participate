@@ -82,13 +82,13 @@ export function sendAdminMessage(group, msg) {
 
 // chat challenge
 
-export function openChat(title, participants) {
+export function openChat(title, participants, parent) {
 	return function(dispatch) {
 		return getHyperties()
 			.then(hyperties => {
 				return hyperties.GroupChat.create(title, participants.toHypertyParticipant(config.domain))
 			}).then(chat => {
-				const chatChallenge = Challenges.createChatChallenge(chat)
+				const chatChallenge = Challenges.createChatChallenge(chat, parent)
 				chat.onMessage((msg)=>dispatch(actions.addMessageToChat(chatChallenge, msg)))
 				return actions.newChallengeAction(chatChallenge)
 			}).then(action=>dispatch(action))

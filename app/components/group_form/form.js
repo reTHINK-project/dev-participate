@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const ActionForm = ({group, openChat}) => {
+const ActionForm = ({group, chat, openChat}) => {
 	let participants = group.participants.toArray().map(p=>{
 		return <li className="list-group-item">
 			<div className="row">
@@ -18,11 +18,19 @@ const ActionForm = ({group, openChat}) => {
 	if(participants.length === 0)
 		participants = <p>No participants in this group.</p>
 
+	const createChat = !chat ?
+		(<Link to="/" className="btn btn-default" onClick={() => openChat(group)}>
+			Create Chat
+		</Link>) :
+		(<Link to={'chat/' + chat.toString()} className="btn btn-default">
+			Open Chat
+		</Link>)
+
 	return(
 			<div>
 				<div className="row">
 					<div className="btn-groupi col-xs-12 text-right" role="group">
-						<Link to="/" onClick={()=>openChat(group)} className="btn btn-default">Chat</Link>&nbsp;
+						{createChat}&nbsp;
 						<Link className="btn btn-default" to={'new_survey/' + group.toString() } id="btn-chat">
 							Create Poll
 						</Link>

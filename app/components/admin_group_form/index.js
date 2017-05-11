@@ -8,7 +8,7 @@ import Challenge from '../../model/challenges/challenge'
 
 export default connect((state, ownProps)=>{
 	const group = state.challenges.find(g => g.isEqual(Challenge.create(ownProps.routeParams.id)))
-	const chat = state.challenges.find(g=>g.title===group.title && g.type === types.CHAT) //TODO: get chat from group
+	const chat = state.challenges.find(g=>g.parent && g.parent.isEqual(group))
 	return {
 		group: group,
 		chat: chat
@@ -16,7 +16,7 @@ export default connect((state, ownProps)=>{
 }, (dispatch)=>{
 	return {
 		openChat: (challenge) => dispatch(
-			openChat(challenge.title, challenge.participants.filterByStatus(Participant.status.confirmed))
+			openChat(challenge.title, challenge.participants.filterByStatus(Participant.status.confirmed), challenge.toString())
 		),
 		sendMessage: (group, message) => dispatch(sendAdminMessage(group, message))
 	}
