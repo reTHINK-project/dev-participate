@@ -1,8 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { hashHistory } from 'react-router'
 import Map from '../smap'
 
 const ActionForm = React.createClass({
+	getInitialState () {
+		return {}
+	},
+
     handleInputChange (event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -15,6 +19,16 @@ const ActionForm = React.createClass({
 
     selectionChanged(selection) {
 		this.setState({selection: selection.map(s=>s.key)})
+	},
+
+	submit(e) {
+        if(!this.state.title){
+            alert('Title field required')
+			return
+		}
+
+		this.props.createNewGroup(this.state)
+		hashHistory.push('/admin')
 	},
 
     render () {
@@ -37,7 +51,7 @@ const ActionForm = React.createClass({
 						<Map markers={this.props.positions} onSelectionChanged={this.selectionChanged} center={this.props.center} />
                     </section>
 					<br/>
-                    <Link to='/admin' className="btn btn-default" onClick={()=>this.props.createNewGroup(this.state)}>Next</Link>
+                    <button className="btn btn-default" onClick={this.submit}>Next</button>
                 </div>
         )
     }

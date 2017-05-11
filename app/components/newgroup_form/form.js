@@ -1,7 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { hashHistory } from 'react-router'
 
 const ActionForm = React.createClass({
+	getInitialState () {
+		return {}
+	},
+
 	handleInputChange (event) {
 		const target = event.target
 		const value = target.type === 'checkbox' ? target.checked : target.value
@@ -12,9 +16,20 @@ const ActionForm = React.createClass({
 		})
 	},
 
+	submit(e) {
+		e.preventDefault()
+        if(!this.state.title){
+            alert('Title field required')
+			return
+		}
+
+		this.props.createNewGroup(this.state)
+		hashHistory.push('/')
+	},
+
 	render () {
 		return(
-				<form>
+				<form onSubmit={this.submit}>
 					<div className="form-group">
 						<label for="actionTitle">Title</label>
 						<input type="text" className="form-control" id="actionTitle" name="title" placeholder="Name" onChange={this.handleInputChange} />
@@ -28,7 +43,7 @@ const ActionForm = React.createClass({
 						<label for="actionQueryNearby">Locale</label>
 						<input type="text" className="form-control" id="actionQueryLocale" name="locale" onChange={this.handleInputChange} />
 					</div>
-					<Link to='/' className="btn btn-default" onClick={()=>this.props.createNewGroup(this.state)}>Next</Link>
+					<button className="btn btn-default" onClick={this.submit}>Next</button>
 				</form>
 		)
 	}
