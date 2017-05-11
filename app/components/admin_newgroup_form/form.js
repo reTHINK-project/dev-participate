@@ -36,6 +36,7 @@ const ActionForm = React.createClass({
                     <section disabled style={{height: "250px"}}>
 						<Map markers={this.props.positions} onSelectionChanged={this.selectionChanged} center={this.props.center} />
                     </section>
+					<br/>
                     <Link to='/admin' className="btn btn-default" onClick={()=>this.props.createNewGroup(this.state)}>Next</Link>
                 </div>
         )

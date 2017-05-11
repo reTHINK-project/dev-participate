@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import Messages from './messages'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const ActionForm = React.createClass({
 	getInitialState(){
@@ -17,8 +18,10 @@ const ActionForm = React.createClass({
                             <img src={p.profile.avatar} className="img-responsive img-rounded"/>
                         </div>
                         <div className="col-cs-9">
-                            <p><button onClick={()=>this.setState({selectedUser:p})}>{p.profile.username}</button> <span
-                                className="label label-info">{p.accepted ? 'Confirmed' : 'Pending'}</span></p>
+                            <p>
+								<button className="btn btn-link" onClick={()=>this.setState({selectedUser:p})}>{p.profile.username}</button><br/>
+								<span className="label label-info">{p.accepted ? 'Confirmed' : 'Pending'}</span>
+							</p>
                         </div>
                     </div>
                 </li>
@@ -34,40 +37,49 @@ const ActionForm = React.createClass({
             </Link>)
 
         return (
-            <div>
-                <div className="row">
-                    <div className="btn-groupi col-xs-12 text-right" role="group">
-                        {createChat}
-						<Link className="btn btn-warning btn-sm" to={'/admin/new_survey/' + this.props.group} id="btn-chat">
-							Create Poll
-						</Link>
-                        <button type="button" className="btn btn-default">VideoCall</button>
-                        <button type="button" className="btn btn-default">VoiceCall</button>
-                    </div>
-                </div>
-                <div className="row top-buffer">
-                    <div className="col-md-4">
-                        <ul className="list-group">
-                            {participants}
-                        </ul>
-                    </div>
-                    <div className="col-md-8">
-                        <div className="panel panel-primary">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">User Info</h3>
-                            </div>
-							<table class="table">
-								{Object.keys(this.state.selectedUser.profile).map(key => <tr><td>{key}:</td><td>{this.state.selectedUser.profile[key]}</td></tr>)}
-							</table>
-                        </div>
-                    </div>
-                </div>
-                <div className="row top-buffer">
-                    <div className="col-md-12">
-                        <Messages group={this.props.group} sendMessage={this.props.sendMessage}/>
-                    </div>
-                </div>
-            </div>
+			<Tabs>
+				<TabList>
+					<Tab>Users</Tab>
+					<Tab>Messages</Tab>
+				</TabList>
+
+				<TabPanel>
+					<div className="row">
+						<div className="btn-groupi col-xs-12 text-right" role="group">
+							{createChat}&nbsp;
+							<Link className="btn btn-default" to={'/admin/new_survey/' + this.props.group} id="btn-chat">
+								Create Poll
+							</Link>
+						</div>
+					</div>
+					<div className="row top-buffer">
+						<div className="col-md-4">
+							<ul className="list-group">
+								{participants}
+							</ul>
+						</div>
+						<div className="col-md-8">
+							<div className="panel panel-primary">
+								<div className="panel-heading">
+									<h3 className="panel-title">User Info</h3>
+								</div>
+								<table className="table table-striped table-hover">
+                                    <tbody>
+										{Object.keys(this.state.selectedUser.profile).map(key => <tr><td>{key}:</td><td>{this.state.selectedUser.profile[key]}</td></tr>)}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</TabPanel>
+				<TabPanel>
+					<div className="row top-buffer">
+						<div className="col-md-12">
+							<Messages group={this.props.group} sendMessage={this.props.sendMessage}/>
+						</div>
+					</div>
+				</TabPanel>
+			</Tabs>
         )
 	}
 })

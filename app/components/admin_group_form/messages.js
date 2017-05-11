@@ -24,6 +24,7 @@ const MessagesPanel = React.createClass({
                                 <label for="comment">Text:</label>
                                 <textarea className="form-control" onChange={this.handleInputChange} name="message" row="6"/>
                             </div>
+							<br/>
                             <button type="button" className="btn btn-default"
                                     onClick={() => this.props.sendMessage(this.props.group, this.state.message)}>Send the message
                             </button>

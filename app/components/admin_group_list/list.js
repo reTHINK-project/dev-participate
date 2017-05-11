@@ -21,7 +21,7 @@ const GroupList = ({groups}) => {
 						</div>
 						<div className="row">
 							<div className="col-sm-12">
-								<p>{g.participants.length} participants</p>
+								<p>{g.participants.toArray().length} participants</p>
 							</div>
 						</div>
 					</div>
