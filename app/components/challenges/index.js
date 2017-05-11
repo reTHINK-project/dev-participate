@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react'
 import { Link } from 'react-router'
 
-export const Group = ({id, title, participants, definition}) => {
+export const Group = ({id, title, participants, definition, path}) => {
 	return (
             <div className="list-group-item list-group-item-success">
                 <div className="row">
                     <div className="col-md-12">
-						<h2><Link to={'group/' + id}>{title}</Link></h2>
+						<h2><Link to={path + id}>{title}</Link></h2>
 					</div>
 				</div>
 				<div className="row">
@@ -46,12 +46,12 @@ export const GroupInvitation = ({challenge, onAccept, onReject}) => {
 	)
 }
 
-export const Chat = ({id, title}) => {
+export const Chat = ({id, title, path}) => {
 	return (
             <div className="list-group-item list-group-item-danger">
                 <div className="row">
                     <div className="col-md-12">
-						<h2><Link to={'chat/' + id}>{title}</Link></h2>
+						<h2><Link to={path + id}>{title}</Link></h2>
 					</div>
 				</div>
 				<div className="row">
@@ -80,7 +80,7 @@ export const Message = ({id, message}) => {
 	)
 }
 
-export const Survey = ({id})=>{
+export const Survey = ({id, path})=>{
 	return (
             <div className="list-group-item list-group-item-default">
 				<div className="row">
@@ -90,7 +90,7 @@ export const Survey = ({id})=>{
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<p><Link to={"/survey/"+id}>See results</Link></p>
+						<p><Link to={path +id}>See results</Link></p>
 					</div>
 				</div>
 			</div>

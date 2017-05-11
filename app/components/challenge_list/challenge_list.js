@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Challenges from './challenges'
+import * as Challenges from '../challenges'
 import NewChallengeButton from './new_challenge_button'
 import { types } from '../../model/challenges'
 
@@ -7,18 +7,18 @@ let ChallengeList = ({challenges, acceptChallenge, rejectChallenge}) => {
 	let challengeComponents = challenges.map((challenge) => {
 		switch (challenge.type){
 		case types.GROUP:
-			return <Challenges.Group id={challenge.toString()} title={challenge.title} definition={challenge.definition}
-									 participants={challenge.participants.toArray()}/>
+			return <Challenges.Group key={challenge.toString()} id={challenge.toString()} title={challenge.title} definition={challenge.definition}
+									 participants={challenge.participants.toArray()} path="/group/"/>
 		case types.GROUP_INVITATION:
-			return <Challenges.GroupInvitation onAccept={acceptChallenge} onReject={rejectChallenge} challenge={challenge}/>
+			return <Challenges.GroupInvitation key={challenge.toString()} onAccept={acceptChallenge} onReject={rejectChallenge} challenge={challenge}/>
 		case types.CHAT:
-			return <Challenges.Chat id={challenge.toString()} title={challenge.title}/>
+			return <Challenges.Chat key={challenge.toString()} path="/chat/" id={challenge.toString()} title={challenge.title}/>
         case types.ADMIN_MESSAGE:
-            return <Challenges.Message id={challenge.toString()} message={challenge.message}/>
+            return <Challenges.Message key={challenge.toString()} id={challenge.toString()} message={challenge.message}/>
 		case types.SURVEY:
-			return <Challenges.Survey id={challenge.toString()} />
+			return <Challenges.Survey key={challenge.toString()} id={challenge.toString()} path="/survey/"/>
 		case types.SURVEY_REQUEST:
-			return <Challenges.SurveyRequest id={challenge.toString()} />
+			return <Challenges.SurveyRequest key={challenge.toString()} id={challenge.toString()} />
 		default:
 			return <p>Undefined challenge received</p>
 		}

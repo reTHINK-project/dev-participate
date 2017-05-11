@@ -26,7 +26,7 @@ const Message = ({content, time, isMe, from}) => {
 
 Message.propTypes = {
     content: PropTypes.string.isRequired,
-    time: PropTypes.number.isRequired,
+    //time: PropTypes.number.isRequired,
     isMe: PropTypes.bool.isRequired,
     from: PropTypes.object.isRequired
 }
