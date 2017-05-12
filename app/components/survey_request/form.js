@@ -9,7 +9,7 @@ const SurveyRequestForm = React.createClass({
 
 	answerSurvey (survey) {
 		this.props.answerSurvey(survey.data, this.props.pollRequest)
-		hashHistory.push('/')
+		hashHistory.goBack()
 	}
 })
 
