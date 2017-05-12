@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import * as actions from './actions/creators'
 import Components from './components'
 import participateApp from './reducers'
 import logger from 'redux-logger'
@@ -11,7 +12,10 @@ import initRethink from './rethink'
 import initSubscriptions from './hypertiesListener'
 
 let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware, logger))
-initRethink().then(hyperties=>initSubscriptions(store, hyperties))
+initRethink().then(hyperties=>{
+	store.dispatch(actions.setCurrentPosition(hyperties.LocationRep.getCurrentPosition()))
+	initSubscriptions(store, hyperties)
+})
 
 ReactDOM.render(
     <Provider store={store}>

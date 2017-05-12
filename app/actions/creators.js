@@ -35,3 +35,10 @@ export function addMessageToChat(chat, msg) {
 		}
 	}
 }
+
+export function setCurrentPosition(pos) {
+	return {
+		type: 'SET_CURRENT_POSITION',
+		data: pos
+	}
+}

@@ -13,7 +13,7 @@ const buildUsernamesCollection = (usernamesString, usernameArray) => {
 export default connect((state)=>{
 	return {
 		positions: state.userPositions.map(up => ({latitude: up.coords.latitude, longitude: up.coords.longitude, key: up.username})),
-		center: {lat: 42.5950289, lng: -8.8222481 }
+		center: state.position?{lat: state.position.coords.latitude, lng: state.position.coords.longitude }:{}
 	}
 }, (dispatch)=>{
 	return {

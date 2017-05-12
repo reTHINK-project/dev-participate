@@ -59,4 +59,12 @@ describe('participate reducers', () => {
 
 		expect(reducer(initialState, action).challenges[0].messages.length).to.be.eql(1)
 	})
+
+	describe('set current position', () => {
+		const pos = {lat:1, long: 2}
+		const action = create.setCurrentPosition(pos)
+        const initialState = {}
+
+		expect(reducer(initialState, action).position).to.be.eql(pos)
+	})
 })

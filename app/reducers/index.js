@@ -15,6 +15,8 @@ const chatApp = (state, action) => {
 		return { ...state, user: action.data.user }
 	}else if (action.type === 'UPDATE_USER_POSITIONS') {
 		return { ...state, userPositions: action.data }
+	}else if (action.type === 'SET_CURRENT_POSITION') {
+		return { ...state, position: action.data }
 	}else if (action.type === 'ADD_MESSAGE_TO_CHAT') {
 		const challenges = state.challenges.map(c=>{
 			if(c.isEqual(action.data.chat))
