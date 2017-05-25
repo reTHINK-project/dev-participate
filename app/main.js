@@ -11,10 +11,11 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import initRethink from './rethink'
 import initSubscriptions from './hypertiesListener'
 
-let store = createStore(participateApp, {challenges: []}, applyMiddleware(thunkMiddleware, logger))
+let store = createStore(participateApp, {challenges: [], loading: true}, applyMiddleware(thunkMiddleware, logger))
 initRethink().then(hyperties=>{
 	store.dispatch(actions.setCurrentPosition(hyperties.LocationRep.getCurrentPosition()))
 	initSubscriptions(store, hyperties)
+	store.dispatch(actions.finishLoading())
 })
 
 ReactDOM.render(

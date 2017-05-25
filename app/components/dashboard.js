@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import WaitScreen from './wait_screen'
 
-const Dashboard = ({children}) => {
+const Dashboard = ({loading, children}) => {
+    if(loading) {
+		return (<WaitScreen />)
+	}
+
     return(
         <div>
             <header>
@@ -26,4 +32,9 @@ const Dashboard = ({children}) => {
     )
 }
 
-export default Dashboard
+export default connect((state, ownProps)=>{
+	return {
+		loading: state.loading,
+		children: ownProps.children
+	}
+})(Dashboard)

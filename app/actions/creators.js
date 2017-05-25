@@ -42,3 +42,10 @@ export function setCurrentPosition(pos) {
 		data: pos
 	}
 }
+
+export function finishLoading() {
+	return {
+		type: 'SET_LOADING_STATE',
+		data: false
+	}
+}

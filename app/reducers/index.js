@@ -25,6 +25,8 @@ const chatApp = (state, action) => {
 		})
 
 		return {...state, challenges: challenges}
+	}else if(action.type == 'SET_LOADING_STATE') {
+		return {...state, loading: action.data}
 	}
 
 	return state

@@ -4,7 +4,8 @@ import AdminDashboard from './admin_dashboard'
 
 export default connect((state)=>{
     return {
-        user: state.user
+        user: state.user,
+		loading: state.loading
     }
 }, (dispatch)=>{
     return {

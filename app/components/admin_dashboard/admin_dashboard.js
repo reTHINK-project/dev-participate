@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
+import WaitScreen from '../wait_screen'
 
-const AdminDashboard = ({user, children, logIn}) => {
+const AdminDashboard = ({loading, user, children, logIn}) => {
+    if(loading) {
+		return (<WaitScreen />)
+	}
+
     const header= <header>
                     <div className='container-fluid'>
                         <div className='row'>

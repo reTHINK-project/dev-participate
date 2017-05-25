@@ -67,4 +67,11 @@ describe('participate reducers', () => {
 
 		expect(reducer(initialState, action).position).to.be.eql(pos)
 	})
+
+	describe('set loading state', () => {
+		const action = create.finishLoading()
+        const initialState = {loading: true}
+
+		expect(reducer(initialState, action).loading).to.be.false
+	})
 })
