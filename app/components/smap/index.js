@@ -1,10 +1,10 @@
 import React from 'react'
-import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
 const SELECTED_COLOR = '#44873e'
 const UNSELECTED_COLOR = '#CD0022'
 
-const newMarker = ({lat, lng, key, color}) => {
+const newMarker = ({lat, lng, key, color, onClick}) => {
 	return (
 		<Marker
 			position={{ lat: lat, lng: lng }}
@@ -19,34 +19,26 @@ const newMarker = ({lat, lng, key, color}) => {
 					strokeWeight: 1
 				}
 			}
-		/>
+			onClick = {() => onClick(key)}
+		>
+			<InfoWindow >
+				<div>{key}</div>
+			</InfoWindow>
+		</Marker>
 	)
 }
 
+const oppositeColor = (color) => color === SELECTED_COLOR ? UNSELECTED_COLOR : SELECTED_COLOR
+
 const Map = React.createClass({
-	getInitialState() {
-		const markers = this.props.markers.map(marker =>
-			newMarker({
-				lat: marker.latitude,
-				lng: marker.longitude,
-				key: marker.key,
-				color: UNSELECTED_COLOR
-				})
-		)
-
-		return {center: { lat:0, lng: 0 }, markers: markers}
-	},
-
-	onSelection(Bounds) {
+	onSelection(key) {
 		const markers = this.state.markers.map(marker => {
 			return	newMarker({
 				lat: marker.props.position.lat,
 				lng: marker.props.position.lng,
 				key: marker.key,
-				color: (Bounds.contains(new google.maps.LatLng({
-                        lat: marker.props.position.lat,
-                        lng: marker.props.position.lng
-                    }))) ? SELECTED_COLOR : UNSELECTED_COLOR
+				color: marker.key === key ? oppositeColor(marker.props.icon.fillColor) : marker.props.icon.fillColor,
+				onClick: this.onSelection
 			})
 		})
 
@@ -56,9 +48,18 @@ const Map = React.createClass({
 			.map(m=>({latitude:m.props.position.lat, longitude: m.props.position.lng, key: m.key})))
 	},
 
-	onMapLoad(map) {
-		if(map)
-            map.props.map.enableKeyDragZoom({}, this.onSelection)
+	getInitialState() {
+		const markers = this.props.markers.map(marker =>
+			newMarker({
+				lat: marker.latitude,
+				lng: marker.longitude,
+				key: marker.key,
+				color: UNSELECTED_COLOR,
+				onClick: this.onSelection
+			})
+		)
+
+		return {center: { lat:0, lng: 0 }, markers: markers}
 	},
 
 	render() {
